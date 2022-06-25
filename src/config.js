@@ -1,24 +1,24 @@
 export const config = {
-    URL: "http://localhost:8080",
+    URL: process.env.REACT_APP_API_URL,
     USERS_API: {
-        LOGIN: "/users/login",
-        LIST_USERS: "/users/list",
-        CREATE: "/users/create",
-        REGISTER: "/users/register",
-        EDIT: "/users/edit/",
-        DELETE: "/users/delete/",
-        CHANGE_PASSWORD: "/users/change-password",
-        GET_RESET_LINK: "/users/get-reset-link",
-        RESET_PASSWORD: "/users/reset-password"
+        LOGIN: "users/login",
+        LIST_USERS: "users/list",
+        CREATE: "users/create",
+        REGISTER: "users/register",
+        EDIT: "users/edit/",
+        DELETE: "users/delete/",
+        CHANGE_PASSWORD: "users/change-password",
+        GET_RESET_LINK: "users/get-reset-link",
+        RESET_PASSWORD: "users/reset-password"
     },
     PREDIOS_API: {
-        LIST_PREDIOS: "/predios/list",
-        HISTORIAL: "/predios/historial",
-        CREATE: "/predios/create",
-        EDIT: "/predios/edit/",
-        DELETE: "/predios/delete/",
-        FIND: "/predios/find/",
-        FIND_ONE: "/predios/find-one/"
+        LIST_PREDIOS: "predios/list",
+        HISTORIAL: "predios/historial",
+        CREATE: "predios/create",
+        EDIT: "predios/edit/",
+        DELETE: "predios/delete/",
+        FIND: "predios/find/",
+        FIND_ONE: "predios/find-one/"
     },
     ASSETS: {
         LOGO_ESCUDO: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/logo-escudo_kegz1y.png",
