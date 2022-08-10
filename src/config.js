@@ -30,7 +30,3 @@ export const config = {
         NOT_FOUND: "https://res.cloudinary.com/chrod90/image/upload/v1655852582/app-predial-static/not-found_j6hthl.png"
     }
 }
-
-
-
-

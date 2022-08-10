@@ -1,6 +1,6 @@
 function InputCheck({ setTerms }) {
-
-    const handleCheck = (e) => setTerms(e.target.checked)
+    const handleCheck = (e) => setTerms(e.target.checked);
+    
     return (
         <div className="form-check col-9 col-sm-10 m-auto my-3">
             <input
@@ -19,4 +19,4 @@ function InputCheck({ setTerms }) {
     )
 }
 
-export default InputCheck
+export default InputCheck;

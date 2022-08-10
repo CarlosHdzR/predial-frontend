@@ -1,12 +1,10 @@
 import PredioInfo from './PredioInfo';
-import jwtDecode from 'jwt-decode';
 import { swalAlert } from "../../tools";
+import { useAuthContext } from '../../context/AuthContext';
 
 function PredioDetails({ predio }) {
+    const { payload } = useAuthContext();
     if (!predio) return null;
-
-    const token = localStorage.getItem("token");
-    const payload = jwtDecode(token);
 
     const showMsg = () => {
         if (predio.doc_prop === payload.nro_doc) {

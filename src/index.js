@@ -1,10 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
+import { AutoScrollToTop } from './components/minors';
+import { AuthProvider } from './context/AuthContext';
+import { PrediosProvider } from './context/PrediosContext';
+import { UsersProvider } from './context/UsersContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App/>
+    <Router>
+      <UsersProvider>
+        <AuthProvider>
+          <PrediosProvider>
+            <App />
+          </PrediosProvider>
+        </AuthProvider>
+      </UsersProvider>
+      <AutoScrollToTop />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,6 +1,7 @@
 import { Input, InputDate } from "../inputs";
 import { inputDateProps, inputPrediosProps } from "./";
 import { useFormPredio } from "../../hooks";
+import { useParams } from "react-router-dom";
 
 export const initialForm = {
     _id: null,
@@ -19,15 +20,16 @@ export const initialForm = {
     fecha_pago3: "",
 };
 
-function FormPredio({ createPredio, updatePredio,
-    predioToEdit, setPredioToEdit, children }) {
+function FormPredio({ children }) {
+    const { codigo } = useParams();
+    const param = codigo;
+    const { form, reset, handleChange, handleSubmit } = useFormPredio({ initialForm, param });
 
-    const {
-        form,
-        reset,
-        handleChange,
-        handleSubmit
-    } = useFormPredio({ initialForm, createPredio, updatePredio, predioToEdit, setPredioToEdit });
+    try {
+        form.valor_predial = Math.round((form.valor_predio.replace(/[$.]/g, '')) * 0.01) || "";
+    } catch (error) {
+        console.log(error.message);
+    }
 
     return (
         <form className="row g-3" onSubmit={handleSubmit} noValidate>

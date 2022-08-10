@@ -1,5 +1,6 @@
 export { default as Loader } from './Loader';
 export { default as Message } from './Message';
+export { default as LinkCard } from './LinkCard';
 export { default as CardChart } from './CardChart';
 export { default as CardDashboard } from './CardDashboard';
 export { default as Modal } from './Modal';
@@ -14,5 +15,3 @@ export { default as AutoScrollToTop } from './AutoScrollToTop';
 export { default as BackToTop } from './BackToTop';
 export { default as DropDownMenu } from './DropDownMenu';
 export { default as ToggleButton } from './ToggleButton';
-
-

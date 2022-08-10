@@ -1,15 +1,18 @@
 import ReactPaginate from "react-paginate";
+import { useTable } from "../../hooks";
 
-function TableBottom({ pageNumber, firstItemShowedPerPage, lastItemShowedPerPage,
-    changePage, pageCount, range }) {
+function TableBottom({ pageNumber, firstItemShowedPerPage, lastItemShowedPerPage, changePage, pageCount, item }) {
+    const { range } = useTable(item);
 
     return (
         <div className="dataTable-bottom">
             <div className="dataTable-info d-none d-sm-block mt-4">
-                <span style={{ fontSize: "12px" }}>Mostrando {firstItemShowedPerPage + 1} a {pageNumber + 1 === pageCount() ?
-                    range()
-                    :
-                    lastItemShowedPerPage} de {range()}
+                <span style={{ fontSize: "12px" }}>Mostrando {firstItemShowedPerPage + 1} a {
+                    pageNumber + 1 === pageCount() ?
+                        range()
+                        :
+                        lastItemShowedPerPage} de {range()
+                    }
                 </span>
             </div>
             <nav className="dataTable-pagination mt-3">
@@ -30,4 +33,4 @@ function TableBottom({ pageNumber, firstItemShowedPerPage, lastItemShowedPerPage
     )
 }
 
-export default TableBottom
+export default TableBottom;

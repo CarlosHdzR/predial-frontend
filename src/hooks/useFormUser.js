@@ -1,31 +1,38 @@
 import { useEffect, useState } from 'react';
-import { Auth } from '../auth';
-import { GetData } from '../services';
 import { formDataCreateUser, formDataUpdateUser, toastValidate } from '../tools';
-import { validateUser } from '../validations';
+import { validatePassword, validateUser } from '../validations';
 import { config } from '../config';
+import { useUsersContext } from '../context/UsersContext';
+import { UsersServices } from '../services';
+import { useAuthContext } from '../context/AuthContext';
 
 const { DEFAULT_AVATAR, IMG_LOADING } = config.ASSETS
 
-export const useFormUser = ({ initialForm, createUser, registerUser, updateUser,
-    userToEdit, setUserToEdit, terms }) => {
+export const useFormUser = ({ initialForm, param, terms }) => {
     const [form, setForm] = useState(initialForm);
     const [file, setFile] = useState("");
-    const [avatar, setAvatar] = useState("")
-    const [pathImage, setPathImage] = useState(IMG_LOADING)
+    const [avatar, setAvatar] = useState("");
+    const [pathImage, setPathImage] = useState(IMG_LOADING);
     const [reset, setReset] = useState(false);
-    const { usersDb } = GetData()
-    const { login } = Auth()
+    const { usersDb, userToEdit, setUserToEdit } = useUsersContext();
+    const { createUser, registerUser, updateUser, changePassword } = UsersServices();
+    const { login } = useAuthContext();
 
     useEffect(() => {
-        if (userToEdit) {
-            setPathImage(userToEdit.avatar.secure_url || DEFAULT_AVATAR)
-            setForm(userToEdit);
-        } else {
+        try {
+            if (param) { // Validar si va a crear o editar
+                setPathImage(userToEdit.avatar.secure_url || DEFAULT_AVATAR)
+                setForm(userToEdit._id && userToEdit);
+            } else {
+                setPathImage(DEFAULT_AVATAR)
+                setForm(initialForm);
+            }
+        } catch (error) {
+            console.log(error.message);
             setPathImage(DEFAULT_AVATAR)
             setForm(initialForm);
         }
-    }, [userToEdit, initialForm]);
+    }, [param, userToEdit, initialForm]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -49,15 +56,16 @@ export const useFormUser = ({ initialForm, createUser, registerUser, updateUser,
         }
     }
 
-    const handleDeleteAvatar = (e) => {
+    const handleDeleteAvatar = () => {
         setFile("")
         setAvatar("delete")
         setPathImage(DEFAULT_AVATAR)
     }
 
-    const handleReset = (e) => {
+    const handleReset = () => {
         setForm(initialForm);
         setUserToEdit(null);
+        setReset(!reset);
     };
 
     const handleSubmit = (e) => {
@@ -68,20 +76,19 @@ export const useFormUser = ({ initialForm, createUser, registerUser, updateUser,
                     const formData = new FormData();
                     formDataCreateUser(formData, form, avatar, file)
                     createUser(formData);
-                    setPathImage(DEFAULT_AVATAR)
+                    setPathImage(DEFAULT_AVATAR);
                     handleReset();
-                    setReset(!reset);
                 } else { // Editar usuarios
                     const formData = new FormData();
-                    formDataUpdateUser(formData, form, avatar, file)
-                    let _id = userToEdit._id
+                    formDataUpdateUser(formData, form, avatar, file);
+                    let _id = userToEdit._id;
                     updateUser(formData, _id);
                     setFile("");
                 }
-            } else { // Registro usuario externo - Rol 3
-                form.rol = 3
-                registerUser(form)
-                setReset(!reset)
+            } else { // Crear usuario externo (Registro) - Rol 3
+                form.rol = 3;
+                registerUser(form);
+                setReset(!reset);
             }
         }
     };
@@ -95,6 +102,14 @@ export const useFormUser = ({ initialForm, createUser, registerUser, updateUser,
         login(form)
     };
 
+    const handleSubmitChangePassword = (e) => {
+        e.preventDefault();
+        if (validatePassword(form)) {
+            changePassword(form);
+        }
+    };
+
+
     return {
         form,
         pathImage,
@@ -103,6 +118,7 @@ export const useFormUser = ({ initialForm, createUser, registerUser, updateUser,
         handleChangeFile,
         handleDeleteAvatar,
         handleSubmit,
-        handleSubmitLogin
+        handleSubmitLogin,
+        handleSubmitChangePassword
     }
 }

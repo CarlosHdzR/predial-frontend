@@ -4,7 +4,7 @@ import MaskedInput from 'react-text-mask'
 const Input = ({ id, type, inputClass, labelClass, icon, errorMessage,
     label, handleChange, reset, mask, ...inputProps }) => {
     const [focused, setFocused] = useState(false);
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleBlur = () => {
         setFocused(true);

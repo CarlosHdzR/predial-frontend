@@ -14,10 +14,10 @@ const options = {
 };
 
 function PrediosChart({ loader, prediosDb }) {
-    const men100 = prediosDb.filter((predio) => predio.valor_predio.replace(/[$.]/g, '') < 100000000)
+    const men100 = prediosDb.filter((predio) => predio.valor_predio.replace(/[$.]/g, '') < 100000000);
     const may100men200 = prediosDb.filter((predio) => predio.valor_predio.replace(/[$.]/g, '') >= 100000000
-        && predio.valor_predio.replace(/[$.]/g, '') <= 200000000)
-    const may200 = prediosDb.filter((predio) => predio.valor_predio.replace(/[$.]/g, '') > 200000000)
+                                                    && predio.valor_predio.replace(/[$.]/g, '') <= 200000000);
+    const may200 = prediosDb.filter((predio) => predio.valor_predio.replace(/[$.]/g, '') > 200000000);
 
     const data = {
         labels: [' Menor a $100M', ' Entre $100M y $200M', ' Mayor a $200M'],

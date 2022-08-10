@@ -9,8 +9,8 @@ let regexTel = regExp.phone
 let regexDir = regExp.address
 
 export const validateUser = ({ form, usersDb, userToEdit, terms }) => {
-    if (!form.nombres || !form.apellidos || !form.tipo_doc || !form.nro_doc
-        || !form.email || (form.password !== undefined && !form.password) ||
+    if (!form.nombres || !form.apellidos || !form.tipo_doc || form.tipo_doc === "Seleccionar" ||
+        !form.nro_doc || !form.email || (form.password !== undefined && !form.password) ||
         !form.telefono || !form.direccion) {
         toastValidate({ msg: "Todos los campos son requeridos!!!" })
         return false;

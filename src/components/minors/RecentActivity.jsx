@@ -3,11 +3,11 @@ import en from 'javascript-time-ago/locale/en.json'
 import es from 'javascript-time-ago/locale/es.json';
 import ReactTimeAgo from 'react-time-ago';
 
-TimeAgo.addDefaultLocale(en)
-TimeAgo.addLocale(es)
+TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(es);
 
 function RecentActivity({ item }) {
-    const { fecha, author, action, code } = item
+    const { fecha, author, action, code } = item;
 
     return (
         <div className="activity-item d-flex">
@@ -27,4 +27,4 @@ function RecentActivity({ item }) {
         </div>)
 }
 
-export default RecentActivity
+export default RecentActivity;

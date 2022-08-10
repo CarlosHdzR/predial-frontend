@@ -1,10 +1,14 @@
 import { TableHeaders, TableRows } from './';
 import { prediosHeadersProps, usersHeadersProps } from './';
-import { Tooltip } from '../minors';
+import { Loader, Tooltip } from '../minors';
+import { useUsersContext } from '../../context/UsersContext';
+import { useTable } from '../../hooks';
 
-function Table({ loader, data, setDataToEdit, deleteData, setSorting,
-    firstItemShowedPerPage, lastItemShowedPerPage, filterItems, item }) {
-    const headerProps = item === "user" ? usersHeadersProps : prediosHeadersProps
+function Table({ firstItemShowedPerPage, lastItemShowedPerPage, item }) {
+    const { usersDb, loading } = useUsersContext();
+    const { filterItems, setSorting } = useTable(item);
+    const headerProps = item === "user" ? usersHeadersProps : prediosHeadersProps;
+    let loader = loading && <Loader />;
 
     return (
         <div className="dataTable-container">
@@ -18,8 +22,8 @@ function Table({ loader, data, setDataToEdit, deleteData, setSorting,
             </Tooltip>
             <table className="table datatable table-hover text-center">
                 <TableHeaders headerProps={headerProps} onSorting={(field, order) => setSorting({ field, order })} />
-                <tbody>
-                    {data.length > 0 ?
+                <tbody className="table-group-divider">
+                    {usersDb.length > 0 ?
                         <>
                             {filterItems.slice(firstItemShowedPerPage, lastItemShowedPerPage).map((element, index) => {
                                 return (
@@ -27,8 +31,6 @@ function Table({ loader, data, setDataToEdit, deleteData, setSorting,
                                         key={element._id}
                                         nro_registro={index + 1 + firstItemShowedPerPage}
                                         data={element}
-                                        setDataToEdit={setDataToEdit}
-                                        deleteData={deleteData}
                                         item={item}
                                     />
                                 )

@@ -1,21 +1,28 @@
 import { useNavigate } from 'react-router-dom';
-import { getPayload } from '../../auth';
+import { usePrediosContext } from '../../context/PrediosContext';
+import { useUsersContext } from '../../context/UsersContext';
+import { PrediosServices, UsersServices } from '../../services';
 import { Tooltip } from '../minors';
+import { useAuthContext } from '../../context/AuthContext';
 
-const TableRows = ({ data, nro_registro, setDataToEdit, deleteData, item }) => {
+const TableRows = ({ data, nro_registro, item }) => {
+    const { setUserToEdit } = useUsersContext();
+    const { payload } = useAuthContext();
+    const { setPredioToEdit } = usePrediosContext();
     let { _id,
         nombres, apellidos, nro_doc, email, rol, // <== Users
         codigo, nom_prop, doc_prop, direccion_predio // <== Predios
     } = data || {};
+    const { deleteUser } = UsersServices();
+    const { deletePredio } = PrediosServices();
     const dataToHandle = item === "user" ? { _id, param: nro_doc } : { _id, param: codigo }
-    const payload = getPayload()
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const datos = item === "user"
         ?
         [`${nombres} ${apellidos}`, nro_doc, email, rol]
         :
-        [codigo, nom_prop, doc_prop, direccion_predio]
+        [codigo, nom_prop, doc_prop, direccion_predio];
 
     const cells = [
         {
@@ -34,14 +41,28 @@ const TableRows = ({ data, nro_registro, setDataToEdit, deleteData, item }) => {
             className: "align-middle d-none d-sm-table-cell",
             dato: datos[3]
         },
-    ]
+    ];
 
     const handleEdit = () => {
-        setDataToEdit(data)
-        if (item === "predio" || payload.rol === 1) navigate(`edit/${dataToHandle.param}`)
+        if (item === "user") {
+            setUserToEdit(data);
+            if(payload?.rol === 1) {
+                navigate(`edit/${dataToHandle.param}`);
+            } else {
+                navigate(`profile/${dataToHandle.param}`);
+            }
+        } else {
+            setPredioToEdit(data);
+            navigate(`edit/${dataToHandle.param}`);
+        }
     }
+
     const handleDelete = () => {
-        deleteData(dataToHandle)
+        if (item === "user") {
+            deleteUser(dataToHandle);
+        } else {
+            deletePredio(dataToHandle);
+        }
     }
 
     return (
@@ -57,11 +78,10 @@ const TableRows = ({ data, nro_registro, setDataToEdit, deleteData, item }) => {
                 <button
                     data-tip data-for="toolTipEdit"
                     type="button"
-                    className={`m-1 ${(payload.rol !== 1 && item === "user") ? "my-btn-disabled" : "my-btn-edit"}`}
-                    disabled={(payload.rol !== 1 && item === "user") ? true : false}
+                    className="m-1 my-btn-edit"
                     onClick={handleEdit}
                 >
-                    <i className="bi bi-pencil-fill" />
+                    <i className={`${(item === "user" && payload?.rol !== 1) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
                 </button>
                 <Tooltip id="toolTipDelete" place="top">
                     Eliminar

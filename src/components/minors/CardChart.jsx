@@ -12,4 +12,4 @@ function CardChart({ label, children }) {
     )
 }
 
-export default CardChart
+export default CardChart;

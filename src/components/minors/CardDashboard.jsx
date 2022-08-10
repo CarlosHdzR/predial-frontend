@@ -1,4 +1,13 @@
-function CardDashboard({ className, cardClassName, label, icon, data }) {
+import { useAuthContext } from "../../context/AuthContext";
+
+function CardDashboard({ label, data }) {
+    const { payload } = useAuthContext();
+
+    let className = payload?.rol === 1 ? "col-xxl-4 col-md-4" : "col-xxl-6 col-md-6";
+    const isUserInt = label.includes("Internos"), isUserExt = label.includes("Externos");
+    let cardClassName = isUserInt ? "user-int-card" : isUserExt ? "user-ext-card" : "predios-card"; 
+    let icon = label === "Predios" ? "bi bi-building" : "bi bi-people";
+
     return (
         < div className={className}>
             <div className={`card info-card ${cardClassName}`}>
@@ -25,4 +34,4 @@ function CardDashboard({ className, cardClassName, label, icon, data }) {
     )
 }
 
-export default CardDashboard
+export default CardDashboard;

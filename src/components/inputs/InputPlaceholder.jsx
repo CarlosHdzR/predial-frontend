@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 function InputPlaceholder({ className, type, icon, errorMessage, handleChange, reset, ...inputProps }) {
     const [focused, setFocused] = useState(false);
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleBlur = () => {
         setFocused(true);
@@ -40,4 +40,4 @@ function InputPlaceholder({ className, type, icon, errorMessage, handleChange, r
     )
 }
 
-export default InputPlaceholder
+export default InputPlaceholder;

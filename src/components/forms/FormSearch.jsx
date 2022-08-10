@@ -1,25 +1,9 @@
-import { useState } from 'react';
-import { toastValidate } from '../../tools';
+import { useFormPredio } from '../../hooks/useFormPredio';
 
-function FormSearch({ title, text, handleSearch }) {
-    const [form, setForm] = useState({ datos: "" });
+export const initialForm = { datos: "" };
 
-    const handleChange = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!form.datos) {
-            toastValidate({ msg: "Por favor, ingrese los datos solicitados!!!", position: "bottom-center" });
-            return;
-        }
-        handleSearch(form);
-        setForm({ datos: "" });
-    };
+function FormSearch({ title, text }) {
+    const { form, handleChange, handleSubmitSearch } = useFormPredio({ initialForm });
 
     return (
         <div className="card col-11 col-md-10 col-lg-8 col-xl-6 m-auto mb-4 p-2" id="rounded">
@@ -27,7 +11,7 @@ function FormSearch({ title, text, handleSearch }) {
                 <h5 className="card-title">
                     {title}
                 </h5>
-                <form onSubmit={handleSubmit} className="row">
+                <form onSubmit={handleSubmitSearch} className="row">
                     <div className="col-9 col-sm-4 m-sm-auto">
                         <label className="blue-label" htmlFor="idDatos">
                             {text}

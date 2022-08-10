@@ -1,4 +1,14 @@
-function NavTabs({ handleEdit }) {
+import { useAuthContext } from "../../context/AuthContext";
+import { useUsersContext } from "../../context/UsersContext";
+
+function NavTabs() {
+    const { setUserToEdit } = useUsersContext();
+    const { loggedUser } = useAuthContext();
+
+    const handleEdit = () => {
+        setUserToEdit(loggedUser);
+    }
+
     return (
         <ul className="nav nav-tabs nav-tabs-bordered">
             <li className="nav-item mt-1">
@@ -22,4 +32,4 @@ function NavTabs({ handleEdit }) {
     )
 }
 
-export default NavTabs
+export default NavTabs;

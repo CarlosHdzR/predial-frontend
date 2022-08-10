@@ -11,6 +11,7 @@ El administrador tiene control total de la plataforma y por lo tanto está en la
 El usuario interno está en la capacidad de:
 * Crear predios.
 * Gestionar predios.
+* Ver información de los usuarios externos.
 
 El usuario externo está en la capacidad de:
 * Registrarse en la plataforma.
@@ -23,9 +24,18 @@ Todos los usuarios pueden editar su propio perfil, cambiar su contraseña e incl
 ## Tecnologías y librerías usadas
 * React
 * Bootstrap
-* FontAwesome
-* React Router  
-Entre otras.
+* React Router
+* Context API
+* Jwt-decode
+* Bcryptjs
+* Chart.js
+* React-chartjs-2
+* React-paginate
+* React-toastify
+* Sweetalert2
+* React-tooltip
+* React-time-ago
+* React-text-mask
 
 ## Ejecutar app
 1. Clonar o descargar el proyecto en tu equipo.

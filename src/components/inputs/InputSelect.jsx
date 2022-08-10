@@ -1,5 +1,3 @@
-import React from 'react'
-
 function InputSelect({ id, label, inputClass, labelClass, handleChange, ...inputProps }) {
     let array = []
     switch (id) {
@@ -38,4 +36,4 @@ function InputSelect({ id, label, inputClass, labelClass, handleChange, ...input
     )
 }
 
-export default InputSelect
+export default InputSelect;

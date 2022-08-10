@@ -1,21 +1,31 @@
 import { useEffect, useState } from 'react';
-import { GetData } from '../services';
+import { usePrediosContext } from '../context/PrediosContext';
+import { PrediosServices } from '../services';
+import { toastValidate } from '../tools';
 import { validatePredio } from '../validations';
 
-export const useFormPredio = ({ initialForm, createPredio, updatePredio, predioToEdit, setPredioToEdit }) => {
+export const useFormPredio = ({ initialForm, param }) => {
     const [form, setForm] = useState(initialForm);
-    const [reset, setReset] = useState(false)
-    const { prediosDb } = GetData()
+    const [reset, setReset] = useState(false);
+    const { prediosDb, predioToEdit, setPredioToEdit } = usePrediosContext();
+    const { createPredio, updatePredio, findPredios } = PrediosServices();
 
     useEffect(() => {
-        if (predioToEdit) {
-            setForm(predioToEdit);
-        } else {
+        try {
+            if (param) { // Validar si va a crear o editar
+                setForm(predioToEdit._id && predioToEdit);
+            } else {
+                setForm(initialForm);
+            }
+        } catch (error) {
             setForm(initialForm);
         }
-    }, [predioToEdit, initialForm]);
+    }, [param, predioToEdit, initialForm]);
 
-    form.valor_predial = Math.round((form.valor_predio.replace(/[$.]/g, '')) * 0.01) || "";
+    const calculatePredial = () => {
+        const predial = Math.round((form.valor_predio.replace(/[$.]/g, '')) * 0.01) || "";
+        return predial;
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,9 +35,10 @@ export const useFormPredio = ({ initialForm, createPredio, updatePredio, predioT
         })
     };
 
-    const handleReset = (e) => {
+    const handleReset = () => {
         setForm(initialForm);
         setPredioToEdit(null);
+        setReset(!reset);
     };
 
     const handleSubmit = (e) => {
@@ -37,7 +48,6 @@ export const useFormPredio = ({ initialForm, createPredio, updatePredio, predioT
                 form._id = undefined
                 createPredio(form);
                 handleReset();
-                setReset(!reset)
             } else {
                 let _id = predioToEdit._id
                 updatePredio(form, _id);
@@ -45,10 +55,23 @@ export const useFormPredio = ({ initialForm, createPredio, updatePredio, predioT
         }
     };
 
+    const handleSubmitSearch = (e) => {
+        e.preventDefault();
+        if (!form.datos) {
+            toastValidate({ msg: "Por favor, ingrese los datos solicitados!!!", position: "bottom-center" });
+            return;
+        }
+        findPredios(form);
+        setForm({ datos: "" });
+    };
+
+
     return {
-        form,
+        form, setForm,
         reset,
         handleChange,
-        handleSubmit
+        handleSubmit,
+        handleSubmitSearch,
+        calculatePredial
     }
 }

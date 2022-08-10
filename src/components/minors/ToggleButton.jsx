@@ -19,4 +19,4 @@ function ToggleButton({ showLinks, setShowLinks }) {
     )
 }
 
-export default ToggleButton
+export default ToggleButton;

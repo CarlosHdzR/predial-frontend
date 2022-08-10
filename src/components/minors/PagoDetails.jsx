@@ -2,8 +2,11 @@ import PredioInfo from './PredioInfo';
 import { Modal } from '../minors';
 import { FormConvenio } from '../forms';
 import { swalAlert } from "../../tools";
+import { usePrediosContext } from '../../context/PrediosContext';
 
-function PagoDetails({ predio }) {
+function PagoDetails() {
+    const { foundPredio } = usePrediosContext();
+    const predio = foundPredio;
     if (!predio) return null;
 
     const showMsg = () => {

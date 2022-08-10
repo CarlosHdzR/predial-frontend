@@ -1,14 +1,29 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { usePrediosContext } from "../context/PrediosContext";
+import { useUsersContext } from "../context/UsersContext";
+import { useAuthContext } from "../context/AuthContext";
 
-export const useTable = (db, initialForm, item) => {
+export const useTable = (item) => {
+    const { usersDb } = useUsersContext();
+    const { payload } = useAuthContext();
+    const { prediosDb } = usePrediosContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const filter = searchParams.get("filter") ?? "";
     const [pageNumber, setPageNumber] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState(initialForm);
+    const [itemsPerPage, setItemsPerPage] = useState({ select: 5 });
     const [sorting, setSorting] = useState({ field: "", order: "" });
-    const firstItemShowedPerPage = pageNumber * itemsPerPage.select;
-    const lastItemShowedPerPage = firstItemShowedPerPage + itemsPerPage.select;
+
+    let users = (payload.rol === 1) ?
+        usersDb.filter((user) => user.rol !== 1) :
+        usersDb.filter((user) => user.rol === 3);
+
+    let db = item === "user" ? users : prediosDb;
+
+    if (sorting.field) {
+        const reversed = sorting.order === "asc" ? 1 : -1;
+        db = db.sort((a, b) => reversed * a[sorting.field].localeCompare(b[sorting.field]))
+    };
 
     const handleInputChange = (event) => {
         setItemsPerPage({
@@ -52,13 +67,10 @@ export const useTable = (db, initialForm, item) => {
         filter,
         pageNumber,
         itemsPerPage,
-        sorting,
+        filterItems,
         setSorting,
-        firstItemShowedPerPage,
-        lastItemShowedPerPage,
         handleInputChange,
         handleFilter,
-        filterItems,
         pageCount,
         changePage,
         range

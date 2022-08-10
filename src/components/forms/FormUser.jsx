@@ -1,6 +1,7 @@
 import { Input, InputFile, InputSelect } from '../inputs';
 import { inputUsersProps, inputUsersRegisterProps } from './';
 import { useFormUser } from '../../hooks';
+import { useLocation, useParams } from 'react-router-dom';
 
 const initialFormAdmin = {
     _id: null,
@@ -25,20 +26,16 @@ export const initialFormRegister = {
     direccion: "",
 };
 
-function FormUser({
-    createUser, registerUser, updateUser, userToEdit,
-    setUserToEdit, deleteAvatar, terms, children }) {
-    const initialForm = terms !== undefined ? initialFormRegister : initialFormAdmin
-    const {
-        form, pathImage, reset,
-        handleChange, handleChangeFile,
-        handleDeleteAvatar, handleSubmit,
-    } = useFormUser({
-        initialForm, initialFormRegister, createUser,
-        registerUser, updateUser, userToEdit, setUserToEdit, deleteAvatar, terms
-    });
+function FormUser({ terms, children }) {
+    const initialForm = terms !== undefined ? initialFormRegister : initialFormAdmin;
+    const { nro_doc } = useParams();
+    const param = nro_doc;
+    const { pathname } = useLocation();
+    const disableInput = pathname.includes("users/profile");
+    const { form, pathImage, reset, handleChange, handleChangeFile,
+        handleDeleteAvatar, handleSubmit } = useFormUser({ initialForm, param, terms });
 
-    const inputProps = terms !== undefined ? inputUsersRegisterProps : inputUsersProps
+    const inputProps = terms !== undefined ? inputUsersRegisterProps : inputUsersProps;
 
     return (
         <form
@@ -50,6 +47,7 @@ function FormUser({
                     pathImage={pathImage}
                     handleChangeFile={handleChangeFile}
                     handleDeleteAvatar={handleDeleteAvatar}
+                    disableInput={disableInput}
                 />
             }
             {inputProps.map((input) => (
@@ -58,12 +56,14 @@ function FormUser({
                         <InputSelect
                             {...input}
                             value={form[input.name]}
+                            disabled={disableInput && true}
                             handleChange={handleChange}
                         />
                         :
                         <Input
                             {...input}
                             value={form[input.name]}
+                            readOnly={disableInput && true}
                             handleChange={handleChange}
                             reset={reset}
                         />

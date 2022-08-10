@@ -11,7 +11,7 @@ export const initialForm = {
 }
 
 function FormConvenio({ predio }) {
-    const [form, setForm] = useState(initialForm)
+    const [form, setForm] = useState(initialForm);
 
     if (form.cuotaInicial === "No") {
         form.vrCuotaInicial = "0"

@@ -1,9 +1,16 @@
 import { config } from "../../config";
+import { useAuthContext } from "../../context/AuthContext";
+import { useUsersContext } from "../../context/UsersContext";
+import Loader from "./Loader";
 
-function ProfileOverview({ loader, loggedUser }) {
+function ProfileOverview() {
+    const { loading } = useUsersContext();
+    const { loggedUser } = useAuthContext();
     const { avatar, nombres, apellidos, nro_doc, email, telefono, direccion } = loggedUser || {};
     const { secure_url } = avatar || {};
-    const { DEFAULT_AVATAR } = config.ASSETS
+    const { DEFAULT_AVATAR } = config.ASSETS;
+
+    let loader = loading && <Loader />
 
     const profileItems = [
         {
@@ -38,7 +45,10 @@ function ProfileOverview({ loader, loggedUser }) {
             {loggedUser ?
                 <>
                     <div className="card-body profile-card">
-                        <img src={secure_url || DEFAULT_AVATAR} alt="avatar" className="img-fluid rounded-circle avatar" />
+                        <img
+                            src={secure_url || DEFAULT_AVATAR}
+                            alt="avatar" className="img-fluid rounded-circle avatar"
+                        />
                         <h2 className="text-center p-1">{nombres + " " + apellidos}</h2>
                     </div>
                     <div className="col-12 col-sm-9 col-lg-6 text-center m-auto">
@@ -61,4 +71,4 @@ function ProfileOverview({ loader, loggedUser }) {
     )
 }
 
-export default ProfileOverview
+export default ProfileOverview;

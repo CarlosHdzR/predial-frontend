@@ -1,7 +1,7 @@
 import { InputPlaceholder } from '../inputs';
 import { useFormUser } from '../../hooks';
-import { validatePassword } from '../../validations';
 import { config } from '../../config';
+import { useAuthContext } from '../../context/AuthContext';
 
 export const initialForm = {
     currentPassword: "",
@@ -9,17 +9,18 @@ export const initialForm = {
     renewPassword: ""
 }
 
-function FormChangePassword({ loader, loggedUser, changePassword }) {
-    const { form, showPassword, handleChange } = useFormUser({ initialForm })
+function FormChangePassword() {
+    const { loggedUser } = useAuthContext();
+    const { form, handleChange, handleSubmitChangePassword } = useFormUser({ initialForm });
     const { avatar, nombres, apellidos } = loggedUser || {};
     const { secure_url } = avatar || {};
-    const { DEFAULT_AVATAR } = config.ASSETS
+    const { DEFAULT_AVATAR } = config.ASSETS;
 
     const inputChangePasswordProps = [
         {
             id: "IdCurrentPassword",
             name: "currentPassword",
-            type: showPassword ? "text" : "password",
+            type: "password",
             className: "col-10 col-sm-8 col-md-7",
             icon: "fa-solid fa-key",
             placeholder: "Contraseña actual",
@@ -28,7 +29,7 @@ function FormChangePassword({ loader, loggedUser, changePassword }) {
         {
             id: "IdNewPassword",
             name: "newPassword",
-            type: showPassword ? "text" : "password",
+            type: "password",
             className: "col-10 col-sm-8 col-md-7",
             icon: "fa-solid fa-key",
             errorMessage: "La contraseña debe tener una longitud mínima de 8; contener al menos 1 mayuscula, 1 minuscula, 1 número y un caracter especial!!!",
@@ -39,7 +40,7 @@ function FormChangePassword({ loader, loggedUser, changePassword }) {
         {
             id: "IdRenewPassword",
             name: "renewPassword",
-            type: showPassword ? "text" : "password",
+            type: "password",
             className: "col-10 col-sm-8 col-md-7",
             icon: "fa-solid fa-key",
             errorMessage: "Las contraseñas no coinciden!!!",
@@ -49,25 +50,14 @@ function FormChangePassword({ loader, loggedUser, changePassword }) {
         },
     ];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (validatePassword(form)) {
-            changePassword(form);
-        }
-    };
-
     return (
         <>
             <div className="card-body profile-card">
                 <img src={secure_url || DEFAULT_AVATAR} alt="avatar" className="img-fluid rounded-circle avatar" />
-                {loggedUser ?
-                    <h2 className="text-center p-1">{nombres + " " + apellidos}</h2>
-                    :
-                    <h2 className="text-center">{loader}{!loader && "¡No hay información!"}</h2>
-                }
+                <h2 className="text-center p-1">{nombres + " " + apellidos}</h2>
             </div>
             <div className="col-12 col-sm-10 mx-auto">
-                <form className="row g-3" onSubmit={handleSubmit} noValidate>
+                <form className="row g-3" onSubmit={handleSubmitChangePassword} noValidate>
                     {inputChangePasswordProps.map((input) => (
                         <InputPlaceholder
                             key={input.id}
