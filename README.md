@@ -3,18 +3,21 @@ Plataforma que permite gestionar el cobro catastral de los predios de una ciudad
 Los tipos de usuarios que maneja el sistema son **Administrador (rol 1)**, **Usuario Interno (rol 2)** y **Usuario Externo (rol 3)**.
 
 El administrador tiene control total de la plataforma y por lo tanto está en la capacidad de:
+* Autenticarse en la plataforma.
 * Crear usuarios internos.
 * Gestionar usuarios (internos y externos).
 * Crear predios.
 * Gestionar predios.
 
 El usuario interno está en la capacidad de:
+* Autenticarse en la plataforma.
 * Crear predios.
 * Gestionar predios.
 * Ver información de los usuarios externos.
 
 El usuario externo está en la capacidad de:
 * Registrarse en la plataforma.
+* Autenticarse en la plataforma.
 * Asociar predios a su cuenta dado el código (será posible si el predio está a nombre del usuario).
 * Realizar pago del valor predial. (Simulado)
 * Solicitar convenio de pago dado un cobro generado.
