@@ -7,7 +7,7 @@ import { useAuthContext } from "./AuthContext";
 const PrediosContext = createContext();
 
 const { URL } = config;
-const { LIST_PREDIOS, HISTORIAL, FIND, FIND_ONE } = config.PREDIOS_API;
+const { LIST_PREDIOS, HISTORIAL, FIND, LIST_ASSOCIATED_PREDIOS } = config.PREDIOS_API;
 
 const PrediosProvider = ({ children }) => {
     const [prediosDb, setPrediosDb] = useState([]);
@@ -15,7 +15,7 @@ const PrediosProvider = ({ children }) => {
     const [historial, setHistorial] = useState([]);
     const [searchPredios, setSearchPredios] = useState(null);
     const [foundPredios, setFoundPredios] = useState([]);
-    const [foundPredio, setFoundPredio] = useState(null);
+    const [associatedPredios, setAssociatedPredios] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [errorFindingPredios, setErrorFindingPredios] = useState(null)
@@ -23,31 +23,25 @@ const PrediosProvider = ({ children }) => {
     const api = http();
     const { payload, auth } = useAuthContext();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            await api.get(URL + LIST_PREDIOS)
-                .then((res) => {
-                    if (!res.error) {
-                        setError(null);
-                        if (res.predios) {
-                            setPrediosDb(res.predios);
-                        } else {
-                            setError(true);
-                            setMsgError("Error, no hay conexión con el servidor!!!");
-                        }
+    const fetchPredios = async () => {
+        await api.get(URL + LIST_PREDIOS)
+            .then((res) => {
+                if (!res.error) {
+                    setError(null);
+                    if (res.predios) {
+                        setPrediosDb(res.predios);
                     } else {
-                        setPrediosDb(null);
+                        setError(true);
+                        setMsgError("Error, no hay conexión con el servidor!!!");
                     }
-                    setLoading(false);
-                });
-        }
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+                } else {
+                    setPrediosDb(null);
+                }
+                setLoading(false);
+            });
+    }
 
-    useEffect(() => {
-        setLoading(true);
+    const fetchHistorial = async () => {
         api.get(URL + HISTORIAL)
             .then((res) => {
                 if (!res.error) {
@@ -63,40 +57,33 @@ const PrediosProvider = ({ children }) => {
                 }
                 setLoading(false);
             });
+    }
+
+    useEffect(() => {
+        setLoading(true);
+        fetchPredios();
+        fetchHistorial();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // Buscar predios por documento del propietario
     useEffect(() => {
         if (searchPredios === null) return;
         const fetchData = async () => {
             setLoading(true);
             const { datos } = searchPredios;
-            let API = datos.includes("PD") ? FIND_ONE : FIND;
-            let predioUrl = URL + API + datos;
-            const [res] = await Promise.all([
-                api.get(predioUrl),
-            ]);
+            let predioUrl = URL + FIND + datos;
+            const [res] = await Promise.all([api.get(predioUrl)]);
             const { data } = res;
             if (data) {
                 setErrorFindingPredios(null);
-                if (Array.isArray(data)) {
-                    if (data.length > 0) {
-                        setFoundPredios(data);
-                    } else {
-                        toastValidate({
-                            msg: <p>No se encontraron resultados para el documento <b><em>{datos}</em></b>.</p>,
-                            position: "bottom-center"
-                        });
-                    }
+                if (data.length > 0) {
+                    setFoundPredios(data);
                 } else {
-                    if (Object.keys(data).length > 0 && data.doc_prop === payload.nro_doc) {
-                        setFoundPredio(data);
-                    } else {
-                        toastValidate({
-                            msg: <p>No se encontraron resultados para el código <b><em>{datos}</em></b></p>,
-                            position: "bottom-center"
-                        })
-                    }
+                    toastValidate({
+                        msg: <p>No se encontraron resultados para el documento <b><em>{datos}</em></b>.</p>,
+                        position: "bottom-center"
+                    });
                 }
             } else {
                 setErrorFindingPredios(true);
@@ -108,9 +95,33 @@ const PrediosProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchPredios]);
 
+    // Listar predios asociados de un usuario
+    useEffect(() => {
+        if (!payload) return;
+        const fetchData = async () => {
+            setLoading(true);
+            const { nro_doc } = payload;
+            const res = await api.get(`${URL}${LIST_ASSOCIATED_PREDIOS}${nro_doc}`);
+            if (res.status === "ok") {
+                setError(null);
+                if (res.associatedPredios) {
+                    setAssociatedPredios(res.associatedPredios);
+                } else {
+                    setError(true);
+                    setMsgError("Error, no hay conexión con el servidor!!!");
+                }
+            } else {
+                setAssociatedPredios([]);
+            }
+            setLoading(false);
+        }
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [foundPredios]);
+
+    // Limpiar busqueda
     useEffect(() => {
         setFoundPredios([]);
-        setFoundPredio(null);
     }, [auth])
 
     const data = {
@@ -119,7 +130,7 @@ const PrediosProvider = ({ children }) => {
         historial, setHistorial,
         searchPredios, setSearchPredios,
         foundPredios, setFoundPredios,
-        foundPredio, setFoundPredio,
+        associatedPredios, setAssociatedPredios,
         loading, setLoading,
         error, setError,
         errorFindingPredios, setErrorFindingPredios,
