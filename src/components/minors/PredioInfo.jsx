@@ -19,22 +19,22 @@ function PredioInfo({ predio }) {
         {
             id: 4,
             label: "Área Construida",
-            data: predio.area_c
+            data: predio.area_c + "m"
         },
         {
             id: 5,
             label: "Área Total",
-            data: predio.area_t
+            data: predio.area_t + "m"
         },
         {
             id: 6,
             label: "Valor del Predio",
-            data: predio.valor_predio
+            data: "$" + predio.valor_predio
         },
         {
             id: 7,
             label: "Valor a pagar",
-            data: predio.valor_predial
+            data: "$" + predio.valor_predial
         },
         {
             id: 8,

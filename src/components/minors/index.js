@@ -6,7 +6,6 @@ export { default as CardDashboard } from './CardDashboard';
 export { default as Modal } from './Modal';
 export { default as NavTabs } from './NavTabs';
 export { default as PredioDetails } from './PredioDetails';
-export { default as PagoDetails } from './PagoDetails';
 export { default as PredioInfo } from './PredioInfo';
 export { default as ProfileOverview } from './ProfileOverview';
 export { default as RecentActivity } from './RecentActivity';

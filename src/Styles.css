@@ -78,6 +78,11 @@ h6 {
   align-items: center;
 }
 
+.text-xl {
+  font-size: 3.5rem;
+  color: #012970;
+}
+
 /* ****************************** Navbar ****************************** */
 .navbar {
   background-color: #16973d;

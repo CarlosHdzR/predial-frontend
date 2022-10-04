@@ -7,8 +7,8 @@ import { validatePredio } from '../validations';
 export const useFormPredio = ({ initialForm, param }) => {
     const [form, setForm] = useState(initialForm);
     const [reset, setReset] = useState(false);
-    const { prediosDb, predioToEdit, setPredioToEdit } = usePrediosContext();
-    const { createPredio, updatePredio, findPredios } = PrediosServices();
+    const { prediosDb, predioToEdit, setPredioToEdit, setSearchPredios } = usePrediosContext();
+    const { createPredio, updatePredio } = PrediosServices();
 
     useEffect(() => {
         try {
@@ -61,10 +61,9 @@ export const useFormPredio = ({ initialForm, param }) => {
             toastValidate({ msg: "Por favor, ingrese los datos solicitados!!!", position: "bottom-center" });
             return;
         }
-        findPredios(form);
+        setSearchPredios(form);
         setForm({ datos: "" });
     };
-
 
     return {
         form, setForm,

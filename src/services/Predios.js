@@ -12,7 +12,6 @@ const Predios = () => {
     const {
         prediosDb, setPrediosDb,
         historial, setHistorial,
-        setSearchPredios,
     } = usePrediosContext();
     const { usersDb, setUsersDb } = useUsersContext();
     let api = http();
@@ -116,16 +115,10 @@ const Predios = () => {
         });
     };
 
-    // ********** Buscar Predios **********
-    const findPredios = (data) => {
-        setSearchPredios(data);
-    };
-
     return {
         createPredio,
         updatePredio,
         deletePredio,
-        findPredios
     }
 }
 

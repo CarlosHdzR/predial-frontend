@@ -9,7 +9,8 @@ export const config = {
         DELETE: "users/delete/",
         CHANGE_PASSWORD: "users/change-password",
         GET_RESET_LINK: "users/get-reset-link",
-        RESET_PASSWORD: "users/reset-password"
+        RESET_PASSWORD: "users/reset-password",
+        ASSOCIATE_PREDIOS: "users/associate-predio/"
     },
     PREDIOS_API: {
         LIST_PREDIOS: "predios/list",
@@ -18,7 +19,7 @@ export const config = {
         EDIT: "predios/edit/",
         DELETE: "predios/delete/",
         FIND: "predios/find/",
-        FIND_ONE: "predios/find-one/"
+        LIST_ASSOCIATED_PREDIOS: "predios/list-associated-predios/"
     },
     ASSETS: {
         LOGO_ESCUDO: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/logo-escudo_kegz1y.png",
