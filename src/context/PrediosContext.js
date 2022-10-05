@@ -100,8 +100,8 @@ const PrediosProvider = ({ children }) => {
         if (!payload) return;
         const fetchData = async () => {
             setLoading(true);
-            const { nro_doc } = payload;
-            const res = await api.get(`${URL}${LIST_ASSOCIATED_PREDIOS}${nro_doc}`);
+            const user_id = payload._id;
+            const res = await api.get(`${URL}${LIST_ASSOCIATED_PREDIOS}${user_id}`);
             if (res.status === "ok") {
                 setError(null);
                 if (res.associatedPredios) {
