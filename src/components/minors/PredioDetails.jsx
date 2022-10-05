@@ -26,7 +26,7 @@ function PredioDetails({ predio }) {
         })
     }
 
-    let isAssociated = predio.owner && (predio.owner[0] === payload._id);
+    let isAssociated = predio?.owner === payload._id;
 
     return (
         <div className="card">
