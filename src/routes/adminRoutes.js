@@ -7,7 +7,7 @@ export const adminRoutes = [
         element: <Dashboard />
     },
     {
-        path: "/admin/profile/:nro_doc",
+        path: "/admin/profile/:id_number",
         element: <MyProfile />
     },
     {
@@ -19,11 +19,11 @@ export const adminRoutes = [
         element: <ManageUsers />
     },
     {
-        path: "/admin/manage-users/edit/:nro_doc",
+        path: "/admin/manage-users/edit/:id_number",
         element: <EditUser />
     },
     {
-        path: "/admin/manage-users/profile/:nro_doc",
+        path: "/admin/manage-users/profile/:id_number",
         element: <UserProfile />
     },
     {

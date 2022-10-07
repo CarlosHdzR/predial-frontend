@@ -5,31 +5,31 @@ import { useLocation, useParams } from 'react-router-dom';
 
 const initialFormAdmin = {
     _id: null,
-    nombres: "",
-    apellidos: "",
-    tipo_doc: "",
-    nro_doc: "",
+    name: "",
+    surname: "",
+    id_type: "",
+    id_number: "",
     email: "",
-    telefono: "",
-    direccion: "",
+    phone: "",
+    address: "",
 };
 
 export const initialFormRegister = {
     _id: null,
-    nombres: "",
-    apellidos: "",
-    tipo_doc: "",
-    nro_doc: "",
+    name: "",
+    surname: "",
+    id_type: "",
+    id_number: "",
     email: "",
     password: "",
-    telefono: "",
-    direccion: "",
+    phone: "",
+    address: "",
 };
 
 function FormUser({ terms, children }) {
     const initialForm = terms !== undefined ? initialFormRegister : initialFormAdmin;
-    const { nro_doc } = useParams();
-    const param = nro_doc;
+    const { id_number } = useParams();
+    const param = id_number;
     const { pathname } = useLocation();
     const disableInput = pathname.includes("users/profile");
     const { form, pathImage, reset, handleChange, handleChangeFile,

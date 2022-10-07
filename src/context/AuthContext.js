@@ -68,12 +68,12 @@ const AuthProvider = ({ children }) => {
         } else {
             if (res.status === "ok") {
                 localStorage.setItem("token", res.token);
-                let path = res.user.rol === 3 ? "/user-ext/home" : "/admin/dashboard";
+                let path = res.user.role === 3 ? "/user-ext/home" : "/admin/dashboard";
                 navigate(path);
                 toastUpdate(loading, {
                     msg: () =>
                         <div>
-                            Bienvenid@, <b>{res.user.nombres}</b>!!!
+                            Bienvenid@, <b>{res.user.name}</b>!!!
                         </div>,
                     type: "success", autoClose: 3000
                 });

@@ -10,17 +10,17 @@ const TableRows = ({ data, nro_registro, item }) => {
     const { payload } = useAuthContext();
     const { setPredioToEdit } = usePrediosContext();
     let { _id,
-        nombres, apellidos, nro_doc, email, rol, // <== Users
+        name, surname, id_number, email, role, // <== Users
         codigo, nom_prop, doc_prop, direccion_predio // <== Predios
     } = data || {};
     const { deleteUser } = UsersServices();
     const { deletePredio } = PrediosServices();
-    const dataToHandle = item === "user" ? { _id, param: nro_doc } : { _id, param: codigo }
+    const dataToHandle = item === "user" ? { _id, param: id_number } : { _id, param: codigo }
     const navigate = useNavigate();
 
     const datos = item === "user"
         ?
-        [`${nombres} ${apellidos}`, nro_doc, email, rol]
+        [`${name} ${surname}`, id_number, email, role]
         :
         [codigo, nom_prop, doc_prop, direccion_predio];
 
@@ -46,7 +46,7 @@ const TableRows = ({ data, nro_registro, item }) => {
     const handleEdit = () => {
         if (item === "user") {
             setUserToEdit(data);
-            if(payload?.rol === 1) {
+            if(payload?.role === 1) {
                 navigate(`edit/${dataToHandle.param}`);
             } else {
                 navigate(`profile/${dataToHandle.param}`);
@@ -81,7 +81,7 @@ const TableRows = ({ data, nro_registro, item }) => {
                     className="m-1 my-btn-edit"
                     onClick={handleEdit}
                 >
-                    <i className={`${(item === "user" && payload?.rol !== 1) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
+                    <i className={`${(item === "user" && payload?.role !== 1) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
                 </button>
                 <Tooltip id="toolTipDelete" place="top">
                     Eliminar
@@ -89,8 +89,8 @@ const TableRows = ({ data, nro_registro, item }) => {
                 <button
                     data-tip data-for="toolTipDelete"
                     type="button"
-                    className={`${(payload.rol !== 1 && item === "user") ? "my-btn-disabled" : "my-btn-delete"}`}
-                    disabled={(payload.rol !== 1 && item === "user") ? true : false}
+                    className={`${(payload.role !== 1 && item === "user") ? "my-btn-disabled" : "my-btn-delete"}`}
+                    disabled={(payload.role !== 1 && item === "user") ? true : false}
                     onClick={handleDelete}
                 >
                     <i className="bi bi-trash" />

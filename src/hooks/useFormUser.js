@@ -21,7 +21,7 @@ export const useFormUser = ({ initialForm, param, terms }) => {
     useEffect(() => {
         try {
             if (param) { // Validar si va a crear o editar
-                setPathImage(userToEdit.avatar.secure_url || DEFAULT_AVATAR)
+                setPathImage(userToEdit.avatar?.secure_url || DEFAULT_AVATAR)
                 setForm(userToEdit._id && userToEdit);
             } else {
                 setPathImage(DEFAULT_AVATAR)
@@ -86,7 +86,7 @@ export const useFormUser = ({ initialForm, param, terms }) => {
                     setFile("");
                 }
             } else { // Crear usuario externo (Registro) - Rol 3
-                form.rol = 3;
+                form.role = 3;
                 registerUser(form);
                 setReset(!reset);
             }

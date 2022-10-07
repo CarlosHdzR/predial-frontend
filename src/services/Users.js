@@ -88,7 +88,7 @@ const Users = () => {
             if (res.status === "ok") {
                 setUsersDb(res.users);
                 toastUpdate(loading, { msg: res.msg, type: "success" })
-                navigate(payload.rol === 1 ? "/admin/manage-users" : "", { replace: true })
+                navigate(payload.role === 1 ? "/admin/manage-users" : "", { replace: true })
             } else {
                 toastUpdate(loading, { msg: res.msg, type: "error" })
             }
@@ -97,10 +97,10 @@ const Users = () => {
 
     // ********** Eliminar Usuario **********
     const deleteUser = (user) => {
-        let nro_doc = user.param
+        let id_number = user.param
         let _id = user._id
         swalConfirm({
-            msg: `¿Estás seguro que quieres eliminar el usuario con número de documento <b>${nro_doc}</b>?`,
+            msg: `¿Estás seguro que quieres eliminar el usuario con número de documento <b>${id_number}</b>?`,
             icon: 'warning'
         }).then((res) => {
             if (res.isConfirmed) {
@@ -205,11 +205,11 @@ const Users = () => {
     }
 
     // ********** Asociar predios **********
-    const associatePredio = async (user_id, predioId) => {
-        const predio = { predio_id: predioId }
+    const associatePredio = async (user_id, propertyId) => {
+        const property = { property_id: propertyId }
         let endpoint = `${URL}${ASSOCIATE_PREDIOS}${user_id}`;
         let options = {
-            body: JSON.stringify(predio),
+            body: JSON.stringify(property),
             headers: { "content-type": "application/json" }
         };
         const loading = toastLoading()

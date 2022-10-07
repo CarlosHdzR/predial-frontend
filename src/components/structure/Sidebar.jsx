@@ -4,8 +4,8 @@ import { useAuthContext } from '../../context/AuthContext';
 
 function Sidebar() {
     const { payload, auth } = useAuthContext();
-    const nro_doc = payload?.nro_doc;
-    const rol = payload?.rol;
+    const id_number = payload?.id_number;
+    const role = payload?.role;
 
     const sidebarItemProps = [
         {
@@ -16,7 +16,7 @@ function Sidebar() {
         },
         {
             id: 2,
-            linkTo: `/admin/profile/${nro_doc}`,
+            linkTo: `/admin/profile/${id_number}`,
             icon: "fa-solid fa-circle-user",
             label: "Mi Perfil"
         },
@@ -46,7 +46,7 @@ function Sidebar() {
         },
     ]
 
-    if (!auth || rol === 3) return null;
+    if (!auth || role === 3) return null;
 
     return (
         <aside className="sidebar">
@@ -54,7 +54,7 @@ function Sidebar() {
                 className="logo-sidebar img-fluid"
             />
             <ul className="sidebar-nav">
-                {rol === 1 ?
+                {role === 1 ?
                     sidebarItemProps.map((item) => (
                         <SidebarItem
                             id={item.id}

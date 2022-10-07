@@ -6,7 +6,7 @@ export const userExtRoutes = [
         element: <LandingPage />
     },
     {
-        path: "/user-ext/profile/:nro_doc",
+        path: "/user-ext/profile/:id_number",
         element: <MyProfile />
     },
     {

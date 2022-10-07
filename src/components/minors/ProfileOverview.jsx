@@ -6,7 +6,7 @@ import Loader from "./Loader";
 function ProfileOverview() {
     const { loading } = useUsersContext();
     const { loggedUser } = useAuthContext();
-    const { avatar, nombres, apellidos, nro_doc, email, telefono, direccion } = loggedUser || {};
+    const { avatar, name, surname, id_number, email, phone, address } = loggedUser || {};
     const { secure_url } = avatar || {};
     const { DEFAULT_AVATAR } = config.ASSETS;
 
@@ -16,12 +16,12 @@ function ProfileOverview() {
         {
             id: 1,
             label: "Nombre Completo",
-            data: `${nombres} ${apellidos}`
+            data: `${name} ${surname}`
         },
         {
             id: 2,
             label: "Número de Documento",
-            data: nro_doc
+            data: id_number
         },
         {
             id: 3,
@@ -31,12 +31,12 @@ function ProfileOverview() {
         {
             id: 4,
             label: "Dirección de Residencia",
-            data: direccion
+            data: address
         },
         {
             id: 5,
             label: "Teléfono",
-            data: telefono
+            data: phone
         },
     ]
 
@@ -49,7 +49,7 @@ function ProfileOverview() {
                             src={secure_url || DEFAULT_AVATAR}
                             alt="avatar" className="img-fluid rounded-circle avatar"
                         />
-                        <h2 className="text-center p-1">{nombres + " " + apellidos}</h2>
+                        <h2 className="text-center p-1">{name + " " + surname}</h2>
                     </div>
                     <div className="col-12 col-sm-9 col-lg-6 text-center m-auto">
                         {profileItems.map((item) => (

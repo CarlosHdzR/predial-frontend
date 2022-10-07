@@ -9,10 +9,10 @@ function Dashboard() {
     const { payload } = useAuthContext();
     const { prediosDb, historial } = usePrediosContext();
 
-    const countUsers = ((rol) => usersDb?.filter((e) => (e.rol === rol)).length);
+    const countUsers = (role) => usersDb?.filter((e) => (e.role === role)).length;
     const countPredios = prediosDb?.length;
     const activity = historial?.filter((e) => e.author !== "Administrador" && e);
-    const sliceAt = payload?.rol === 1 ? -12 : -5;
+    const sliceAt = payload?.role === 1 ? -12 : -5;
 
     const loader = loading && <Loader />;
 
@@ -20,7 +20,7 @@ function Dashboard() {
         <>
             <div className="dashboard col-lg-12">
                 <div className="row">
-                    {payload.rol === 1 &&
+                    {payload.role === 1 &&
                         <CardDashboard
                             label="Usuarios Internos"
                             data={countUsers(2)}
@@ -38,7 +38,7 @@ function Dashboard() {
             </div>
             {/* <!-- Gráficas --> */}
             <div className="col-12 col-md-8">
-                {payload.rol === 1 &&
+                {payload.role === 1 &&
                     <CardChart label="Actividad | Usuarios Internos">
                         <UsersChart
                             loader={loader}

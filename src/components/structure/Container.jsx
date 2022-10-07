@@ -6,7 +6,7 @@ import { NavLink, useLocation } from "react-router-dom";
 function Container({ children }) {
     const { error, msgError } = useUsersContext();
     const { payload, auth } = useAuthContext();
-    const rol = payload?.rol;
+    const role = payload?.role;
     const { pathname } = useLocation();
 
     let title = (pathname.includes("dashboard") && "Dashboard") ||
@@ -33,13 +33,13 @@ function Container({ children }) {
         <Message msg={msgError} bgColor="#dc3545" />;
 
     return (
-        <main id={`${(auth && rol !== 3) && "main"}`} className={`${(!auth || rol === 3) && "vh-center"} min-vh-100`} >
-            <div className={`${(!auth || rol === 3) && "container"}`}>
-                <div className={`${rol === 3 && "mt-5"}`}>
+        <main id={`${(auth && role !== 3) && "main"}`} className={`${(!auth || role === 3) && "vh-center"} min-vh-100`} >
+            <div className={`${(!auth || role === 3) && "container"}`}>
+                <div className={`${role === 3 && "mt-5"}`}>
                     {errorMessage}
                 </div>
-                <div className={`${(auth && rol !== 3) && "pagetitle"}`}>
-                    <h1 className={`${(!auth || rol === 3) && "text-center font-weight-bold mt-5"}`}>
+                <div className={`${(auth && role !== 3) && "pagetitle"}`}>
+                    <h1 className={`${(!auth || role === 3) && "text-center font-weight-bold mt-5"}`}>
                         {title}
                     </h1>
                     {subtitle &&
@@ -56,7 +56,7 @@ function Container({ children }) {
                         </nav>
                     }
                 </div>
-                {!auth || rol === 3
+                {!auth || role === 3
                     ?
                     <>
                         {title === "Mi Perfil" ?

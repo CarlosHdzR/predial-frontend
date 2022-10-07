@@ -20,8 +20,8 @@ const CurrencyMask = createNumberMask({
 
 export const inputUsersProps = [
     {
-        id: "IdNombres",
-        name: "nombres",
+        id: "IdName",
+        name: "name",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-user",
@@ -31,8 +31,8 @@ export const inputUsersProps = [
         required: true,
     },
     {
-        id: "IdApellidos",
-        name: "apellidos",
+        id: "IdSurname",
+        name: "surname",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-user",
@@ -42,16 +42,16 @@ export const inputUsersProps = [
         required: true,
     },
     {
-        id: "IdTipo_doc",
-        name: "tipo_doc",
+        id: "IdId_type",
+        name: "id_type",
         type: "select",
         className: "col-10 col-sm-5 m-auto my-2",
         label: "Tipo de Documento",
         required: true,
     },
     {
-        id: "IdNro_doc",
-        name: "nro_doc",
+        id: "IdId_number",
+        name: "id_number",
         type: "number",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-fingerprint",
@@ -72,8 +72,8 @@ export const inputUsersProps = [
         required: true,
     },
     {
-        id: "IdTelefono",
-        name: "telefono",
+        id: "IdPhone",
+        name: "phone",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-phone",
@@ -84,8 +84,8 @@ export const inputUsersProps = [
         required: true,
     },
     {
-        id: "IdDireccion",
-        name: "direccion",
+        id: "IdAddress",
+        name: "address",
         type: "text",
         className: "col-10 col-sm-11 m-auto my-2",
         icon: "fa-solid fa-location-dot",
@@ -98,8 +98,8 @@ export const inputUsersProps = [
 
 export const inputUsersRegisterProps = [
     {
-        id: "IdNombres",
-        name: "nombres",
+        id: "IdName",
+        name: "name",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-user",
@@ -109,8 +109,8 @@ export const inputUsersRegisterProps = [
         required: true,
     },
     {
-        id: "IdApellidos",
-        name: "apellidos",
+        id: "IdSurname",
+        name: "surname",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-user",
@@ -120,16 +120,16 @@ export const inputUsersRegisterProps = [
         required: true,
     },
     {
-        id: "IdTipo_doc",
-        name: "tipo_doc",
+        id: "IdId_type",
+        name: "id_type",
         type: "select",
         className: "col-10 col-sm-5 m-auto my-2",
         label: "Tipo de Documento",
         required: true,
     },
     {
-        id: "IdNro_doc",
-        name: "nro_doc",
+        id: "IdId_number",
+        name: "id_number",
         type: "number",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-fingerprint",
@@ -161,8 +161,8 @@ export const inputUsersRegisterProps = [
         required: true,
     },
     {
-        id: "IdTelefono",
-        name: "telefono",
+        id: "IdPhone",
+        name: "phone",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-phone",
@@ -173,8 +173,8 @@ export const inputUsersRegisterProps = [
         required: true,
     },
     {
-        id: "IdDireccion",
-        name: "direccion",
+        id: "IdAddress",
+        name: "address",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "bi bi-geo-alt-fill",

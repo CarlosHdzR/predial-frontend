@@ -9,23 +9,23 @@ let regexTel = regExp.phone
 let regexDir = regExp.address
 
 export const validateUser = ({ form, usersDb, userToEdit, terms }) => {
-    if (!form.nombres || !form.apellidos || !form.tipo_doc || form.tipo_doc === "Seleccionar" ||
-        !form.nro_doc || !form.email || (form.password !== undefined && !form.password) ||
-        !form.telefono || !form.direccion) {
+    if (!form.name || !form.surname || !form.id_type || form.id_type === "Seleccionar" ||
+        !form.id_number || !form.email || (form.password !== undefined && !form.password) ||
+        !form.phone || !form.address) {
         toastValidate({ msg: "Todos los campos son requeridos!!!" })
         return false;
     }
 
-    if (!regexText.test(form.nombres) || !regexText.test(form.apellidos) ||
-        !regexNros.test(form.nro_doc) || !regexEmail.test(form.email) ||
-        (form.password !== undefined && !regexPass.test(form.password)) || !regexTel.test(form.telefono) ||
-        !regexDir.test(form.direccion)) {
+    if (!regexText.test(form.name) || !regexText.test(form.surname) ||
+        !regexNros.test(form.id_number) || !regexEmail.test(form.email) ||
+        (form.password !== undefined && !regexPass.test(form.password)) || !regexTel.test(form.phone) ||
+        !regexDir.test(form.address)) {
         toastValidate({ msg: "Por favor, revise que todos los datos tengan el formato correcto!!!" })
         return false;
     }
 
     if (form._id === null) {
-        const existingNroDoc = usersDb.filter((user) => user.nro_doc === parseInt(form.nro_doc))
+        const existingNroDoc = usersDb.filter((user) => user.id_number === parseInt(form.id_number))
         const existingEmail = usersDb.filter((user) => user.email === form.email)
 
         if (existingNroDoc.length > 0) {
@@ -38,12 +38,12 @@ export const validateUser = ({ form, usersDb, userToEdit, terms }) => {
             return false
         }
     } else {
-        if ((userToEdit.nro_doc !== form.nro_doc) || (userToEdit.email !== form.email)) {
-            const existingNroDoc = usersDb.filter((user) => user.nro_doc === parseInt(form.nro_doc))
+        if ((userToEdit.id_number !== form.id_number) || (userToEdit.email !== form.email)) {
+            const existingNroDoc = usersDb.filter((user) => user.id_number === parseInt(form.id_number))
             const existingEmail = usersDb.filter((user) => user.email === form.email)
 
             if (existingNroDoc.length > 0) {
-                if (existingNroDoc[0].nro_doc !== userToEdit.nro_doc) {
+                if (existingNroDoc[0].id_number !== userToEdit.id_number) {
                     toastValidate({ msg: "Ya existe un usuario con ese número de documento!!!" })
                     return false
                 }

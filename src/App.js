@@ -12,8 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [hideMenu, setHideMenu] = useState(false); // Toggle-Sidebar
   const { payload, auth } = useAuthContext();
-  const rol = payload?.rol
-  const path = (rol === 1 || rol === 2) ? "/admin/dashboard" : "/user-ext/home";
+  const role = payload?.role
+  const path = (role === 1 || role === 2) ? "/admin/dashboard" : "/user-ext/home";
 
   return (
     <>
@@ -35,13 +35,13 @@ function App() {
               <Route
                 key={index}
                 path={item.path}
-                element={auth && (rol === 1 || rol === 2) ? item.element : <Navigate to="/login" />} />
+                element={auth && (role === 1 || role === 2) ? item.element : <Navigate to="/login" />} />
             ))}
             {userExtRoutes.map((item, index) => (
               <Route
                 key={index}
                 path={item.path}
-                element={auth && rol === 3 ? item.element : <Navigate to="/login" />} />
+                element={auth && role === 3 ? item.element : <Navigate to="/login" />} />
             ))}
             <Route path="*" element={<Error404 />} />
           </Routes>

@@ -6,7 +6,7 @@ import { useAuthContext } from '../../context/AuthContext';
 
 function Navbar({ hideMenu, setHideMenu }) {
     const { payload, auth, loggedUser } = useAuthContext();
-    const { avatar, nombres, nro_doc } = loggedUser || {};
+    const { avatar, name, id_number } = loggedUser || {};
     const { secure_url } = avatar || {};
     const { LOGO_GOV_CO, DEFAULT_AVATAR } = config.ASSETS;
     const [hoverBtn, setHoverBtn] = useState(false); // Hover ToggleBtn
@@ -41,7 +41,7 @@ function Navbar({ hideMenu, setHideMenu }) {
             </div>
             {auth ?
                 <>
-                    {payload.rol === 3
+                    {payload.role === 3
                         ?
                         <>
                             <ToggleButton showLinks={showLinks} setShowLinks={setShowLinks} />
@@ -69,9 +69,9 @@ function Navbar({ hideMenu, setHideMenu }) {
                     <nav className="header-nav ms-auto">
                         <div className="nav-profile vh-center" data-bs-toggle="dropdown">
                             <img src={secure_url || DEFAULT_AVATAR} alt="avatar" className="rounded-circle" />
-                            <span className="dropdown-toggle ps-2">{nombres}</span>
+                            <span className="dropdown-toggle ps-2">{name}</span>
                         </div>
-                        <DropDownMenu path={`/${payload.rol === 3 ? "user-ext" : "admin"}/profile/${nro_doc}`} />
+                        <DropDownMenu path={`/${payload.role === 3 ? "user-ext" : "admin"}/profile/${id_number}`} />
                     </nav>
                 </>
                 :

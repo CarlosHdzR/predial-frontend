@@ -68,7 +68,7 @@ function Footer() {
 
     return (
         <>
-            {(!auth) || payload.rol === 3
+            {(!auth) || payload.role === 3
                 ?
                 <footer className="footer">
                     <div className="container">

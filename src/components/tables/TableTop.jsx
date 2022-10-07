@@ -28,7 +28,7 @@ function TableTop({ itemsPerPage, handleInputChange, label, item }) {
                 </Tooltip>
                 <input
                     data-tip
-                    data-for={(payload.rol === 1 && label[0] === "Usuario") && "toolTipFilter"}
+                    data-for={(payload.role === 1 && label[0] === "Usuario") && "toolTipFilter"}
                     className="col-12 col-sm-7 col-md-7 col-lg-8 dataTable-input"
                     placeholder="Filtrar..." type="text" value={filter}
                     onChange={handleFilter}

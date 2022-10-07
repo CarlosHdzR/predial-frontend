@@ -21,20 +21,20 @@ const options = {
 };
 
 function UsersChart({ loader, usersDb }) {
-    const usersInt = usersDb.filter((user) => user.rol === 1 || user.rol === 2)
+    const usersInt = usersDb.filter((user) => user.role === 1 || user.role === 2)
     const labels = usersInt.map((user) => {
-        return user.nombres
+        return user.name
     })
 
     const scores1 = usersInt.map((user) => {
-        return user.created_predios
+        return user.created_properties
     });
 
     const scores2 = usersInt.map((user) => {
-        return user.edited_predios
+        return user.edited_properties
     });
     const scores3 = usersInt.map((user) => {
-        return user.deleted_predios
+        return user.deleted_properties
     });
 
     const data = {

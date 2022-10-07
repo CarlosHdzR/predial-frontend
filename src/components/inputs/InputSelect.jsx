@@ -7,7 +7,7 @@ function InputSelect({ id, label, inputClass, labelClass, handleChange, ...input
         case "IdNroCuotas":
             array = [1, 2, 3, 4, 5, 6]
             break;
-        case "IdTipo_doc":
+        case "IdId_type":
             array = ["CC", "CE", "Pasaporte"]
             break;
         default:

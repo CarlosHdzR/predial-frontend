@@ -1,9 +1,9 @@
 export const usersHeadersProps = [
     { name: "#", field: "index", sortable: false },
-    { name: "Nombre", field: "nombres", sortable: true, className: "pointer", dataFor: "toolTipSort" },
-    { name: "Nro. Documento", field: "nro_doc", sortable: false },
+    { name: "Nombre", field: "name", sortable: true, className: "pointer", dataFor: "toolTipSort" },
+    { name: "Nro. Documento", field: "id_number", sortable: false },
     { name: "Email", field: "email", sortable: true, className: "d-none d-sm-table-cell pointer", dataFor: "toolTipSort" },
-    { name: "Rol", field: "rol", sortable: false, className: "d-none d-sm-table-cell pointer", dataFor: "toolTipInfo" },
+    { name: "Rol", field: "role", sortable: false, className: "d-none d-sm-table-cell pointer", dataFor: "toolTipInfo" },
     { name: "" },
 ];
 

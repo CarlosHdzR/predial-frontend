@@ -14,9 +14,9 @@ export const useTable = (item) => {
     const [itemsPerPage, setItemsPerPage] = useState({ select: 5 });
     const [sorting, setSorting] = useState({ field: "", order: "" });
 
-    let users = (payload.rol === 1) ?
-        usersDb.filter((user) => user.rol !== 1) :
-        usersDb.filter((user) => user.rol === 3);
+    let users = (payload.role === 1) ?
+        usersDb.filter((user) => user.role !== 1) :
+        usersDb.filter((user) => user.role === 3);
 
     let db = item === "user" ? users : prediosDb;
 
@@ -37,10 +37,10 @@ export const useTable = (item) => {
 
     const filterItems = db.filter((element) => {
         if (item === "user") {
-            return (element.nombres + " " + element.apellidos).toLowerCase().includes(filter.toLowerCase()) ||
-                element.nro_doc.toString().includes(filter.toLowerCase()) ||
+            return (element.name + " " + element.surname).toLowerCase().includes(filter.toLowerCase()) ||
+                element.id_number.toString().includes(filter.toLowerCase()) ||
                 element.email.includes(filter.toLowerCase()) ||
-                (element.rol + " ").includes(filter.toLowerCase())
+                (element.role + " ").includes(filter.toLowerCase())
         } else {
             return element.codigo.toLowerCase().includes(filter.toLowerCase()) ||
                 element.nom_prop.toLowerCase().includes(filter.toLowerCase()) ||
