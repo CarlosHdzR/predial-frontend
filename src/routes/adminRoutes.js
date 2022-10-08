@@ -35,7 +35,7 @@ export const adminRoutes = [
         element: <ManagePredios />
     },
     {
-        path: "/admin/manage-predios/edit/:codigo",
+        path: "/admin/manage-predios/edit/:code",
         element: <EditPredio />
     }
 ]

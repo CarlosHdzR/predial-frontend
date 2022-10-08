@@ -4,62 +4,62 @@ function PredioInfo({ predio }) {
         {
             id: 1,
             label: "Código del Predio",
-            data: predio.codigo
+            data: predio.code
         },
         {
             id: 2,
             label: "CC Propietario",
-            data: predio.doc_prop
+            data: predio.owner_id_number
         },
         {
             id: 3,
             label: "Nombre del Propietario",
-            data: predio.nom_prop
+            data: predio.owner_name
         },
         {
             id: 4,
             label: "Área Construida",
-            data: predio.area_c + "m"
+            data: predio.built_area + "m"
         },
         {
             id: 5,
             label: "Área Total",
-            data: predio.area_t + "m"
+            data: predio.total_area + "m"
         },
         {
             id: 6,
             label: "Valor del Predio",
-            data: "$" + predio.valor_predio
+            data: "$" + predio.property_value
         },
         {
             id: 7,
             label: "Valor a pagar",
-            data: "$" + predio.valor_predial
+            data: "$" + predio.tax_value
         },
         {
             id: 8,
             label: "Dirección del Predio",
-            data: predio.direccion_predio
+            data: predio.property_address
         },
         {
             id: 9,
             label: "Barrio",
-            data: predio.barrio
+            data: predio.neighborhood
         },
         {
             id: 10,
             label: "Fecha de Pago max",
-            data: predio.fecha_pago
+            data: predio.payment_date_1
         },
         {
             id: 11,
             label: "Fecha de Pago max(Dcto 40%)",
-            data: predio.fecha_pago2
+            data: predio.payment_date_2
         },
         {
             id: 12,
             label: "Fecha de Pago max(Dcto 20%)",
-            data: predio.fecha_pago3
+            data: predio.payment_date_3
         },
     ]
 

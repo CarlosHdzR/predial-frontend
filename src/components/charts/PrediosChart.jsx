@@ -14,10 +14,10 @@ const options = {
 };
 
 function PrediosChart({ loader, prediosDb }) {
-    const men100 = prediosDb.filter((predio) => predio.valor_predio.replace(/[$.]/g, '') < 100000000);
-    const may100men200 = prediosDb.filter((predio) => predio.valor_predio.replace(/[$.]/g, '') >= 100000000
-                                                    && predio.valor_predio.replace(/[$.]/g, '') <= 200000000);
-    const may200 = prediosDb.filter((predio) => predio.valor_predio.replace(/[$.]/g, '') > 200000000);
+    const men100 = prediosDb.filter((predio) => predio.property_value.replace(/[$.]/g, '') < 100000000);
+    const may100men200 = prediosDb.filter((predio) => predio.property_value.replace(/[$.]/g, '') >= 100000000
+                                                    && predio.property_value.replace(/[$.]/g, '') <= 200000000);
+    const may200 = prediosDb.filter((predio) => predio.property_value.replace(/[$.]/g, '') > 200000000);
 
     const data = {
         labels: [' Menor a $100M', ' Entre $100M y $200M', ' Mayor a $200M'],
@@ -33,9 +33,9 @@ function PrediosChart({ loader, prediosDb }) {
         ],
     };
 
-    const aMen100 = prediosDb.filter((predio) => predio.area_t < 100)
-    const aMay100Men150 = prediosDb.filter((predio) => predio.area_t >= 100 && predio.area_t <= 150)
-    const may150 = prediosDb.filter((predio) => predio.area_t > 150)
+    const aMen100 = prediosDb.filter((predio) => predio.total_area < 100)
+    const aMay100Men150 = prediosDb.filter((predio) => predio.total_area >= 100 && predio.total_area <= 150)
+    const may150 = prediosDb.filter((predio) => predio.total_area > 150)
 
     const data2 = {
         labels: [' Menos de 100m² ', ' Entre 100m² y 150m² ', ' Más de 150m² '],

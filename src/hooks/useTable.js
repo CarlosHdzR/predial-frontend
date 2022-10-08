@@ -42,10 +42,10 @@ export const useTable = (item) => {
                 element.email.includes(filter.toLowerCase()) ||
                 (element.role + " ").includes(filter.toLowerCase())
         } else {
-            return element.codigo.toLowerCase().includes(filter.toLowerCase()) ||
-                element.nom_prop.toLowerCase().includes(filter.toLowerCase()) ||
-                element.doc_prop.toString().includes(filter.toLowerCase()) ||
-                element.direccion_predio.toLowerCase().includes(filter.toLowerCase())
+            return element.code.toLowerCase().includes(filter.toLowerCase()) ||
+                element.owner_name.toLowerCase().includes(filter.toLowerCase()) ||
+                element.owner_id_number.toString().includes(filter.toLowerCase()) ||
+                element.property_address.toLowerCase().includes(filter.toLowerCase())
         }
     })
 

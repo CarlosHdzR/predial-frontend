@@ -49,9 +49,9 @@ const Predios = () => {
 
     // ********** Editar Predio **********
     const updatePredio = async (predio, _id) => {
-        let vrPredio = predio.valor_predio.replace(/[$.]/g, '')
+        let vrPredio = predio.property_value.replace(/[$.]/g, '')
         let vrPredial = vrPredio * 0.01
-        predio.valor_predial = Math.round(vrPredial)
+        predio.tax_value = Math.round(vrPredial)
         let endpoint = URL + EDIT + _id
         let options = {
             body: JSON.stringify(predio),
@@ -81,10 +81,10 @@ const Predios = () => {
 
     // ********** Eliminar Predio **********
     const deletePredio = (predio) => {
-        let codigo = predio.param
+        let code = predio.param
         let _id = predio._id
         swalConfirm({
-            msg: `¿Estás seguro que quieres eliminar el predio con id <b>${codigo}</b>?`,
+            msg: `¿Estás seguro que quieres eliminar el predio con id <b>${code}</b>?`,
             icon: 'warning'
         }).then(res => {
             if (res.isConfirmed) {

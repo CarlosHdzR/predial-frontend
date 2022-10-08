@@ -23,7 +23,7 @@ export const useFormPredio = ({ initialForm, param }) => {
     }, [param, predioToEdit, initialForm]);
 
     const calculatePredial = () => {
-        const predial = Math.round((form.valor_predio.replace(/[$.]/g, '')) * 0.01) || "";
+        const predial = Math.round((form.property_value.replace(/[$.]/g, '')) * 0.01) || "";
         return predial;
     }
 

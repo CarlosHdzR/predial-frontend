@@ -1,10 +1,10 @@
 function InputSelect({ id, label, inputClass, labelClass, handleChange, ...inputProps }) {
     let array = []
     switch (id) {
-        case "IdCuotaInicial":
+        case "IdDown_payment":
             array = ["Sí", "No"]
             break;
-        case "IdNroCuotas":
+        case "IdNumber_of_payments":
             array = [1, 2, 3, 4, 5, 6]
             break;
         case "IdId_type":

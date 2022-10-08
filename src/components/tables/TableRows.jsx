@@ -11,18 +11,18 @@ const TableRows = ({ data, nro_registro, item }) => {
     const { setPredioToEdit } = usePrediosContext();
     let { _id,
         name, surname, id_number, email, role, // <== Users
-        codigo, nom_prop, doc_prop, direccion_predio // <== Predios
+        code, owner_name, owner_id_number, property_address // <== Predios
     } = data || {};
     const { deleteUser } = UsersServices();
     const { deletePredio } = PrediosServices();
-    const dataToHandle = item === "user" ? { _id, param: id_number } : { _id, param: codigo }
+    const dataToHandle = item === "user" ? { _id, param: id_number } : { _id, param: code }
     const navigate = useNavigate();
 
     const datos = item === "user"
         ?
         [`${name} ${surname}`, id_number, email, role]
         :
-        [codigo, nom_prop, doc_prop, direccion_predio];
+        [code, owner_name, owner_id_number, property_address];
 
     const cells = [
         {

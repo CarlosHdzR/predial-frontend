@@ -187,8 +187,8 @@ export const inputUsersRegisterProps = [
 
 export const inputPrediosProps = [
     {
-        id: "IdCodigo",
-        name: "codigo",
+        id: "IdCode",
+        name: "code",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-barcode",
@@ -199,8 +199,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdNom_prop",
-        name: "nom_prop",
+        id: "IdOwner_name",
+        name: "owner_name",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-user",
@@ -210,8 +210,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdDoc_prop",
-        name: "doc_prop",
+        id: "IdOwner_id_number",
+        name: "owner_id_number",
         type: "number",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-fingerprint",
@@ -221,8 +221,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdEmail_prop",
-        name: "email_prop",
+        id: "IdOwner_email",
+        name: "owner_email",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-at",
@@ -232,8 +232,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdArea_c",
-        name: "area_c",
+        id: "IdBuilt_area",
+        name: "built_area",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-building",
@@ -244,8 +244,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdArea_t",
-        name: "area_t",
+        id: "IdTotal_area",
+        name: "total_area",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-building",
@@ -256,8 +256,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdValor_predio",
-        name: "valor_predio",
+        id: "IdProperty_value",
+        name: "property_value",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-dollar-sign",
@@ -268,8 +268,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdValor_predial",
-        name: "valor_predial",
+        id: "IdTax_value",
+        name: "tax_value",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-dollar-sign",
@@ -280,8 +280,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdDireccion_predio",
-        name: "direccion_predio",
+        id: "IdProperty_address",
+        name: "property_address",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-location-dot",
@@ -291,8 +291,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdBarrio",
-        name: "barrio",
+        id: "IdNeighborhood",
+        name: "neighborhood",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-location-dot",
@@ -305,8 +305,8 @@ export const inputPrediosProps = [
 
 export const inputDateProps = [
     {
-        id: "IdFecha_pago",
-        name: "fecha_pago",
+        id: "IdPayment_date_1",
+        name: "payment_date_1",
         type: "date",
         className: "col-10 col-sm-5",
         errorMessage: "Por favor, ingrese una fecha válida!!!",
@@ -314,8 +314,8 @@ export const inputDateProps = [
         required: true,
     },
     {
-        id: "IdFecha_pago2",
-        name: "fecha_pago2",
+        id: "IdPayment_date_2",
+        name: "payment_date_2",
         type: "date",
         className: "col-10 col-sm-5",
         errorMessage: "Por favor, ingrese una fecha válida!!!",
@@ -323,8 +323,8 @@ export const inputDateProps = [
         required: true,
     },
     {
-        id: "IdFecha_pago3",
-        name: "fecha_pago3",
+        id: "IdPayment_date_3",
+        name: "payment_date_3",
         type: "date",
         className: "mb-3 col-10 col-sm-5",
         errorMessage: "Por favor, ingrese una fecha válida!!!",
@@ -335,8 +335,8 @@ export const inputDateProps = [
 
 export const inputConvenioProps = [
     {
-        id: "IdCuotaInicial",
-        name: "cuotaInicial",
+        id: "IdDown_payment",
+        name: "down_payment",
         type: "select",
         inputClass: "col-10 col-sm-5 m-auto my-3",
         labelClass: " text-center col-10 col-sm-5 m-auto",
@@ -344,8 +344,8 @@ export const inputConvenioProps = [
         required: true,
     },
     {
-        id: "IdVrCuotaInicial",
-        name: "vrCuotaInicial",
+        id: "IdDown_payment_value",
+        name: "down_payment_value",
         type: "text",
         inputClass: "col-10 col-sm-5 m-auto my-3",
         labelClass: " text-center col-10 col-sm-5 m-auto",
@@ -356,8 +356,8 @@ export const inputConvenioProps = [
         required: true,
     },
     {
-        id: "IdNroCuotas",
-        name: "nroCuotas",
+        id: "IdNumber_of_payments",
+        name: "number_of_payments",
         type: "select",
         inputClass: "col-10 col-sm-5 m-auto my-3",
         labelClass: " text-center col-10 col-sm-5 m-auto",
@@ -365,8 +365,8 @@ export const inputConvenioProps = [
         required: true,
     },
     {
-        id: "IdVrCuotas",
-        name: "vrCuotas",
+        id: "IdPayments_value",
+        name: "payments_value",
         type: "text",
         inputClass: "col-10 col-sm-5 m-auto my-3",       
         labelClass: " text-center col-10 col-sm-5 m-auto",

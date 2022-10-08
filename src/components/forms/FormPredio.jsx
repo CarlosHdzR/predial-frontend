@@ -5,28 +5,28 @@ import { useParams } from "react-router-dom";
 
 export const initialForm = {
     _id: null,
-    codigo: "",
-    nom_prop: "",
-    doc_prop: "",
-    email_prop: "",
-    area_c: "",
-    area_t: "",
-    valor_predio: "",
-    valor_predial: "",
-    direccion_predio: "",
-    barrio: "",
-    fecha_pago: "",
-    fecha_pago2: "",
-    fecha_pago3: "",
+    code: "",
+    owner_name: "",
+    owner_id_number: "",
+    owner_email: "",
+    built_area: "",
+    total_area: "",
+    property_value: "",
+    tax_value: "",
+    property_address: "",
+    neighborhood: "",
+    payment_date_1: "",
+    payment_date_2: "",
+    payment_date_3: "",
 };
 
 function FormPredio({ children }) {
-    const { codigo } = useParams();
-    const param = codigo;
+    const { code } = useParams();
+    const param = code;
     const { form, reset, handleChange, handleSubmit } = useFormPredio({ initialForm, param });
 
     try {
-        form.valor_predial = Math.round((form.valor_predio.replace(/[$.]/g, '')) * 0.01) || "";
+        form.tax_value = Math.round((form.property_value.replace(/[$.]/g, '')) * 0.01) || "";
     } catch (error) {
         console.log(error.message);
     }

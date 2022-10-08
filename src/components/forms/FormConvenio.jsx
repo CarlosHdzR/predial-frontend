@@ -4,21 +4,21 @@ import { inputConvenioProps } from './';
 import { toastValidate, swalAlert } from '../../tools';
 
 export const initialForm = {
-    cuotaInicial: "",
-    vrCuotaInicial: "",
-    nroCuotas: "",
-    vrCuotas: "",
+    down_payment: "",
+    down_payment_value: "",
+    number_of_payments: "",
+    payments_value: "",
 }
 
 function FormConvenio({ predio }) {
     const [form, setForm] = useState(initialForm);
 
-    if (form.cuotaInicial === "No") {
-        form.vrCuotaInicial = "0"
+    if (form.down_payment === "No") {
+        form.down_payment_value = "0"
     }
 
-    if (form.nroCuotas !== "Seleccionar") {
-        form.vrCuotas = Math.ceil((predio.valor_predial - form.vrCuotaInicial.replace(/[$.]/g, '')) / form.nroCuotas)
+    if (form.number_of_payments !== "Seleccionar") {
+        form.payments_value = Math.ceil((predio.tax_value - form.down_payment_value.replace(/[$.]/g, '')) / form.number_of_payments)
     }
 
     const handleChange = (e) => {
@@ -30,13 +30,13 @@ function FormConvenio({ predio }) {
     };
 
     const Msg = () => {
-        if (form.cuotaInicial === "1") {
-            if (!form.cuotaInicial || !form.vrCuotaInicial || !form.nroCuotas || !form.vrCuotas) {
+        if (form.down_payment === "1") {
+            if (!form.down_payment || !form.down_payment_value || !form.number_of_payments || !form.payments_value) {
                 toastValidate({ msg: "Todos los campos son requeridos!!!" })
                 return false
             }
         } else {
-            if (!form.nroCuotas || !form.vrCuotas) {
+            if (!form.number_of_payments || !form.payments_value) {
                 toastValidate({ msg: "Todos los campos son requeridos!!!" })
                 return false
             }
@@ -53,22 +53,22 @@ function FormConvenio({ predio }) {
         {
             id: 1,
             label: "Código del Predio",
-            data: predio.codigo
+            data: predio.code
         },
         {
             id: 2,
             label: "Propietario",
-            data: predio.nom_prop
+            data: predio.owner_name
         },
         {
             id: 3,
             label: "Valor del Predio",
-            data: predio.valor_predio
+            data: predio.property_value
         },
         {
             id: 4,
             label: "Valor a pagar",
-            data: predio.valor_predial
+            data: predio.tax_value
         }
     ]
 

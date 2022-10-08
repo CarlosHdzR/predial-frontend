@@ -10,29 +10,29 @@ let regexCur = regExp.currency
 let regexDir = regExp.address
 
 export const validatePredio = ({ form, prediosDb, predioToEdit }) => {
-    if (!form.codigo || !form.nom_prop || !form.doc_prop || !form.email_prop || !form.area_c ||
-        !form.area_t | !form.valor_predio || !form.direccion_predio || !form.barrio || !form.fecha_pago
-        || !form.fecha_pago2 || !form.fecha_pago3) {
+    if (!form.code || !form.owner_name || !form.owner_id_number || !form.owner_email || !form.built_area ||
+        !form.total_area | !form.property_value || !form.property_address || !form.neighborhood || !form.payment_date_1
+        || !form.payment_date_2 || !form.payment_date_3) {
         toastValidate({ msg: "Todos los campos son requeridos!!!" })
         return false;
     }
 
-    if (!regexCod.test(form.codigo) || !regexText.test(form.nom_prop) || !regexNros.test(form.doc_prop) ||
-        !regexEmail.test(form.email_prop) || !regexDec.test(form.area_c) || !regexDec.test(form.area_t) ||
-        !regexCur.test(form.valor_predio) || !regexDir.test(form.direccion_predio) || !regexText.test(form.barrio)
+    if (!regexCod.test(form.code) || !regexText.test(form.owner_name) || !regexNros.test(form.owner_id_number) ||
+        !regexEmail.test(form.owner_email) || !regexDec.test(form.built_area) || !regexDec.test(form.total_area) ||
+        !regexCur.test(form.property_value) || !regexDir.test(form.property_address) || !regexText.test(form.neighborhood)
     ) {
         toastValidate({ msg: "Por favor, revise que todos los datos tengan el formato correcto!!!" })
         return false;
     }
 
-    if (parseFloat(form.area_c) > parseFloat(form.area_t)) {
+    if (parseFloat(form.built_area) > parseFloat(form.total_area)) {
         toastValidate({ msg: "El area construída debe ser menor o igual al area total!!!" })
         return false;
     }
 
     if (form._id === null) {
-        const existingCodigo = prediosDb.filter((predio) => predio.codigo === form.codigo)
-        const existingDirPredio = prediosDb.filter((predio) => predio.direccion_predio === form.direccion_predio)
+        const existingCodigo = prediosDb.filter((predio) => predio.code === form.code)
+        const existingDirPredio = prediosDb.filter((predio) => predio.property_address === form.property_address)
 
         if (existingCodigo.length > 0) {
             toastValidate({ msg: "Ya existe un predio con ese código!!!" })
@@ -44,19 +44,19 @@ export const validatePredio = ({ form, prediosDb, predioToEdit }) => {
             return false
         }
     } else {
-        if ((predioToEdit.codigo !== form.codigo) || (predioToEdit.direccion_predio !== form.direccion_predio)) {
-            const existingCodigo = prediosDb.filter((predio) => predio.codigo === form.codigo)
-            const existingDirPredio = prediosDb.filter((predio) => predio.direccion_predio === form.direccion_predio)
+        if ((predioToEdit.code !== form.code) || (predioToEdit.property_address !== form.property_address)) {
+            const existingCodigo = prediosDb.filter((predio) => predio.code === form.code)
+            const existingDirPredio = prediosDb.filter((predio) => predio.property_address === form.property_address)
 
             if (existingCodigo.length > 0) {
-                if (existingCodigo[0].codigo !== predioToEdit.codigo) {
+                if (existingCodigo[0].code !== predioToEdit.code) {
                     toastValidate({ msg: "Ya existe un predio con ese código!!!" })
                     return false
                 }
             }
 
             if (existingDirPredio.length > 0) {
-                if (existingDirPredio[0].direccion_predio !== predioToEdit.direccion_predio) {
+                if (existingDirPredio[0].property_address !== predioToEdit.property_address) {
                     toastValidate({ msg: "Ya existe un predio con esa dirección!!!" })
                     return false
                 }

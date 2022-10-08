@@ -19,8 +19,8 @@ function PredioDetails({ predio }) {
     const showMsg = () => {
         swalAlert({
             msg: `<b>El pago correspondiente al predio con código <br/>
-                <span class="text-danger">${predio.codigo}</span>, por un valor 
-                de <span class="text-danger">$${predio.valor_predial}</span> 
+                <span class="text-danger">${predio.code}</span>, por un valor 
+                de <span class="text-danger">$${predio.tax_value}</span> 
                 fue procesado exitosamente!!!</b>`,
             icon: 'success'
         })
@@ -55,7 +55,7 @@ function PredioDetails({ predio }) {
                                 className="my-btn-success m-auto"
                                 onClick={showMsg}
                             >
-                                Pagar ${predio.valor_predial}
+                                Pagar ${predio.tax_value}
                             </button>
                         </div>
                         <div className="col-6 vh-center mt-4 mb-2">
