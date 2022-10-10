@@ -1,12 +1,12 @@
-import PredioInfo from './PredioInfo';
+import PropertyInfo from './PropertyInfo';
 import { useAuthContext } from '../../context/AuthContext';
 import { UsersServices } from '../../services';
 import { swalAlert } from '../../tools';
 import { useLocation } from 'react-router-dom';
 import Modal from './Modal';
-import { FormConvenio } from '../forms';
+import { FormAgreement } from '../forms';
 
-function PredioDetails({ predio }) {
+function PropertyDetails({ predio }) {
     const { payload } = useAuthContext();
     const { associatePredio } = UsersServices();
     const { pathname } = useLocation();
@@ -32,7 +32,7 @@ function PredioDetails({ predio }) {
         <div className="card">
             <div className="card-body">
                 <h5 className="card-title">Detalles del Predio</h5>
-                <PredioInfo predio={predio} />
+                <PropertyInfo predio={predio} />
                 {pathname.includes("asociar-predios")
                     ?
                     <div className="vh-center">
@@ -67,7 +67,7 @@ function PredioDetails({ predio }) {
                                 Solicitar convenio
                             </button>
                             <Modal>
-                                <FormConvenio predio={predio} />
+                                <FormAgreement predio={predio} />
                             </Modal>
                         </div>
                     </div>
@@ -77,4 +77,4 @@ function PredioDetails({ predio }) {
     )
 }
 
-export default PredioDetails;
+export default PropertyDetails;

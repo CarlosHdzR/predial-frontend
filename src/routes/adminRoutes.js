@@ -1,4 +1,7 @@
-import { CreatePredio, CreateUser, Dashboard, EditPredio, EditUser, ManagePredios, ManageUsers, MyProfile } from "../pages";
+import {
+    CreateProperty, CreateUser, Dashboard, EditProperty,
+    EditUser, ManageProperties, ManageUsers, MyProfile
+} from "../pages";
 import UserProfile from "../pages/UserProfile";
 
 export const adminRoutes = [
@@ -28,14 +31,14 @@ export const adminRoutes = [
     },
     {
         path: "/admin/create-predio",
-        element: <CreatePredio />
+        element: <CreateProperty />
     },
     {
         path: "/admin/manage-predios",
-        element: <ManagePredios />
+        element: <ManageProperties />
     },
     {
         path: "/admin/manage-predios/edit/:code",
-        element: <EditPredio />
+        element: <EditProperty />
     }
 ]

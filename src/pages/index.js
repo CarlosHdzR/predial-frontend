@@ -8,9 +8,9 @@ export { default as MyProfile } from './MyProfile';
 export { default as CreateUser } from './CreateUser';
 export { default as ManageUsers } from './ManageUsers';
 export { default as EditUser } from './EditUser';
-export { default as CreatePredio } from './CreatePredio';
-export { default as ManagePredios } from './ManagePredios';
-export { default as EditPredio } from './EditPredio';
-export { default as AsociarPredios } from './AsociarPredios';
-export { default as PagarImpuesto } from './PagarImpuesto';
+export { default as CreateProperty } from './CreateProperty';
+export { default as ManageProperties } from './ManageProperties';
+export { default as EditProperty } from './EditProperty';
+export { default as AssociateProperties } from './AssociateProperties';
+export { default as MyProperties } from './MyProperties';
 export { default as Error404 } from './Error404'

@@ -5,7 +5,7 @@ function CardDashboard({ label, data }) {
 
     let className = payload?.role === 1 ? "col-xxl-4 col-md-4" : "col-xxl-6 col-md-6";
     const isUserInt = label.includes("Internos"), isUserExt = label.includes("Externos");
-    let cardClassName = isUserInt ? "user-int-card" : isUserExt ? "user-ext-card" : "predios-card"; 
+    let cardClassName = isUserInt ? "user-int-card" : isUserExt ? "user-ext-card" : "properties-card"; 
     let icon = label === "Predios" ? "bi bi-building" : "bi bi-people";
 
     return (

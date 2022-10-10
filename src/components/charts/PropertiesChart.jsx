@@ -13,7 +13,7 @@ const options = {
     },
 };
 
-function PrediosChart({ loader, prediosDb }) {
+function PropertiesChart({ loader, prediosDb }) {
     const men100 = prediosDb.filter((predio) => predio.property_value.replace(/[$.]/g, '') < 100000000);
     const may100men200 = prediosDb.filter((predio) => predio.property_value.replace(/[$.]/g, '') >= 100000000
                                                     && predio.property_value.replace(/[$.]/g, '') <= 200000000);
@@ -75,4 +75,4 @@ function PrediosChart({ loader, prediosDb }) {
     );
 }
 
-export default PrediosChart;
+export default PropertiesChart;

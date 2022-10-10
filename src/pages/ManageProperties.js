@@ -1,7 +1,7 @@
 import { useTable } from "../hooks";
 import { Table, TableTop, TableBottom } from "../components/tables";
 
-function ManagePredios() {
+function ManageProperties() {
     const {
         pageNumber,
         itemsPerPage,
@@ -43,4 +43,4 @@ function ManagePredios() {
     )
 }
 
-export default ManagePredios;
+export default ManageProperties;

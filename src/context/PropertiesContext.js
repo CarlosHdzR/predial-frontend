@@ -4,7 +4,7 @@ import { http } from "../helpers/http";
 import { toastValidate } from "../tools";
 import { useAuthContext } from "./AuthContext";
 
-const PrediosContext = createContext();
+const PropertiesContext = createContext();
 
 const { URL } = config;
 const { LIST_PREDIOS, HISTORIAL, FIND, LIST_ASSOCIATED_PREDIOS } = config.PREDIOS_API;
@@ -139,11 +139,11 @@ const PrediosProvider = ({ children }) => {
     }
 
     return (
-        <PrediosContext.Provider value={data}>
+        <PropertiesContext.Provider value={data}>
             {children}
-        </PrediosContext.Provider>
+        </PropertiesContext.Provider>
     )
 }
 
-export const usePrediosContext = () => useContext(PrediosContext);
+export const usePrediosContext = () => useContext(PropertiesContext);
 export { PrediosProvider };

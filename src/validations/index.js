@@ -1,4 +1,4 @@
 export { validateUser } from './validateUser';
-export { validatePredio } from './validatePredio';
+export { validateProperty } from './validateProperty';
 export { validatePassword } from './validatePassword';
 

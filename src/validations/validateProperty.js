@@ -9,7 +9,7 @@ let regexCod = regExp.code
 let regexCur = regExp.currency
 let regexDir = regExp.address
 
-export const validatePredio = ({ form, prediosDb, predioToEdit }) => {
+export const validateProperty = ({ form, prediosDb, predioToEdit }) => {
     if (!form.code || !form.owner_name || !form.owner_id_number || !form.owner_email || !form.built_area ||
         !form.total_area | !form.property_value || !form.property_address || !form.neighborhood || !form.payment_date_1
         || !form.payment_date_2 || !form.payment_date_3) {

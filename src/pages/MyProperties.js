@@ -1,7 +1,7 @@
-import { Loader, Message, PredioDetails } from '../components/minors';
-import { usePrediosContext } from '../context/PrediosContext';
+import { Loader, Message, PropertyDetails } from '../components/minors';
+import { usePrediosContext } from '../context/PropertiesContext';
 
-function PagarImpuesto() {
+function MyProperties() {
     const { associatedPredios, loading, error, msgError } = usePrediosContext();
 
     if (loading) return <Loader />;
@@ -14,7 +14,7 @@ function PagarImpuesto() {
                     ?
                     <>
                         {associatedPredios.map((predio) => (
-                            <PredioDetails key={predio._id} predio={predio} />
+                            <PropertyDetails key={predio._id} predio={predio} />
                         ))}
                     </>
                     :
@@ -28,4 +28,4 @@ function PagarImpuesto() {
     )
 }
 
-export default PagarImpuesto;
+export default MyProperties;

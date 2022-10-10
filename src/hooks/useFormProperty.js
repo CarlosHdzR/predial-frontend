@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { usePrediosContext } from '../context/PrediosContext';
-import { PrediosServices } from '../services';
+import { usePrediosContext } from '../context/PropertiesContext';
+import { PropertiesServices } from '../services';
 import { toastValidate } from '../tools';
-import { validatePredio } from '../validations';
+import { validateProperty } from '../validations';
 
-export const useFormPredio = ({ initialForm, param }) => {
+export const useFormProperty = ({ initialForm, param }) => {
     const [form, setForm] = useState(initialForm);
     const [reset, setReset] = useState(false);
     const { prediosDb, predioToEdit, setPredioToEdit, setSearchPredios } = usePrediosContext();
-    const { createPredio, updatePredio } = PrediosServices();
+    const { createPredio, updatePredio } = PropertiesServices();
 
     useEffect(() => {
         try {
@@ -43,7 +43,7 @@ export const useFormPredio = ({ initialForm, param }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (validatePredio({ form, prediosDb, predioToEdit })) {
+        if (validateProperty({ form, prediosDb, predioToEdit })) {
             if (form._id === null) {
                 form._id = undefined
                 createPredio(form);

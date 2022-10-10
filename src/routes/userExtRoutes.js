@@ -1,4 +1,4 @@
-import { LandingPage, AsociarPredios, PagarImpuesto, MyProfile } from "../pages";
+import { LandingPage, AssociateProperties, MyProperties, MyProfile } from "../pages";
 
 export const userExtRoutes = [
     {
@@ -11,10 +11,10 @@ export const userExtRoutes = [
     },
     {
         path: "/user-ext/asociar-predios",
-        element: <AsociarPredios />
+        element: <AssociateProperties />
     },
     {
         path: "/user-ext/pagar",
-        element: <PagarImpuesto />
+        element: <MyProperties />
     }
 ]

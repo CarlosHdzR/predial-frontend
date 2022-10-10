@@ -1,8 +1,8 @@
 import { FormSearch } from '../components/forms';
-import { PredioDetails, Loader, Message } from '../components/minors';
-import { usePrediosContext } from '../context/PrediosContext';
+import { PropertyDetails, Loader, Message } from '../components/minors';
+import { usePrediosContext } from '../context/PropertiesContext';
 
-function AsociarPredios() {
+function AssociateProperties() {
     const { foundPredios, loading, error, msgError } = usePrediosContext();
 
     return (
@@ -11,7 +11,7 @@ function AsociarPredios() {
             {loading && <Loader />}
             {(foundPredios.length === 0 && error) && <Message msg={msgError} bgColor="#dc3545" />}
             {foundPredios.map((predio) => (
-                <PredioDetails
+                <PropertyDetails
                     key={predio._id}
                     predio={predio}
                 />
@@ -20,4 +20,4 @@ function AsociarPredios() {
     )
 }
 
-export default AsociarPredios;
+export default AssociateProperties;

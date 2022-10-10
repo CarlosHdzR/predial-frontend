@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import { AutoScrollToTop } from './components/minors';
 import { AuthProvider } from './context/AuthContext';
-import { PrediosProvider } from './context/PrediosContext';
+import { PrediosProvider } from './context/PropertiesContext';
 import { UsersProvider } from './context/UsersContext';
 
 ReactDOM.render(

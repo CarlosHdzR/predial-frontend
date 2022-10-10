@@ -1,7 +1,7 @@
 export { default as FormUser } from './FormUser';
-export { default as FormPredio } from './FormPredio';
+export { default as FormProperty } from './FormProperty';
 export { default as FormChangePassword } from './FormChangePassword';
-export { default as FormConvenio } from './FormConvenio';
+export { default as FormAgreement } from './FormAgreement';
 export { default as FormSearch } from './FormSearch';
 export { inputUsersProps } from './consts';
 export { inputUsersRegisterProps } from './consts';

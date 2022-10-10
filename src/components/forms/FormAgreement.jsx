@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Input, InputSelect } from '../inputs';
-import { inputConvenioProps } from './';
+import { inputConvenioProps } from '.';
 import { toastValidate, swalAlert } from '../../tools';
 
 export const initialForm = {
@@ -10,7 +10,7 @@ export const initialForm = {
     payments_value: "",
 }
 
-function FormConvenio({ predio }) {
+function FormAgreement({ predio }) {
     const [form, setForm] = useState(initialForm);
 
     if (form.down_payment === "No") {
@@ -120,4 +120,4 @@ function FormConvenio({ predio }) {
     )
 };
 
-export default FormConvenio;
+export default FormAgreement;

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { usePrediosContext } from '../../context/PrediosContext';
+import { usePrediosContext } from '../../context/PropertiesContext';
 import { useUsersContext } from '../../context/UsersContext';
-import { PrediosServices, UsersServices } from '../../services';
+import { PropertiesServices, UsersServices } from '../../services';
 import { Tooltip } from '../minors';
 import { useAuthContext } from '../../context/AuthContext';
 
@@ -14,7 +14,7 @@ const TableRows = ({ data, nro_registro, item }) => {
         code, owner_name, owner_id_number, property_address // <== Predios
     } = data || {};
     const { deleteUser } = UsersServices();
-    const { deletePredio } = PrediosServices();
+    const { deletePredio } = PropertiesServices();
     const dataToHandle = item === "user" ? { _id, param: id_number } : { _id, param: code }
     const navigate = useNavigate();
 

@@ -4,7 +4,7 @@ import { toastLoading, toastUpdate, swalConfirm } from '../tools';
 import { config } from '../config';
 import { useUsersContext } from '../context/UsersContext';
 import { useAuthContext } from '../context/AuthContext';
-import { usePrediosContext } from '../context/PrediosContext';
+import { usePrediosContext } from '../context/PropertiesContext';
 
 const { URL } = config;
 const { CREATE, REGISTER, EDIT, DELETE, CHANGE_PASSWORD,

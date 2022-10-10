@@ -1,3 +1,3 @@
 export { useFormUser } from './useFormUser';
-export { useFormPredio } from './useFormPredio';
+export { useFormProperty } from './useFormProperty';
 export { useTable } from './useTable';

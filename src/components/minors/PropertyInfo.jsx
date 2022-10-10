@@ -1,4 +1,4 @@
-function PredioInfo({ predio }) {
+function PropertyInfo({ predio }) {
 
     const dataPredio = [
         {
@@ -75,4 +75,4 @@ function PredioInfo({ predio }) {
     )
 }
 
-export default PredioInfo;
+export default PropertyInfo;

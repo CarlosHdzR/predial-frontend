@@ -1,6 +1,6 @@
 import { Input, InputDate } from "../inputs";
-import { inputDateProps, inputPrediosProps } from "./";
-import { useFormPredio } from "../../hooks";
+import { inputDateProps, inputPrediosProps } from ".";
+import { useFormProperty } from "../../hooks";
 import { useParams } from "react-router-dom";
 
 export const initialForm = {
@@ -20,10 +20,10 @@ export const initialForm = {
     payment_date_3: "",
 };
 
-function FormPredio({ children }) {
+function FormProperty({ children }) {
     const { code } = useParams();
     const param = code;
-    const { form, reset, handleChange, handleSubmit } = useFormPredio({ initialForm, param });
+    const { form, reset, handleChange, handleSubmit } = useFormProperty({ initialForm, param });
 
     try {
         form.tax_value = Math.round((form.property_value.replace(/[$.]/g, '')) * 0.01) || "";
@@ -66,4 +66,4 @@ function FormPredio({ children }) {
     )
 }
 
-export default FormPredio;
+export default FormProperty;

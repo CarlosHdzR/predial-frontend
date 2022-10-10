@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { usePrediosContext } from "../context/PrediosContext";
+import { usePrediosContext } from "../context/PropertiesContext";
 import { useUsersContext } from "../context/UsersContext";
 import { useAuthContext } from "../context/AuthContext";
 

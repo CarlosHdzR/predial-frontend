@@ -1,7 +1,7 @@
 import { CardDashboard, CardChart, RecentActivity, Loader } from '../components/minors';
-import { UsersChart, PrediosChart } from '../components/charts';
+import { UsersChart, PropertiesChart } from '../components/charts';
 import { useUsersContext } from '../context/UsersContext';
-import { usePrediosContext } from '../context/PrediosContext';
+import { usePrediosContext } from '../context/PropertiesContext';
 import { useAuthContext } from '../context/AuthContext';
 
 function Dashboard() {
@@ -46,7 +46,7 @@ function Dashboard() {
                     </CardChart>
                 }
                 <CardChart label="Estadísticas | Predios">
-                    <PrediosChart
+                    <PropertiesChart
                         loader={loader}
                         prediosDb={prediosDb} />
                 </CardChart>

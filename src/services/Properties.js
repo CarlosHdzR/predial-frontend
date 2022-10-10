@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { toastLoading, toastUpdate, swalConfirm } from '../tools';
 import { config } from '../config';
 import { useUsersContext } from '../context/UsersContext';
-import { usePrediosContext } from '../context/PrediosContext';
+import { usePrediosContext } from '../context/PropertiesContext';
 
 const { URL } = config;
 const { CREATE, EDIT, DELETE } = config.PREDIOS_API;
 
-const Predios = () => {
+const Properties = () => {
     const {
         prediosDb, setPrediosDb,
         historial, setHistorial,
@@ -122,4 +122,4 @@ const Predios = () => {
     }
 }
 
-export default Predios;
+export default Properties;

@@ -1,9 +1,9 @@
-import { useFormPredio } from '../../hooks/useFormPredio';
+import { useFormProperty } from '../../hooks';
 
 export const initialForm = { datos: "" };
 
-function FormSearch({ title, text }) {
-    const { form, handleChange, handleSubmitSearch } = useFormPredio({ initialForm });
+function FormSearch() {
+    const { form, handleChange, handleSubmitSearch } = useFormProperty({ initialForm });
 
     return (
         <div className="card col-11 col-md-10 col-lg-8 col-xl-6 m-auto mb-4 p-2" id="rounded">
