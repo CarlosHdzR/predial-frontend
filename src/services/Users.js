@@ -4,15 +4,15 @@ import { toastLoading, toastUpdate, swalConfirm } from '../tools';
 import { config } from '../config';
 import { useUsersContext } from '../context/UsersContext';
 import { useAuthContext } from '../context/AuthContext';
-import { usePrediosContext } from '../context/PropertiesContext';
+import { usePropertiesContext } from '../context/PropertiesContext';
 
 const { URL } = config;
 const { CREATE, REGISTER, EDIT, DELETE, CHANGE_PASSWORD,
-    GET_RESET_LINK, RESET_PASSWORD, ASSOCIATE_PREDIOS } = config.USERS_API;
+    GET_RESET_LINK, RESET_PASSWORD, ASSOCIATE_PROPERTIES } = config.USERS_API;
 
 const Users = () => {
     const { usersDb, setUsersDb } = useUsersContext();
-    const { foundPredios, setFoundPredios } = usePrediosContext();
+    const { foundProperties, setFoundProperties } = usePropertiesContext();
     const { payload, logout } = useAuthContext();
     const token = localStorage.getItem("token");
     let api = http();
@@ -205,9 +205,9 @@ const Users = () => {
     }
 
     // ********** Asociar predios **********
-    const associatePredio = async (user_id, propertyId) => {
+    const associateProperty = async (userId, propertyId) => {
         const property = { property_id: propertyId }
-        let endpoint = `${URL}${ASSOCIATE_PREDIOS}${user_id}`;
+        let endpoint = `${URL}${ASSOCIATE_PROPERTIES}${userId}`;
         let options = {
             body: JSON.stringify(property),
             headers: { "content-type": "application/json" }
@@ -220,8 +220,8 @@ const Users = () => {
                 { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
         } else {
             if (res.status === "ok") {
-                const newData = foundPredios.map((predio) => predio._id === res.associatedProperty._id ? res.associatedProperty : predio)
-                setFoundPredios(newData);
+                const newData = foundProperties.map((property) => property._id === res.associatedProperty._id ? res.associatedProperty : property)
+                setFoundProperties(newData);
                 toastUpdate(loading, { msg: res.msg, type: "success" })
             } else {
                 toastUpdate(loading, { msg: res.msg, type: "error" })
@@ -237,7 +237,7 @@ const Users = () => {
         changePassword,
         getResetLink,
         resetPassword,
-        associatePredio
+        associateProperty
     }
 }
 

@@ -1,19 +1,19 @@
 import { FormSearch } from '../components/forms';
 import { PropertyDetails, Loader, Message } from '../components/minors';
-import { usePrediosContext } from '../context/PropertiesContext';
+import { usePropertiesContext } from '../context/PropertiesContext';
 
 function AssociateProperties() {
-    const { foundPredios, loading, error, msgError } = usePrediosContext();
+    const { foundProperties, loading, error, msgError } = usePropertiesContext();
 
     return (
         <>
             <FormSearch />
             {loading && <Loader />}
-            {(foundPredios.length === 0 && error) && <Message msg={msgError} bgColor="#dc3545" />}
-            {foundPredios.map((predio) => (
+            {(foundProperties.length === 0 && error) && <Message msg={msgError} bgColor="#dc3545" />}
+            {foundProperties.map((property) => (
                 <PropertyDetails
-                    key={predio._id}
-                    predio={predio}
+                    key={property._id}
+                    property={property}
                 />
             ))}
         </>

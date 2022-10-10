@@ -10,16 +10,16 @@ export const config = {
         CHANGE_PASSWORD: "users/change-password",
         GET_RESET_LINK: "users/get-reset-link",
         RESET_PASSWORD: "users/reset-password",
-        ASSOCIATE_PREDIOS: "users/associate-property/"
+        ASSOCIATE_PROPERTIES: "users/associate-property/"
     },
-    PREDIOS_API: {
-        LIST_PREDIOS: "properties/list",
+    PROPERTIES_API: {
+        LIST_PROPERTIES: "properties/list",
         HISTORIAL: "properties/historial",
         CREATE: "properties/create",
         EDIT: "properties/edit/",
         DELETE: "properties/delete/",
         FIND: "properties/find/",
-        LIST_ASSOCIATED_PREDIOS: "properties/list-associated-properties/"
+        LIST_ASSOCIATED_PROPERTIES: "properties/list-associated-properties/"
     },
     ASSETS: {
         LOGO_ESCUDO: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/logo-escudo_kegz1y.png",

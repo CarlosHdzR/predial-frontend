@@ -3,26 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { toastLoading, toastUpdate, swalConfirm } from '../tools';
 import { config } from '../config';
 import { useUsersContext } from '../context/UsersContext';
-import { usePrediosContext } from '../context/PropertiesContext';
+import { usePropertiesContext } from '../context/PropertiesContext';
 
 const { URL } = config;
-const { CREATE, EDIT, DELETE } = config.PREDIOS_API;
+const { CREATE, EDIT, DELETE } = config.PROPERTIES_API;
 
 const Properties = () => {
     const {
-        prediosDb, setPrediosDb,
+        propertiesDb, setPropertiesDb,
         historial, setHistorial,
-    } = usePrediosContext();
+    } = usePropertiesContext();
     const { usersDb, setUsersDb } = useUsersContext();
     let api = http();
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
-    // ********** Crear Predio **********
-    const createPredio = async (predio) => {
+    // ********** Crear predio **********
+    const createProperty = async (property) => {
         let endpoint = URL + CREATE
         let options = {
-            body: JSON.stringify(predio),
+            body: JSON.stringify(property),
             headers: {
                 "content-type": "application/json",
                 "authorization": `Bearer ${token}`
@@ -36,7 +36,7 @@ const Properties = () => {
                 { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
         } else {
             if (res.property) {
-                setPrediosDb([...prediosDb, res.property])
+                setPropertiesDb([...propertiesDb, res.property])
                 toastUpdate(loading, { msg: res.msg, type: "success" })
                 let newData = usersDb.map((e) => (e._id === res.user._id ? res.user : e))
                 setUsersDb(newData)
@@ -47,14 +47,14 @@ const Properties = () => {
         }
     };
 
-    // ********** Editar Predio **********
-    const updatePredio = async (predio, _id) => {
-        let vrPredio = predio.property_value.replace(/[$.]/g, '')
-        let vrPredial = vrPredio * 0.01
-        predio.tax_value = Math.round(vrPredial)
+    // ********** Editar predio **********
+    const updateProperty = async (property, _id) => {
+        let propertyValue = property.value.replace(/[$.]/g, '')
+        let taxValue = propertyValue * 0.01
+        property.tax_value = Math.round(taxValue)
         let endpoint = URL + EDIT + _id
         let options = {
-            body: JSON.stringify(predio),
+            body: JSON.stringify(property),
             headers: {
                 "content-type": "application/json",
                 "authorization": `Bearer ${token}`
@@ -68,7 +68,7 @@ const Properties = () => {
                 { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
         } else {
             if (res.status === "ok") {
-                setPrediosDb(res.properties);
+                setPropertiesDb(res.properties);
                 setUsersDb(res.users);
                 setHistorial([...historial, res.historial])
                 toastUpdate(loading, { msg: res.msg, type: "success" })
@@ -80,9 +80,9 @@ const Properties = () => {
     };
 
     // ********** Eliminar Predio **********
-    const deletePredio = (predio) => {
-        let code = predio.param
-        let _id = predio._id
+    const deleteProperty = (property) => {
+        let code = property.param
+        let _id = property._id
         swalConfirm({
             msg: `¿Estás seguro que quieres eliminar el predio con id <b>${code}</b>?`,
             icon: 'warning'
@@ -102,7 +102,7 @@ const Properties = () => {
                             { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
                     } else {
                         if (res.status === "ok") {
-                            setPrediosDb(prediosDb.filter((e) => e._id !== _id))
+                            setPropertiesDb(propertiesDb.filter((e) => e._id !== _id))
                             setUsersDb(usersDb.map((e) => (e._id === res.user._id ? res.user : e)))
                             setHistorial([...historial, res.historial])
                             toastUpdate(loading, { msg: res.msg, type: "success" })
@@ -116,9 +116,9 @@ const Properties = () => {
     };
 
     return {
-        createPredio,
-        updatePredio,
-        deletePredio,
+        createProperty,
+        updateProperty,
+        deleteProperty,
     }
 }
 

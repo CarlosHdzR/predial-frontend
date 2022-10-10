@@ -22,10 +22,10 @@ function Container({ children }) {
         (pathname.includes("pagar") && "Pagar Impuesto Predial")
 
     const isManageUsers = title === "Editar Usuario" || title === "Perfil de Usuario";
-    const isManagePredios = title === "Editar Predio";
-    let subtitle = isManageUsers ? "Gestionar Usuarios" : isManagePredios && "Gestionar Predios";
-    let path = isManageUsers ? "/admin/manage-users" : isManagePredios ? "/admin/manage-predios" : "";
-    let sep = (isManageUsers || isManagePredios) && "|";
+    const isManageProperties = title === "Editar Predio";
+    let subtitle = isManageUsers ? "Gestionar Usuarios" : isManageProperties && "Gestionar Predios";
+    let path = isManageUsers ? "/admin/manage-users" : isManageProperties ? "/admin/manage-predios" : "";
+    let sep = (isManageUsers || isManageProperties) && "|";
     let errorMessage = (auth && title !== "Crear Usuario" && title !== "Crear Predio"
         && title !== "Editar Usuario" && title !== "Editar Predio" && title !== "Asociar Predios"
         && title !== "Pagar Impuesto Predial" && !pathname.includes("home") && error)

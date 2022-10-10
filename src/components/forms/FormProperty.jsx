@@ -1,5 +1,5 @@
 import { Input, InputDate } from "../inputs";
-import { inputDateProps, inputPrediosProps } from ".";
+import { inputDateProps, inputPropertiesProps } from "./consts";
 import { useFormProperty } from "../../hooks";
 import { useParams } from "react-router-dom";
 
@@ -11,9 +11,9 @@ export const initialForm = {
     owner_email: "",
     built_area: "",
     total_area: "",
-    property_value: "",
+    value: "",
     tax_value: "",
-    property_address: "",
+    address: "",
     neighborhood: "",
     payment_date_1: "",
     payment_date_2: "",
@@ -26,14 +26,14 @@ function FormProperty({ children }) {
     const { form, reset, handleChange, handleSubmit } = useFormProperty({ initialForm, param });
 
     try {
-        form.tax_value = Math.round((form.property_value.replace(/[$.]/g, '')) * 0.01) || "";
+        form.tax_value = Math.round((form.value.replace(/[$.]/g, '')) * 0.01) || "";
     } catch (error) {
         console.log(error.message);
     }
 
     return (
         <form className="row g-3" onSubmit={handleSubmit} noValidate>
-            {inputPrediosProps.map((input) => (
+            {inputPropertiesProps.map((input) => (
                 <div key={input.id} className={input.className}>
                     <Input
                         key={input.id}

@@ -20,7 +20,7 @@ function TableTop({ itemsPerPage, handleInputChange, label, item }) {
                     <option value="20">20</option>
                     <option value={usersDb.length}>Todos</option>
                 </select>
-                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{label[1]} por página</label>
+                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{label+"s"} por página</label>
             </div>
             <div className="col-7 col-md-5 col-lg-4">
                 <Tooltip id="toolTipFilter" place="left">
@@ -28,12 +28,12 @@ function TableTop({ itemsPerPage, handleInputChange, label, item }) {
                 </Tooltip>
                 <input
                     data-tip
-                    data-for={(payload.role === 1 && label[0] === "Usuario") && "toolTipFilter"}
+                    data-for={(payload.role === 1 && label === "Usuario") && "toolTipFilter"}
                     className="col-12 col-sm-7 col-md-7 col-lg-8 dataTable-input"
                     placeholder="Filtrar..." type="text" value={filter}
                     onChange={handleFilter}
                 />
-                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{range()} {range() === 1 ? label[0] : label[1]}</label>
+                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{range()} {range() === 1 ? label : label+"s"}</label>
             </div>
         </div>
     )

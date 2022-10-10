@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { usePrediosContext } from '../../context/PropertiesContext';
+import { usePropertiesContext } from '../../context/PropertiesContext';
 import { useUsersContext } from '../../context/UsersContext';
 import { PropertiesServices, UsersServices } from '../../services';
 import { Tooltip } from '../minors';
@@ -8,13 +8,13 @@ import { useAuthContext } from '../../context/AuthContext';
 const TableRows = ({ data, nro_registro, item }) => {
     const { setUserToEdit } = useUsersContext();
     const { payload } = useAuthContext();
-    const { setPredioToEdit } = usePrediosContext();
+    const { setPropertyToEdit } = usePropertiesContext();
     let { _id,
         name, surname, id_number, email, role, // <== Users
-        code, owner_name, owner_id_number, property_address // <== Predios
+        code, owner_name, owner_id_number, address // <== Properties
     } = data || {};
     const { deleteUser } = UsersServices();
-    const { deletePredio } = PropertiesServices();
+    const { deleteProperty } = PropertiesServices();
     const dataToHandle = item === "user" ? { _id, param: id_number } : { _id, param: code }
     const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const TableRows = ({ data, nro_registro, item }) => {
         ?
         [`${name} ${surname}`, id_number, email, role]
         :
-        [code, owner_name, owner_id_number, property_address];
+        [code, owner_name, owner_id_number, address];
 
     const cells = [
         {
@@ -52,7 +52,7 @@ const TableRows = ({ data, nro_registro, item }) => {
                 navigate(`profile/${dataToHandle.param}`);
             }
         } else {
-            setPredioToEdit(data);
+            setPropertyToEdit(data);
             navigate(`edit/${dataToHandle.param}`);
         }
     }
@@ -61,7 +61,7 @@ const TableRows = ({ data, nro_registro, item }) => {
         if (item === "user") {
             deleteUser(dataToHandle);
         } else {
-            deletePredio(dataToHandle);
+            deleteProperty(dataToHandle);
         }
     }
 

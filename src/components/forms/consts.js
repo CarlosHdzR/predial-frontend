@@ -185,7 +185,7 @@ export const inputUsersRegisterProps = [
     },
 ];
 
-export const inputPrediosProps = [
+export const inputPropertiesProps = [
     {
         id: "IdCode",
         name: "code",
@@ -256,8 +256,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdProperty_value",
-        name: "property_value",
+        id: "IdValue",
+        name: "value",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-dollar-sign",
@@ -280,8 +280,8 @@ export const inputPrediosProps = [
         required: true,
     },
     {
-        id: "IdProperty_address",
-        name: "property_address",
+        id: "IdAddress",
+        name: "address",
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-location-dot",
@@ -333,7 +333,7 @@ export const inputDateProps = [
     },
 ]
 
-export const inputConvenioProps = [
+export const inputAgreementProps = [
     {
         id: "IdDown_payment",
         name: "down_payment",

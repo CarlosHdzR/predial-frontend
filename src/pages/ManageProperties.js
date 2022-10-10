@@ -8,7 +8,7 @@ function ManageProperties() {
         handleInputChange,
         pageCount,
         changePage,
-    } = useTable("predio");
+    } = useTable("property");
 
     const firstItemShowedPerPage = pageNumber * itemsPerPage.select;
     const lastItemShowedPerPage = firstItemShowedPerPage + itemsPerPage.select;
@@ -21,13 +21,13 @@ function ManageProperties() {
                     <TableTop
                         itemsPerPage={itemsPerPage}
                         handleInputChange={handleInputChange}
-                        label={["Predio", "Predios"]}
-                        item="predio"
+                        label="Predio"
+                        item="property"
                     />
                     <Table
                         firstItemShowedPerPage={firstItemShowedPerPage}
                         lastItemShowedPerPage={lastItemShowedPerPage}
-                        item="predio"
+                        item="property"
                     />
                     <TableBottom
                         pageNumber={pageNumber}
@@ -35,7 +35,7 @@ function ManageProperties() {
                         lastItemShowedPerPage={lastItemShowedPerPage}
                         pageCount={pageCount}
                         changePage={changePage}
-                        item="predio"
+                        item="property"
                     />
                 </div>
             </div>

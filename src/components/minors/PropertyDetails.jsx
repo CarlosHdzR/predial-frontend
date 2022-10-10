@@ -6,33 +6,33 @@ import { useLocation } from 'react-router-dom';
 import Modal from './Modal';
 import { FormAgreement } from '../forms';
 
-function PropertyDetails({ predio }) {
+function PropertyDetails({ property }) {
     const { payload } = useAuthContext();
-    const { associatePredio } = UsersServices();
+    const { associateProperty } = UsersServices();
     const { pathname } = useLocation();
-    if (!predio) return null;
+    if (!property) return null;
 
     const handleAssociate = () => {
-        associatePredio(payload._id, predio._id)
+        associateProperty(payload._id, property._id)
     }
 
     const showMsg = () => {
         swalAlert({
             msg: `<b>El pago correspondiente al predio con código <br/>
-                <span class="text-danger">${predio.code}</span>, por un valor 
-                de <span class="text-danger">$${predio.tax_value}</span> 
+                <span class="text-danger">${property.code}</span>, por un valor 
+                de <span class="text-danger">$${property.tax_value}</span> 
                 fue procesado exitosamente!!!</b>`,
             icon: 'success'
         })
     }
 
-    let isAssociated = predio?.owner === payload._id;
+    let isAssociated = property?.owner === payload._id;
 
     return (
         <div className="card">
             <div className="card-body">
                 <h5 className="card-title">Detalles del Predio</h5>
-                <PropertyInfo predio={predio} />
+                <PropertyInfo property={property} />
                 {pathname.includes("asociar-predios")
                     ?
                     <div className="vh-center">
@@ -55,7 +55,7 @@ function PropertyDetails({ predio }) {
                                 className="my-btn-success m-auto"
                                 onClick={showMsg}
                             >
-                                Pagar ${predio.tax_value}
+                                Pagar ${property.tax_value}
                             </button>
                         </div>
                         <div className="col-6 vh-center mt-4 mb-2">
@@ -67,7 +67,7 @@ function PropertyDetails({ predio }) {
                                 Solicitar convenio
                             </button>
                             <Modal>
-                                <FormAgreement predio={predio} />
+                                <FormAgreement property={property} />
                             </Modal>
                         </div>
                     </div>

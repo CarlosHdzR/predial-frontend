@@ -21,7 +21,7 @@ function ManageUsers() {
                     <TableTop
                         itemsPerPage={itemsPerPage}
                         handleInputChange={handleInputChange}
-                        label={["Usuario", "Usuarios"]}
+                        label="Usuario"
                         item="user"
                     />
                     <Table

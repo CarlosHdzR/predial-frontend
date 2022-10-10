@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Input, InputSelect } from '../inputs';
-import { inputConvenioProps } from '.';
+import { inputAgreementProps } from './consts';
 import { toastValidate, swalAlert } from '../../tools';
 
 export const initialForm = {
@@ -10,7 +10,7 @@ export const initialForm = {
     payments_value: "",
 }
 
-function FormAgreement({ predio }) {
+function FormAgreement({ property }) {
     const [form, setForm] = useState(initialForm);
 
     if (form.down_payment === "No") {
@@ -18,7 +18,7 @@ function FormAgreement({ predio }) {
     }
 
     if (form.number_of_payments !== "Seleccionar") {
-        form.payments_value = Math.ceil((predio.tax_value - form.down_payment_value.replace(/[$.]/g, '')) / form.number_of_payments)
+        form.payments_value = Math.ceil((property.tax_value - form.down_payment_value.replace(/[$.]/g, '')) / form.number_of_payments)
     }
 
     const handleChange = (e) => {
@@ -49,26 +49,26 @@ function FormAgreement({ predio }) {
         setForm(initialForm)
     }
 
-    const dataPredio = [
+    const dataProperty = [
         {
             id: 1,
             label: "Código del Predio",
-            data: predio.code
+            data: property.code
         },
         {
             id: 2,
             label: "Propietario",
-            data: predio.owner_name
+            data: property.owner_name
         },
         {
             id: 3,
             label: "Valor del Predio",
-            data: predio.property_value
+            data: property.value
         },
         {
             id: 4,
             label: "Valor a pagar",
-            data: predio.tax_value
+            data: property.tax_value
         }
     ]
 
@@ -76,7 +76,7 @@ function FormAgreement({ predio }) {
         <>
             <div className="row text-center">
                 <h5 className="card-title">Solicitar Convenio de Pago</h5>
-                {dataPredio.map((item) => (
+                {dataProperty.map((item) => (
                     <div key={item.id} className="col-6 pb-3">
                         <div className="blue-label">
                             {item.label}:
@@ -88,7 +88,7 @@ function FormAgreement({ predio }) {
                 ))}
             </div>
             <form className="row g-3 mt-1" noValidate>
-                {inputConvenioProps.map((input) => (
+                {inputAgreementProps.map((input) => (
                     input.type === "select" ?
                         <InputSelect
                             key={input.id}

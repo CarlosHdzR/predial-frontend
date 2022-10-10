@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { usePrediosContext } from '../context/PropertiesContext';
+import { usePropertiesContext } from '../context/PropertiesContext';
 import { PropertiesServices } from '../services';
 import { toastValidate } from '../tools';
 import { validateProperty } from '../validations';
@@ -7,23 +7,23 @@ import { validateProperty } from '../validations';
 export const useFormProperty = ({ initialForm, param }) => {
     const [form, setForm] = useState(initialForm);
     const [reset, setReset] = useState(false);
-    const { prediosDb, predioToEdit, setPredioToEdit, setSearchPredios } = usePrediosContext();
-    const { createPredio, updatePredio } = PropertiesServices();
+    const { propertiesDb, propertyToEdit, setPropertyToEdit, setSearchProperties } = usePropertiesContext();
+    const { createProperty, updateProperty } = PropertiesServices();
 
     useEffect(() => {
         try {
             if (param) { // Validar si va a crear o editar
-                setForm(predioToEdit._id && predioToEdit);
+                setForm(propertyToEdit._id && propertyToEdit);
             } else {
                 setForm(initialForm);
             }
         } catch (error) {
             setForm(initialForm);
         }
-    }, [param, predioToEdit, initialForm]);
+    }, [param, propertyToEdit, initialForm]);
 
     const calculatePredial = () => {
-        const predial = Math.round((form.property_value.replace(/[$.]/g, '')) * 0.01) || "";
+        const predial = Math.round((form.value.replace(/[$.]/g, '')) * 0.01) || "";
         return predial;
     }
 
@@ -37,20 +37,20 @@ export const useFormProperty = ({ initialForm, param }) => {
 
     const handleReset = () => {
         setForm(initialForm);
-        setPredioToEdit(null);
+        setPropertyToEdit(null);
         setReset(!reset);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (validateProperty({ form, prediosDb, predioToEdit })) {
+        if (validateProperty({ form, propertiesDb, propertyToEdit })) {
             if (form._id === null) {
                 form._id = undefined
-                createPredio(form);
+                createProperty(form);
                 handleReset();
             } else {
-                let _id = predioToEdit._id
-                updatePredio(form, _id);
+                let _id = propertyToEdit._id
+                updateProperty(form, _id);
             }
         }
     };
@@ -61,7 +61,7 @@ export const useFormProperty = ({ initialForm, param }) => {
             toastValidate({ msg: "Por favor, ingrese los datos solicitados!!!", position: "bottom-center" });
             return;
         }
-        setSearchPredios(form);
+        setSearchProperties(form);
         setForm({ datos: "" });
     };
 

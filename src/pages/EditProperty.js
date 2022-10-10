@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProperty } from "../components/forms"
-import { usePrediosContext } from "../context/PropertiesContext";
+import { usePropertiesContext } from "../context/PropertiesContext";
 
 function EditProperty() {
-    const { predioToEdit } = usePrediosContext();
+    const { propertyToEdit } = usePropertiesContext();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!predioToEdit) {
+        if (!propertyToEdit) {
             navigate("/admin/manage-predios");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [predioToEdit])
+    }, [propertyToEdit])
 
     return (
         <>

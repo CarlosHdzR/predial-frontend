@@ -1,8 +1,8 @@
 import { Loader, Message, PropertyDetails } from '../components/minors';
-import { usePrediosContext } from '../context/PropertiesContext';
+import { usePropertiesContext } from '../context/PropertiesContext';
 
 function MyProperties() {
-    const { associatedPredios, loading, error, msgError } = usePrediosContext();
+    const { associatedProperties, loading, error, msgError } = usePropertiesContext();
 
     if (loading) return <Loader />;
     if (error) return <Message msg={msgError} bgColor="#dc3545" />;
@@ -10,11 +10,11 @@ function MyProperties() {
     return (
         <>
             {
-                associatedPredios.length > 0
+                associatedProperties.length > 0
                     ?
                     <>
-                        {associatedPredios.map((predio) => (
-                            <PropertyDetails key={predio._id} predio={predio} />
+                        {associatedProperties.map((property) => (
+                            <PropertyDetails key={property._id} property={property} />
                         ))}
                     </>
                     :

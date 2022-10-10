@@ -7,12 +7,12 @@ export const usersHeadersProps = [
     { name: "" },
 ];
 
-export const prediosHeadersProps = [
+export const propertiesHeadersProps = [
     { name: "#", field: "index", sortable: false },
     { name: "Código", field: "code", sortable: true, className: "pointer", dataFor: "toolTipSort" },
     { name: "Nombre Propietario", field: "owner_name", sortable: true, className: "pointer", dataFor: "toolTipSort" },
     { name: "Doc. Propietario", field: "owner_id_number", sortable: false, className: "d-none d-sm-table-cell" },
-    { name: "Dirección", field: "property_address", sortable: false, className: "d-none d-sm-table-cell" },
+    { name: "Dirección", field: "address", sortable: false, className: "d-none d-sm-table-cell" },
     { name: "" },
 ];
 

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { usePrediosContext } from "../context/PropertiesContext";
+import { usePropertiesContext } from "../context/PropertiesContext";
 import { useUsersContext } from "../context/UsersContext";
 import { useAuthContext } from "../context/AuthContext";
 
 export const useTable = (item) => {
     const { usersDb } = useUsersContext();
     const { payload } = useAuthContext();
-    const { prediosDb } = usePrediosContext();
+    const { propertiesDb } = usePropertiesContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const filter = searchParams.get("filter") ?? "";
     const [pageNumber, setPageNumber] = useState(0);
@@ -18,7 +18,7 @@ export const useTable = (item) => {
         usersDb.filter((user) => user.role !== 1) :
         usersDb.filter((user) => user.role === 3);
 
-    let db = item === "user" ? users : prediosDb;
+    let db = item === "user" ? users : propertiesDb;
 
     if (sorting.field) {
         const reversed = sorting.order === "asc" ? 1 : -1;
@@ -45,7 +45,7 @@ export const useTable = (item) => {
             return element.code.toLowerCase().includes(filter.toLowerCase()) ||
                 element.owner_name.toLowerCase().includes(filter.toLowerCase()) ||
                 element.owner_id_number.toString().includes(filter.toLowerCase()) ||
-                element.property_address.toLowerCase().includes(filter.toLowerCase())
+                element.address.toLowerCase().includes(filter.toLowerCase())
         }
     })
 

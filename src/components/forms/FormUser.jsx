@@ -1,5 +1,5 @@
 import { Input, InputFile, InputSelect } from '../inputs';
-import { inputUsersProps, inputUsersRegisterProps } from './';
+import { inputUsersProps, inputUsersRegisterProps } from './consts';
 import { useFormUser } from '../../hooks';
 import { useLocation, useParams } from 'react-router-dom';
 

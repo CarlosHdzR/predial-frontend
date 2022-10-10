@@ -7,34 +7,34 @@ import { useAuthContext } from "./AuthContext";
 const PropertiesContext = createContext();
 
 const { URL } = config;
-const { LIST_PREDIOS, HISTORIAL, FIND, LIST_ASSOCIATED_PREDIOS } = config.PREDIOS_API;
+const { LIST_PROPERTIES, HISTORIAL, FIND, LIST_ASSOCIATED_PROPERTIES } = config.PROPERTIES_API;
 
-const PrediosProvider = ({ children }) => {
-    const [prediosDb, setPrediosDb] = useState([]);
-    const [predioToEdit, setPredioToEdit] = useState(null);
+const PropertiesProvider = ({ children }) => {
+    const [propertiesDb, setPropertiesDb] = useState([]);
+    const [propertyToEdit, setPropertyToEdit] = useState(null);
     const [historial, setHistorial] = useState([]);
-    const [searchPredios, setSearchPredios] = useState(null);
-    const [foundPredios, setFoundPredios] = useState([]);
-    const [associatedPredios, setAssociatedPredios] = useState([])
+    const [searchProperties, setSearchProperties] = useState(null);
+    const [foundProperties, setFoundProperties] = useState([]);
+    const [associatedProperties, setAssociatedProperties] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [msgError, setMsgError] = useState(null);
     const api = http();
     const { payload, auth } = useAuthContext();
 
-    const fetchPredios = async () => {
-        await api.get(URL + LIST_PREDIOS)
+    const fetchProperties = async () => {
+        await api.get(URL + LIST_PROPERTIES)
             .then((res) => {
                 if (!res.error) {
                     setError(null);
                     if (res.properties) {
-                        setPrediosDb(res.properties);
+                        setPropertiesDb(res.properties);
                     } else {
                         setError(true);
                         setMsgError("Error, no hay conexión con el servidor!!!");
                     }
                 } else {
-                    setPrediosDb(null);
+                    setPropertiesDb(null);
                 }
                 setLoading(false);
             });
@@ -60,22 +60,21 @@ const PrediosProvider = ({ children }) => {
 
     useEffect(() => {
         setLoading(true);
-        fetchPredios();
+        fetchProperties();
         fetchHistorial();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Buscar predios por documento del propietario
-    const findPredios = async () => {
+    const findProperties = async () => {
         setLoading(true);
-        const { datos } = searchPredios;
-        let predioUrl = URL + FIND + datos;
-        const res = await api.get(predioUrl);
+        const { datos } = searchProperties;
+        const res = await api.get(URL + FIND + datos);
         if (res.status) {
             const { foundProperties } = res;
             setError(null);
             if (foundProperties) {
-                setFoundPredios(foundProperties);
+                setFoundProperties(foundProperties);
             } else {
                 toastValidate({
                     msg: () =>
@@ -93,20 +92,20 @@ const PrediosProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        if (searchPredios === null) return;
-        findPredios();
+        if (searchProperties === null) return;
+        findProperties();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchPredios]);
+    }, [searchProperties]);
 
     // Listar predios asociados de un usuario
-    const fetchAssociatedPredios = async () => {
+    const fetchAssociatedProperties = async () => {
         setLoading(true);
         const user_id = payload._id;
-        const res = await api.get(`${URL}${LIST_ASSOCIATED_PREDIOS}${user_id}`);
+        const res = await api.get(URL + LIST_ASSOCIATED_PROPERTIES + user_id);
         if (res.status) {
             setError(null);
             if (res.associatedProperties) {
-                setAssociatedPredios(res.associatedProperties);
+                setAssociatedProperties(res.associatedProperties);
             }
         } else {
             setError(true);
@@ -117,22 +116,22 @@ const PrediosProvider = ({ children }) => {
 
     useEffect(() => {
         if (!payload) return;
-        fetchAssociatedPredios();
+        fetchAssociatedProperties();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [foundPredios]);
+    }, [foundProperties]);
 
     // Limpiar busqueda
     useEffect(() => {
-        setFoundPredios([]);
+        setFoundProperties([]);
     }, [auth])
 
     const data = {
-        prediosDb, setPrediosDb,
-        predioToEdit, setPredioToEdit,
+        propertiesDb, setPropertiesDb,
+        propertyToEdit, setPropertyToEdit,
         historial, setHistorial,
-        searchPredios, setSearchPredios,
-        foundPredios, setFoundPredios,
-        associatedPredios, setAssociatedPredios,
+        searchProperties, setSearchProperties,
+        foundProperties, setFoundProperties,
+        associatedProperties, setAssociatedProperties,
         loading, setLoading,
         error, setError,
         msgError, setMsgError
@@ -145,5 +144,5 @@ const PrediosProvider = ({ children }) => {
     )
 }
 
-export const usePrediosContext = () => useContext(PropertiesContext);
-export { PrediosProvider };
+export const usePropertiesContext = () => useContext(PropertiesContext);
+export { PropertiesProvider };

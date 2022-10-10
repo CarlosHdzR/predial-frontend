@@ -13,11 +13,11 @@ const options = {
     },
 };
 
-function PropertiesChart({ loader, prediosDb }) {
-    const men100 = prediosDb.filter((predio) => predio.property_value.replace(/[$.]/g, '') < 100000000);
-    const may100men200 = prediosDb.filter((predio) => predio.property_value.replace(/[$.]/g, '') >= 100000000
-                                                    && predio.property_value.replace(/[$.]/g, '') <= 200000000);
-    const may200 = prediosDb.filter((predio) => predio.property_value.replace(/[$.]/g, '') > 200000000);
+function PropertiesChart({ loader, propertiesDb }) {
+    const men100 = propertiesDb.filter((property) => property.value.replace(/[$.]/g, '') < 100000000);
+    const may100men200 = propertiesDb.filter((property) => property.value.replace(/[$.]/g, '') >= 100000000
+                                                    && property.value.replace(/[$.]/g, '') <= 200000000);
+    const may200 = propertiesDb.filter((property) => property.value.replace(/[$.]/g, '') > 200000000);
 
     const data = {
         labels: [' Menor a $100M', ' Entre $100M y $200M', ' Mayor a $200M'],
@@ -33,9 +33,9 @@ function PropertiesChart({ loader, prediosDb }) {
         ],
     };
 
-    const aMen100 = prediosDb.filter((predio) => predio.total_area < 100)
-    const aMay100Men150 = prediosDb.filter((predio) => predio.total_area >= 100 && predio.total_area <= 150)
-    const may150 = prediosDb.filter((predio) => predio.total_area > 150)
+    const aMen100 = propertiesDb.filter((property) => property.total_area < 100)
+    const aMay100Men150 = propertiesDb.filter((property) => property.total_area >= 100 && property.total_area <= 150)
+    const may150 = propertiesDb.filter((property) => property.total_area > 150)
 
     const data2 = {
         labels: [' Menos de 100m² ', ' Entre 100m² y 150m² ', ' Más de 150m² '],
@@ -53,7 +53,7 @@ function PropertiesChart({ loader, prediosDb }) {
 
     return (
         <div className="App">
-            {prediosDb.length > 0 ?
+            {propertiesDb.length > 0 ?
                 <div className="row">
                     <div className="col-6">
                         <div className="text-center">

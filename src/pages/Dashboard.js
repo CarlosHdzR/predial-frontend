@@ -1,16 +1,16 @@
 import { CardDashboard, CardChart, RecentActivity, Loader } from '../components/minors';
 import { UsersChart, PropertiesChart } from '../components/charts';
 import { useUsersContext } from '../context/UsersContext';
-import { usePrediosContext } from '../context/PropertiesContext';
+import { usePropertiesContext } from '../context/PropertiesContext';
 import { useAuthContext } from '../context/AuthContext';
 
 function Dashboard() {
     const { usersDb, loading } = useUsersContext();
     const { payload } = useAuthContext();
-    const { prediosDb, historial } = usePrediosContext();
+    const { propertiesDb, historial } = usePropertiesContext();
 
     const countUsers = (role) => usersDb?.filter((e) => (e.role === role)).length;
-    const countPredios = prediosDb?.length;
+    const countProperties = propertiesDb?.length;
     const activity = historial?.filter((e) => e.author !== "Administrador" && e);
     const sliceAt = payload?.role === 1 ? -12 : -5;
 
@@ -32,7 +32,7 @@ function Dashboard() {
                     />
                     <CardDashboard
                         label="Predios"
-                        data={countPredios}
+                        data={countProperties}
                     />
                 </div>
             </div>
@@ -48,7 +48,7 @@ function Dashboard() {
                 <CardChart label="Estadísticas | Predios">
                     <PropertiesChart
                         loader={loader}
-                        prediosDb={prediosDb} />
+                        propertiesDb={propertiesDb} />
                 </CardChart>
             </div>
             {/* <!-- Actividad Reciente --> */}

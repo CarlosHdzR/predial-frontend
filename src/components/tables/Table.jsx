@@ -1,5 +1,5 @@
 import { TableHeaders, TableRows } from './';
-import { prediosHeadersProps, usersHeadersProps } from './';
+import { propertiesHeadersProps, usersHeadersProps } from './props';
 import { Loader, Tooltip } from '../minors';
 import { useUsersContext } from '../../context/UsersContext';
 import { useTable } from '../../hooks';
@@ -7,7 +7,7 @@ import { useTable } from '../../hooks';
 function Table({ firstItemShowedPerPage, lastItemShowedPerPage, item }) {
     const { usersDb, loading } = useUsersContext();
     const { filterItems, setSorting } = useTable(item);
-    const headerProps = item === "user" ? usersHeadersProps : prediosHeadersProps;
+    const headerProps = item === "user" ? usersHeadersProps : propertiesHeadersProps;
     let loader = loading && <Loader />;
 
     return (
