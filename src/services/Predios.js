@@ -35,8 +35,8 @@ const Predios = () => {
                 loading,
                 { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
         } else {
-            if (res.predio) {
-                setPrediosDb([...prediosDb, res.predio])
+            if (res.property) {
+                setPrediosDb([...prediosDb, res.property])
                 toastUpdate(loading, { msg: res.msg, type: "success" })
                 let newData = usersDb.map((e) => (e._id === res.user._id ? res.user : e))
                 setUsersDb(newData)
@@ -68,7 +68,7 @@ const Predios = () => {
                 { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
         } else {
             if (res.status === "ok") {
-                setPrediosDb(res.predios);
+                setPrediosDb(res.properties);
                 setUsersDb(res.users);
                 setHistorial([...historial, res.historial])
                 toastUpdate(loading, { msg: res.msg, type: "success" })

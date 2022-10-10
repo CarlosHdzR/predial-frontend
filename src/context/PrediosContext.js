@@ -18,7 +18,6 @@ const PrediosProvider = ({ children }) => {
     const [associatedPredios, setAssociatedPredios] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [errorFindingPredios, setErrorFindingPredios] = useState(null)
     const [msgError, setMsgError] = useState(null);
     const api = http();
     const { payload, auth } = useAuthContext();
@@ -28,8 +27,8 @@ const PrediosProvider = ({ children }) => {
             .then((res) => {
                 if (!res.error) {
                     setError(null);
-                    if (res.predios) {
-                        setPrediosDb(res.predios);
+                    if (res.properties) {
+                        setPrediosDb(res.properties);
                     } else {
                         setError(true);
                         setMsgError("Error, no hay conexión con el servidor!!!");
@@ -67,55 +66,58 @@ const PrediosProvider = ({ children }) => {
     }, []);
 
     // Buscar predios por documento del propietario
+    const findPredios = async () => {
+        setLoading(true);
+        const { datos } = searchPredios;
+        let predioUrl = URL + FIND + datos;
+        const res = await api.get(predioUrl);
+        if (res.status) {
+            const { foundProperties } = res;
+            setError(null);
+            if (foundProperties) {
+                setFoundPredios(foundProperties);
+            } else {
+                toastValidate({
+                    msg: () =>
+                        <div>
+                            {res.msg} {res.status === "ok" && <b><em>{datos}</em>.</b>}
+                        </div>,
+                    position: "bottom-center"
+                });
+            }
+        } else {
+            setError(true);
+            setMsgError("Error, no hay conexión con el servidor!!!");
+        }
+        setLoading(false);
+    };
+
     useEffect(() => {
         if (searchPredios === null) return;
-        const fetchData = async () => {
-            setLoading(true);
-            const { datos } = searchPredios;
-            let predioUrl = URL + FIND + datos;
-            const [res] = await Promise.all([api.get(predioUrl)]);
-            const { data } = res;
-            if (data) {
-                setErrorFindingPredios(null);
-                if (data.length > 0) {
-                    setFoundPredios(data);
-                } else {
-                    toastValidate({
-                        msg: <p>No se encontraron resultados para el documento <b><em>{datos}</em></b>.</p>,
-                        position: "bottom-center"
-                    });
-                }
-            } else {
-                setErrorFindingPredios(true);
-                setMsgError("Error, no hay conexión con el servidor!!!");
-            }
-            setLoading(false);
-        };
-        fetchData();
+        findPredios();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchPredios]);
 
     // Listar predios asociados de un usuario
+    const fetchAssociatedPredios = async () => {
+        setLoading(true);
+        const user_id = payload._id;
+        const res = await api.get(`${URL}${LIST_ASSOCIATED_PREDIOS}${user_id}`);
+        if (res.status) {
+            setError(null);
+            if (res.associatedProperties) {
+                setAssociatedPredios(res.associatedProperties);
+            }
+        } else {
+            setError(true);
+            setMsgError("Error, no hay conexión con el servidor!!!");
+        }
+        setLoading(false);
+    }
+
     useEffect(() => {
         if (!payload) return;
-        const fetchData = async () => {
-            setLoading(true);
-            const user_id = payload._id;
-            const res = await api.get(`${URL}${LIST_ASSOCIATED_PREDIOS}${user_id}`);
-            if (res.status === "ok") {
-                setError(null);
-                if (res.associatedPredios) {
-                    setAssociatedPredios(res.associatedPredios);
-                } else {
-                    setError(true);
-                    setMsgError("Error, no hay conexión con el servidor!!!");
-                }
-            } else {
-                setAssociatedPredios([]);
-            }
-            setLoading(false);
-        }
-        fetchData();
+        fetchAssociatedPredios();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [foundPredios]);
 
@@ -133,7 +135,6 @@ const PrediosProvider = ({ children }) => {
         associatedPredios, setAssociatedPredios,
         loading, setLoading,
         error, setError,
-        errorFindingPredios, setErrorFindingPredios,
         msgError, setMsgError
     }
 

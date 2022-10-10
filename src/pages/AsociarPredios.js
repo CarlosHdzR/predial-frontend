@@ -3,16 +3,13 @@ import { PredioDetails, Loader, Message } from '../components/minors';
 import { usePrediosContext } from '../context/PrediosContext';
 
 function AsociarPredios() {
-    const { foundPredios, loading, errorFindingPredios, msgError } = usePrediosContext();
+    const { foundPredios, loading, error, msgError } = usePrediosContext();
 
     return (
         <>
-            <FormSearch
-                title="Buscar predios"
-                text="Documento del propietario:"
-            />
+            <FormSearch />
             {loading && <Loader />}
-            {errorFindingPredios && <Message msg={msgError} bgColor="#dc3545" />}
+            {(foundPredios.length === 0 && error) && <Message msg={msgError} bgColor="#dc3545" />}
             {foundPredios.map((predio) => (
                 <PredioDetails
                     key={predio._id}

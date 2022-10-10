@@ -9,12 +9,12 @@ function FormSearch({ title, text }) {
         <div className="card col-11 col-md-10 col-lg-8 col-xl-6 m-auto mb-4 p-2" id="rounded">
             <div className="card-body">
                 <h5 className="card-title">
-                    {title}
+                    Buscar predios
                 </h5>
                 <form onSubmit={handleSubmitSearch} className="row">
                     <div className="col-9 col-sm-4 m-sm-auto">
                         <label className="blue-label" htmlFor="idDatos">
-                            {text}
+                            Documento del propietario:
                         </label>
                     </div>
                     <div className="col-8 col-sm-6 m-auto">

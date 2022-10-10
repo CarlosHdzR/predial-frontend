@@ -220,7 +220,7 @@ const Users = () => {
                 { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
         } else {
             if (res.status === "ok") {
-                const newData = foundPredios.map((predio) => predio._id === res.associatedPredio._id ? res.associatedPredio : predio)
+                const newData = foundPredios.map((predio) => predio._id === res.associatedProperty._id ? res.associatedProperty : predio)
                 setFoundPredios(newData);
                 toastUpdate(loading, { msg: res.msg, type: "success" })
             } else {

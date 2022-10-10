@@ -1,9 +1,11 @@
-import { Loader, PredioDetails } from '../components/minors';
+import { Loader, Message, PredioDetails } from '../components/minors';
 import { usePrediosContext } from '../context/PrediosContext';
 
 function PagarImpuesto() {
-    const { associatedPredios, loading } = usePrediosContext();
-    if (loading) return <Loader />
+    const { associatedPredios, loading, error, msgError } = usePrediosContext();
+
+    if (loading) return <Loader />;
+    if (error) return <Message msg={msgError} bgColor="#dc3545" />;
 
     return (
         <>
