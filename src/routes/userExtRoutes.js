@@ -10,11 +10,11 @@ export const userExtRoutes = [
         element: <MyProfile />
     },
     {
-        path: "/user-ext/asociar-predios",
+        path: "/user-ext/associate-properties",
         element: <AssociateProperties />
     },
     {
-        path: "/user-ext/pagar",
+        path: "/user-ext/my-properties",
         element: <MyProperties />
     }
 ]

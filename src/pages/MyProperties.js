@@ -4,8 +4,8 @@ import { usePropertiesContext } from '../context/PropertiesContext';
 function MyProperties() {
     const { associatedProperties, loading, error, msgError } = usePropertiesContext();
 
-    if (loading) return <Loader />;
-    if (error) return <Message msg={msgError} bgColor="#dc3545" />;
+    if (loading) return <div className="mt-5"><Loader /></div>;
+    if (error) return <div className="mt-5"><Message msg={msgError} bgColor="#dc3545" /></div>;
 
     return (
         <>

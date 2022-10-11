@@ -15,20 +15,20 @@ function Container({ children }) {
         (pathname === "/admin/manage-users" && "Gestionar Usuarios") ||
         (pathname.includes("users/edit") && "Editar Usuario") ||
         (pathname.includes("users/profile") && "Perfil de Usuario") ||
-        (pathname.includes("create-predio") && "Crear Predio") ||
-        (pathname === "/admin/manage-predios" && "Gestionar Predios") ||
-        (pathname.includes("predios/edit") && "Editar Predio") ||
-        (pathname.includes("asociar") && "Asociar Predios") ||
-        (pathname.includes("pagar") && "Pagar Impuesto Predial")
+        (pathname.includes("create-property") && "Crear Predio") ||
+        (pathname === "/admin/manage-properties" && "Gestionar Predios") ||
+        (pathname.includes("properties/edit") && "Editar Predio") ||
+        (pathname.includes("associate") && "Asociar Predios") ||
+        (pathname.includes("my-properties") && "Mis Predios")
 
     const isManageUsers = title === "Editar Usuario" || title === "Perfil de Usuario";
     const isManageProperties = title === "Editar Predio";
     let subtitle = isManageUsers ? "Gestionar Usuarios" : isManageProperties && "Gestionar Predios";
-    let path = isManageUsers ? "/admin/manage-users" : isManageProperties ? "/admin/manage-predios" : "";
+    let path = isManageUsers ? "/admin/manage-users" : isManageProperties ? "/admin/manage-properties" : "";
     let sep = (isManageUsers || isManageProperties) && "|";
     let errorMessage = (auth && title !== "Crear Usuario" && title !== "Crear Predio"
         && title !== "Editar Usuario" && title !== "Editar Predio" && title !== "Asociar Predios"
-        && title !== "Pagar Impuesto Predial" && !pathname.includes("home") && error)
+        && title !== "Mis Predios" && !pathname.includes("home") && error)
         &&
         <Message msg={msgError} bgColor="#dc3545" />;
 

@@ -9,10 +9,9 @@ function EditProperty() {
 
     useEffect(() => {
         if (!propertyToEdit) {
-            navigate("/admin/manage-predios");
+            navigate("/admin/manage-properties");
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [propertyToEdit])
+    }, [propertyToEdit, navigate])
 
     return (
         <>

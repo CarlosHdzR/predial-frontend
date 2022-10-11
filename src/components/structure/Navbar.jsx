@@ -21,13 +21,13 @@ function Navbar({ hideMenu, setHideMenu }) {
         },
         {
             id: 2,
-            path: "/user-ext/asociar-predios",
+            path: "/user-ext/associate-properties",
             label: "Asociar Predios",
         },
         {
             id: 3,
-            path: "/user-ext/pagar",
-            label: "Pagar Impuesto",
+            path: "/user-ext/my-properties",
+            label: "Mis Predios",
         },
     ]
 

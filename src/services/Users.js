@@ -70,8 +70,8 @@ const Users = () => {
     };
 
     // ********** Editar Usuario **********
-    const updateUser = async (formData, _id) => {
-        let endpoint = URL + EDIT + _id
+    const updateUser = async (formData, user_id) => {
+        let endpoint = URL + EDIT + user_id
         let options = {
             body: formData,
             headers: {
@@ -98,13 +98,13 @@ const Users = () => {
     // ********** Eliminar Usuario **********
     const deleteUser = (user) => {
         let id_number = user.param
-        let _id = user._id
+        let user_id = user._id
         swalConfirm({
             msg: `¿Estás seguro que quieres eliminar el usuario con número de documento <b>${id_number}</b>?`,
             icon: 'warning'
         }).then((res) => {
             if (res.isConfirmed) {
-                let endpoint = URL + DELETE + _id;
+                let endpoint = URL + DELETE + user_id;
                 let options = {
                     headers: {
                         "authorization": `Bearer ${token}`
@@ -118,7 +118,7 @@ const Users = () => {
                             { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
                     } else {
                         if (res.status === "ok") {
-                            setUsersDb(usersDb.filter((e) => e._id !== _id))
+                            setUsersDb(usersDb.filter((e) => e._id !== user_id))
                             toastUpdate(loading, { msg: res.msg, type: "success" })
                         } else {
                             toastUpdate(loading, { msg: res.msg, type: "error" })
@@ -205,11 +205,10 @@ const Users = () => {
     }
 
     // ********** Asociar predios **********
-    const associateProperty = async (userId, propertyId) => {
-        const property = { property_id: propertyId }
-        let endpoint = `${URL}${ASSOCIATE_PROPERTIES}${userId}`;
+    const associateProperty = async (user_id, property_id) => {
+        let endpoint = URL + ASSOCIATE_PROPERTIES + user_id;
         let options = {
-            body: JSON.stringify(property),
+            body: JSON.stringify({ property_id }),
             headers: { "content-type": "application/json" }
         };
         const loading = toastLoading()

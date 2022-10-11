@@ -5,10 +5,10 @@ import { useAuthContext } from "../context/AuthContext";
 function LandingPage() {
     const { auth } = useAuthContext();
 
-    let path1 = auth ? "/user-ext/asociar-predios" : "/login";
-    let path2 = auth ? "/user-ext/pagar" : "/register";
+    let path1 = auth ? "/user-ext/associate-properties" : "/login";
+    let path2 = auth ? "/user-ext/my-properties" : "/register";
     let label1 = auth ? "Asociar predios" : "Iniciar Sesión";
-    let label2 = auth ? "Pagar Impuesto Predial" : "¿No tienes una cuenta? Registrate aquí!!!";
+    let label2 = auth ? "Mis Predios" : "¿No tienes una cuenta? Registrate aquí!!!";
 
     return (
         <>

@@ -34,13 +34,13 @@ function Sidebar() {
         },
         {
             id: 5,
-            linkTo: "/admin/create-predio",
+            linkTo: "/admin/create-property",
             icon: "fa-solid fa-circle-plus",
             label: "Crear Predio"
         },
         {
             id: 6,
-            linkTo: "/admin/manage-predios",
+            linkTo: "/admin/manage-properties",
             icon: "fa-solid fa-city",
             label: "Gestionar Predios"
         },

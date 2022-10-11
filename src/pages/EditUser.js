@@ -11,8 +11,7 @@ function EditUser() {
         if (!userToEdit) {
             navigate("/admin/manage-users")
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userToEdit])
+    }, [userToEdit, navigate])
 
     return (
         <>

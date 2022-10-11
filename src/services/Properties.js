@@ -48,11 +48,11 @@ const Properties = () => {
     };
 
     // ********** Editar predio **********
-    const updateProperty = async (property, _id) => {
+    const updateProperty = async (property, property_id) => {
         let propertyValue = property.value.replace(/[$.]/g, '')
         let taxValue = propertyValue * 0.01
         property.tax_value = Math.round(taxValue)
-        let endpoint = URL + EDIT + _id
+        let endpoint = URL + EDIT + property_id
         let options = {
             body: JSON.stringify(property),
             headers: {
@@ -72,7 +72,7 @@ const Properties = () => {
                 setUsersDb(res.users);
                 setHistorial([...historial, res.historial])
                 toastUpdate(loading, { msg: res.msg, type: "success" })
-                navigate("/admin/manage-predios", { replace: true })
+                navigate("/admin/manage-properties", { replace: true })
             } else {
                 toastUpdate(loading, { msg: res.msg, type: "error" })
             }
@@ -82,13 +82,13 @@ const Properties = () => {
     // ********** Eliminar Predio **********
     const deleteProperty = (property) => {
         let code = property.param
-        let _id = property._id
+        let property_id = property._id
         swalConfirm({
             msg: `¿Estás seguro que quieres eliminar el predio con id <b>${code}</b>?`,
             icon: 'warning'
         }).then(res => {
             if (res.isConfirmed) {
-                let endpoint = URL + DELETE + _id
+                let endpoint = URL + DELETE + property_id
                 let options = {
                     headers: {
                         "authorization": `Bearer ${token}`
@@ -102,7 +102,7 @@ const Properties = () => {
                             { msg: "Error, no hay conexión con el servidor!!!", type: "error", theme: "colored", autoClose: false })
                     } else {
                         if (res.status === "ok") {
-                            setPropertiesDb(propertiesDb.filter((e) => e._id !== _id))
+                            setPropertiesDb(propertiesDb.filter((e) => e._id !== property_id))
                             setUsersDb(usersDb.map((e) => (e._id === res.user._id ? res.user : e)))
                             setHistorial([...historial, res.historial])
                             toastUpdate(loading, { msg: res.msg, type: "success" })

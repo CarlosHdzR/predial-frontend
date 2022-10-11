@@ -33,7 +33,7 @@ function PropertyDetails({ property }) {
             <div className="card-body">
                 <h5 className="card-title">Detalles del Predio</h5>
                 <PropertyInfo property={property} />
-                {pathname.includes("asociar-predios")
+                {pathname.includes("associate-properties")
                     ?
                     <div className="vh-center">
                         {isAssociated

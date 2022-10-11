@@ -30,15 +30,15 @@ export const adminRoutes = [
         element: <UserProfile />
     },
     {
-        path: "/admin/create-predio",
+        path: "/admin/create-property",
         element: <CreateProperty />
     },
     {
-        path: "/admin/manage-predios",
+        path: "/admin/manage-properties",
         element: <ManageProperties />
     },
     {
-        path: "/admin/manage-predios/edit/:code",
+        path: "/admin/manage-properties/edit/:code",
         element: <EditProperty />
     }
 ]
