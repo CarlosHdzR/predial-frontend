@@ -1,4 +1,4 @@
-export const formatDate = (monthsToAdd) => {
+export const formatDate = (monthsToAdd = 0) => {
     let today = new Date();
     let dateToFormat = new Date(today.setMonth(today.getMonth() + monthsToAdd));
     let year = dateToFormat.getFullYear();

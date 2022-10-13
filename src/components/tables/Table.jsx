@@ -3,12 +3,16 @@ import { propertiesHeadersProps, usersHeadersProps } from './props';
 import { Loader, Tooltip } from '../minors';
 import { useUsersContext } from '../../context/UsersContext';
 import { useTable } from '../../hooks';
+import { usePropertiesContext } from '../../context/PropertiesContext';
 
 function Table({ firstItemShowedPerPage, lastItemShowedPerPage, item }) {
-    const { usersDb, loading } = useUsersContext();
-    const { filterItems, setSorting } = useTable(item);
+    const { loading } = useUsersContext();
+    const { propertiesDb } = usePropertiesContext();
+    const { filteredUsersByRol, filterItems, setSorting } = useTable(item);
     const headerProps = item === "user" ? usersHeadersProps : propertiesHeadersProps;
     let loader = loading && <Loader />;
+
+    const db = item === "user" ? filteredUsersByRol : propertiesDb;
 
     return (
         <div className="dataTable-container">
@@ -23,7 +27,8 @@ function Table({ firstItemShowedPerPage, lastItemShowedPerPage, item }) {
             <table className="table datatable table-hover text-center">
                 <TableHeaders headerProps={headerProps} onSorting={(field, order) => setSorting({ field, order })} />
                 <tbody className="table-group-divider">
-                    {usersDb.length > 0 ?
+                    {db.length > 0
+                        ?
                         <>
                             {filterItems.slice(firstItemShowedPerPage, lastItemShowedPerPage).map((element, index) => {
                                 return (

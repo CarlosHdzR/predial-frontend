@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 import { usePropertiesContext } from "../context/PropertiesContext";
 import { useUsersContext } from "../context/UsersContext";
-import { useAuthContext } from "../context/AuthContext";
 
 export const useTable = (item) => {
     const { usersDb } = useUsersContext();
     const { payload } = useAuthContext();
+    const [filteredUsersByRol, setFilteredUsersByRol] = useState([])
     const { propertiesDb } = usePropertiesContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const filter = searchParams.get("filter") ?? "";
@@ -14,11 +15,11 @@ export const useTable = (item) => {
     const [itemsPerPage, setItemsPerPage] = useState({ select: 5 });
     const [sorting, setSorting] = useState({ field: "", order: "" });
 
-    let users = (payload.role === 1) ?
-        usersDb.filter((user) => user.role !== 1) :
-        usersDb.filter((user) => user.role === 3);
+    useEffect(() => {
+        setFilteredUsersByRol(usersDb.filter((user) => payload.role === 1 ? user.role !== 1 : user.role === 3));
+    }, [payload.role, usersDb])
 
-    let db = item === "user" ? users : propertiesDb;
+    let db = item === "user" ? filteredUsersByRol : propertiesDb;
 
     if (sorting.field) {
         const reversed = sorting.order === "asc" ? 1 : -1;
@@ -64,6 +65,7 @@ export const useTable = (item) => {
     }
 
     return {
+        filteredUsersByRol,
         filter,
         pageNumber,
         itemsPerPage,
