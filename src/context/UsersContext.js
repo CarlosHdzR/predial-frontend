@@ -15,26 +15,28 @@ const UsersProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const api = http();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            await api.get(URL + LIST_USERS)
-                .then((res) => {
-                    if (!res.error) {
-                        setError(null);
-                        if (res.users) {
-                            setUsersDb(res.users);
-                        } else {
-                            setError(true);
-                            setMsgError("Error, no hay conexión con el servidor!!!");
-                        }
+    // ********** Obtener Usuarios **********
+    const fetchUsers = async () => {
+        setLoading(true);
+        await api.get(URL + LIST_USERS)
+            .then((res) => {
+                if (!res.error) {
+                    setError(null);
+                    if (res.users) {
+                        setUsersDb(res.users);
                     } else {
-                        setUsersDb(null);
+                        setError(true);
+                        setMsgError("Error, no hay conexión con el servidor!!!");
                     }
-                    setLoading(false);
-                });
-        }
-        fetchData();
+                } else {
+                    setUsersDb(null);
+                }
+                setLoading(false);
+            });
+    }
+
+    useEffect(() => {
+        fetchUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

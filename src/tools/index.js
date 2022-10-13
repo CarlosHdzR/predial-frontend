@@ -6,3 +6,4 @@ export { swalAlert } from './swalCustom';
 export { toastLoading } from './toastCustom';
 export { toastUpdate } from './toastCustom';
 export { toastValidate } from './toastCustom';
+export { formatDate } from './formatDate'

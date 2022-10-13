@@ -2,6 +2,7 @@ import { Input, InputDate } from "../inputs";
 import { inputDateProps, inputPropertiesProps } from "./consts";
 import { useFormProperty } from "../../hooks";
 import { useParams } from "react-router-dom";
+import { formatDate } from "../../tools";
 
 export const initialForm = {
     _id: null,
@@ -15,9 +16,9 @@ export const initialForm = {
     tax_value: "",
     address: "",
     neighborhood: "",
-    payment_date_1: "",
-    payment_date_2: "",
-    payment_date_3: "",
+    payment_date_1: formatDate(12), // Pago máximo: 1 año luego de la creación del predio
+    payment_date_2: formatDate(3), // Pago Dcto 40%: 3 meses luego de la creación del predio
+    payment_date_3: formatDate(6), // Pago Dcto 20%: 6 meses luego de la creación del predio
 };
 
 function FormProperty({ children }) {
@@ -56,7 +57,7 @@ function FormProperty({ children }) {
                     key={input.id}
                     type={input.type}
                     {...input}
-                    value={form[input.name]}
+                    value={form[input.name]} // TODO: Setear fechas predeterminadas
                     onChange={handleChange}
                     reset={reset}
                 />

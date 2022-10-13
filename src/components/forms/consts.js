@@ -319,7 +319,7 @@ export const inputDateProps = [
         type: "date",
         className: "col-10 col-sm-5",
         errorMessage: "Por favor, ingrese una fecha válida!!!",
-        label: "Fecha de Pago para descuento del 40%:",
+        label: "Fecha de Pago | Descuento del 40%:",
         required: true,
     },
     {
@@ -328,7 +328,7 @@ export const inputDateProps = [
         type: "date",
         className: "mb-3 col-10 col-sm-5",
         errorMessage: "Por favor, ingrese una fecha válida!!!",
-        label: "Fecha de pago para descuento del 20%:",
+        label: "Fecha de pago | Descuento del 20%:",
         required: true,
     },
 ]

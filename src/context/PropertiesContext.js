@@ -22,6 +22,7 @@ const PropertiesProvider = ({ children }) => {
     const api = http();
     const { payload, auth } = useAuthContext();
 
+    // ********** Obtener Predios **********
     const fetchProperties = async () => {
         await api.get(URL + LIST_PROPERTIES)
             .then((res) => {
@@ -40,6 +41,7 @@ const PropertiesProvider = ({ children }) => {
             });
     }
 
+    // ********** Obtener Historial **********
     const fetchHistorial = async () => {
         api.get(URL + HISTORIAL)
             .then((res) => {
@@ -65,7 +67,7 @@ const PropertiesProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // Buscar predios por documento del propietario
+    // ********** Buscar predios por documento del propietario **********
     const findProperties = async () => {
         setLoading(true);
         const { datos } = searchProperties;
@@ -97,7 +99,7 @@ const PropertiesProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchProperties]);
 
-    // Listar predios asociados de un usuario
+    // ********** Listar predios asociados de un usuario **********
     const fetchAssociatedProperties = async () => {
         setLoading(true);
         const user_id = payload._id;
@@ -120,7 +122,7 @@ const PropertiesProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [foundProperties]);
 
-    // Limpiar busqueda
+    // ********** Limpiar busqueda **********
     useEffect(() => {
         setFoundProperties([]);
     }, [auth])
