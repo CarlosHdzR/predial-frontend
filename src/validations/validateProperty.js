@@ -36,12 +36,12 @@ export const validateProperty = ({ form, propertiesDb, propertyToEdit }) => {
 
         if (existingCode.length > 0) {
             toastValidate({ msg: "Ya existe un predio con ese código!!!" })
-            return false
+            return false;
         }
 
         if (existingAddress.length > 0) {
             toastValidate({ msg: "Ya existe un predio con esa dirección!!!" })
-            return false
+            return false;
         }
     } else {
         if ((propertyToEdit.code !== form.code) || (propertyToEdit.address !== form.address)) {
@@ -51,17 +51,29 @@ export const validateProperty = ({ form, propertiesDb, propertyToEdit }) => {
             if (existingCode.length > 0) {
                 if (existingCode[0].code !== propertyToEdit.code) {
                     toastValidate({ msg: "Ya existe un predio con ese código!!!" })
-                    return false
+                    return false;
                 }
             }
 
             if (existingAddress.length > 0) {
                 if (existingAddress[0].address !== propertyToEdit.address) {
                     toastValidate({ msg: "Ya existe un predio con esa dirección!!!" })
-                    return false
+                    return false;
                 }
             }
         }
+    }
+    return true;
+}
+
+export const validateOwnerIdProperty = (form) => {
+    if (!regexNros.test(form.owner_id_number)) {
+        toastValidate({ msg: "Por favor, ingrese un número de documento válido!!!", position: "bottom-center" });
+        return false;
+    }
+    if (!form.owner_id_number) {
+        toastValidate({ msg: "Por favor, ingrese los datos solicitados!!!", position: "bottom-center" });
+        return false;
     }
     return true;
 }

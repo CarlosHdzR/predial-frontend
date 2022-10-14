@@ -70,8 +70,8 @@ const PropertiesProvider = ({ children }) => {
     // ********** Buscar predios por documento del propietario **********
     const findProperties = async () => {
         setLoading(true);
-        const { datos } = searchProperties;
-        const res = await api.get(URL + FIND + datos);
+        const { owner_id_number } = searchProperties;
+        const res = await api.get(URL + FIND + owner_id_number);
         if (res.status) {
             const { foundProperties } = res;
             setError(null);
@@ -81,7 +81,7 @@ const PropertiesProvider = ({ children }) => {
                 toastValidate({
                     msg: () =>
                         <div>
-                            {res.msg} {res.status === "ok" && <b><em>{datos}</em>.</b>}
+                            {res.msg} {res.status === "ok" && <b><em>{owner_id_number}</em>.</b>}
                         </div>,
                     position: "bottom-center"
                 });

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { usePropertiesContext } from '../context/PropertiesContext';
 import { PropertiesServices } from '../services';
-import { toastValidate } from '../tools';
-import { validateProperty } from '../validations';
+import { validateProperty, validateOwnerIdProperty } from '../validations';
 
 export const useFormProperty = ({ initialForm, param }) => {
     const [form, setForm] = useState(initialForm);
@@ -57,12 +56,10 @@ export const useFormProperty = ({ initialForm, param }) => {
 
     const handleSubmitSearch = (e) => {
         e.preventDefault();
-        if (!form.datos) {
-            toastValidate({ msg: "Por favor, ingrese los datos solicitados!!!", position: "bottom-center" });
-            return;
+        if (validateOwnerIdProperty(form)) {
+            setSearchProperties(form);
+            setForm({ owner_id_number: "" });
         }
-        setSearchProperties(form);
-        setForm({ datos: "" });
     };
 
     return {
