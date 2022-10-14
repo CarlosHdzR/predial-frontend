@@ -1,14 +1,13 @@
 import { useRef } from "react";
-import { useUsersContext } from "../../context/UsersContext";
 import { useTable } from "../../hooks";
 import { Tooltip } from "../minors";
 import { useAuthContext } from "../../context/AuthContext";
 
-function TableTop({ itemsPerPage, handleInputChange, label, item }) {
-    const { usersDb } = useUsersContext();
-    const { payload } = useAuthContext()
-    const { filter, handleFilter, range } = useTable(item);
+function TableTop({ itemsPerPage, handleInputChange }) {
+    const { payload } = useAuthContext();
+    const { db, isUser, filter, handleFilter, range } = useTable();
     const selectRef = useRef();
+    let label = isUser ? "Usuario" : "Predio";
 
     return (
         <div className="dataTable-top mb-2">
@@ -18,9 +17,9 @@ function TableTop({ itemsPerPage, handleInputChange, label, item }) {
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
-                    <option value={usersDb.length}>Todos</option>
+                    <option value={db.length}>Todos</option>
                 </select>
-                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{label+"s"} por página</label>
+                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{`${label}s`} por página</label>
             </div>
             <div className="col-7 col-md-5 col-lg-4">
                 <Tooltip id="toolTipFilter" place="left">
@@ -33,7 +32,7 @@ function TableTop({ itemsPerPage, handleInputChange, label, item }) {
                     placeholder="Filtrar..." type="text" value={filter}
                     onChange={handleFilter}
                 />
-                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{range()} {range() === 1 ? label : label+"s"}</label>
+                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{range()} {range() === 1 ? label : `${label}s`}</label>
             </div>
         </div>
     )

@@ -4,21 +4,24 @@ import { useUsersContext } from '../../context/UsersContext';
 import { PropertiesServices, UsersServices } from '../../services';
 import { Tooltip } from '../minors';
 import { useAuthContext } from '../../context/AuthContext';
+import { useTable } from '../../hooks';
 
-const TableRows = ({ data, nro_registro, item }) => {
+const TableRows = ({ data, nro_registro }) => {
     const { setUserToEdit } = useUsersContext();
     const { payload } = useAuthContext();
+    const isNotRole1 = payload?.role !== 1;
     const { setPropertyToEdit } = usePropertiesContext();
+    const { isUser } = useTable();
     let { _id,
         name, surname, id_number, email, role, // <== Users
         code, owner_name, owner_id_number, address // <== Properties
     } = data || {};
     const { deleteUser } = UsersServices();
     const { deleteProperty } = PropertiesServices();
-    const dataToHandle = item === "user" ? { _id, param: id_number } : { _id, param: code }
+    const dataToHandle = isUser ? { _id, param: id_number } : { _id, param: code }
     const navigate = useNavigate();
 
-    const datos = item === "user"
+    const datos = isUser
         ?
         [`${name} ${surname}`, id_number, email, role]
         :
@@ -38,15 +41,15 @@ const TableRows = ({ data, nro_registro, item }) => {
             dato: datos[2]
         },
         {
-            className: "align-middle d-none d-sm-table-cell",
+            className: `align-middle d-none ${isNotRole1 && isUser ? "" : "d-sm-table-cell"}`,
             dato: datos[3]
         },
     ];
 
     const handleEdit = () => {
-        if (item === "user") {
+        if (isUser) {
             setUserToEdit(data);
-            if(payload?.role === 1) {
+            if (payload?.role === 1) {
                 navigate(`edit/${dataToHandle.param}`);
             } else {
                 navigate(`profile/${dataToHandle.param}`);
@@ -58,7 +61,7 @@ const TableRows = ({ data, nro_registro, item }) => {
     }
 
     const handleDelete = () => {
-        if (item === "user") {
+        if (isUser) {
             deleteUser(dataToHandle);
         } else {
             deleteProperty(dataToHandle);
@@ -81,7 +84,7 @@ const TableRows = ({ data, nro_registro, item }) => {
                     className="m-1 my-btn-edit"
                     onClick={handleEdit}
                 >
-                    <i className={`${(item === "user" && payload?.role !== 1) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
+                    <i className={`${(isUser && isNotRole1) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
                 </button>
                 <Tooltip id="toolTipDelete" place="top">
                     Eliminar
@@ -89,8 +92,8 @@ const TableRows = ({ data, nro_registro, item }) => {
                 <button
                     data-tip data-for="toolTipDelete"
                     type="button"
-                    className={`${(payload.role !== 1 && item === "user") ? "my-btn-disabled" : "my-btn-delete"}`}
-                    disabled={(payload.role !== 1 && item === "user") ? true : false}
+                    className={`${(isNotRole1 && isUser) ? "my-btn-disabled" : "my-btn-delete"}`}
+                    disabled={(isNotRole1 && isUser) ? true : false}
                     onClick={handleDelete}
                 >
                     <i className="bi bi-trash" />

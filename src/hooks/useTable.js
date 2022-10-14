@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { usePropertiesContext } from "../context/PropertiesContext";
 import { useUsersContext } from "../context/UsersContext";
 
-export const useTable = (item) => {
+export const useTable = () => {
     const { usersDb } = useUsersContext();
     const { payload } = useAuthContext();
-    const [filteredUsersByRol, setFilteredUsersByRol] = useState([])
     const { propertiesDb } = usePropertiesContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const filter = searchParams.get("filter") ?? "";
@@ -15,11 +14,10 @@ export const useTable = (item) => {
     const [itemsPerPage, setItemsPerPage] = useState({ select: 5 });
     const [sorting, setSorting] = useState({ field: "", order: "" });
 
-    useEffect(() => {
-        setFilteredUsersByRol(usersDb.filter((user) => payload.role === 1 ? user.role !== 1 : user.role === 3));
-    }, [payload.role, usersDb])
-
-    let db = item === "user" ? filteredUsersByRol : propertiesDb;
+    const { pathname } = useLocation();
+    const isUser = pathname.includes("users");
+    const users = usersDb.filter((user) => payload.role === 1 ? user.role !== 1 : user.role === 3)
+    let db = isUser ? users : propertiesDb;
 
     if (sorting.field) {
         const reversed = sorting.order === "asc" ? 1 : -1;
@@ -37,7 +35,7 @@ export const useTable = (item) => {
     }
 
     const filterItems = db.filter((element) => {
-        if (item === "user") {
+        if (isUser) {
             return (element.name + " " + element.surname).toLowerCase().includes(filter.toLowerCase()) ||
                 element.id_number.toString().includes(filter.toLowerCase()) ||
                 element.email.includes(filter.toLowerCase()) ||
@@ -65,11 +63,11 @@ export const useTable = (item) => {
     }
 
     return {
-        filteredUsersByRol,
         filter,
         pageNumber,
         itemsPerPage,
         filterItems,
+        db, isUser,
         setSorting,
         handleInputChange,
         handleFilter,

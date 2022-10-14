@@ -21,13 +21,10 @@ function ManageUsers() {
                     <TableTop
                         itemsPerPage={itemsPerPage}
                         handleInputChange={handleInputChange}
-                        label="Usuario"
-                        item="user"
                     />
                     <Table
                         firstItemShowedPerPage={firstItemShowedPerPage}
                         lastItemShowedPerPage={lastItemShowedPerPage}
-                        item="user"
                     />
                     <TableBottom
                         pageNumber={pageNumber}
@@ -35,7 +32,6 @@ function ManageUsers() {
                         lastItemShowedPerPage={lastItemShowedPerPage}
                         pageCount={pageCount}
                         changePage={changePage}
-                        item="user"
                     />
                 </div>
             </div>

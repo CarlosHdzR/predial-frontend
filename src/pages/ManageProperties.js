@@ -21,13 +21,10 @@ function ManageProperties() {
                     <TableTop
                         itemsPerPage={itemsPerPage}
                         handleInputChange={handleInputChange}
-                        label="Predio"
-                        item="property"
                     />
                     <Table
                         firstItemShowedPerPage={firstItemShowedPerPage}
                         lastItemShowedPerPage={lastItemShowedPerPage}
-                        item="property"
                     />
                     <TableBottom
                         pageNumber={pageNumber}
@@ -35,7 +32,6 @@ function ManageProperties() {
                         lastItemShowedPerPage={lastItemShowedPerPage}
                         pageCount={pageCount}
                         changePage={changePage}
-                        item="property"
                     />
                 </div>
             </div>

@@ -3,16 +3,12 @@ import { propertiesHeadersProps, usersHeadersProps } from './props';
 import { Loader, Tooltip } from '../minors';
 import { useUsersContext } from '../../context/UsersContext';
 import { useTable } from '../../hooks';
-import { usePropertiesContext } from '../../context/PropertiesContext';
 
-function Table({ firstItemShowedPerPage, lastItemShowedPerPage, item }) {
+function Table({ firstItemShowedPerPage, lastItemShowedPerPage }) {
     const { loading } = useUsersContext();
-    const { propertiesDb } = usePropertiesContext();
-    const { filteredUsersByRol, filterItems, setSorting } = useTable(item);
-    const headerProps = item === "user" ? usersHeadersProps : propertiesHeadersProps;
+    const { db, isUser, filterItems, setSorting } = useTable();
+    const headerProps = isUser ? usersHeadersProps : propertiesHeadersProps;
     let loader = loading && <Loader />;
-
-    const db = item === "user" ? filteredUsersByRol : propertiesDb;
 
     return (
         <div className="dataTable-container">
@@ -36,7 +32,6 @@ function Table({ firstItemShowedPerPage, lastItemShowedPerPage, item }) {
                                         key={element._id}
                                         nro_registro={index + 1 + firstItemShowedPerPage}
                                         data={element}
-                                        item={item}
                                     />
                                 )
                             })}

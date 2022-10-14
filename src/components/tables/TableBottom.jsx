@@ -1,8 +1,8 @@
 import ReactPaginate from "react-paginate";
 import { useTable } from "../../hooks";
 
-function TableBottom({ pageNumber, firstItemShowedPerPage, lastItemShowedPerPage, changePage, pageCount, item }) {
-    const { range } = useTable(item);
+function TableBottom({ pageNumber, firstItemShowedPerPage, lastItemShowedPerPage, changePage, pageCount }) {
+    const { range } = useTable();
 
     return (
         <div className="dataTable-bottom">
