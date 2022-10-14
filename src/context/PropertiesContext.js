@@ -7,12 +7,12 @@ import { useAuthContext } from "./AuthContext";
 const PropertiesContext = createContext();
 
 const { URL } = config;
-const { LIST_PROPERTIES, HISTORIAL, FIND, LIST_ASSOCIATED_PROPERTIES } = config.PROPERTIES_API;
+const { LIST_PROPERTIES, RECORDS, FIND, LIST_ASSOCIATED_PROPERTIES } = config.PROPERTIES_API;
 
 const PropertiesProvider = ({ children }) => {
     const [propertiesDb, setPropertiesDb] = useState([]);
     const [propertyToEdit, setPropertyToEdit] = useState(null);
-    const [historial, setHistorial] = useState([]);
+    const [recordsDb, setRecordsDb] = useState([]);
     const [searchProperties, setSearchProperties] = useState(null);
     const [foundProperties, setFoundProperties] = useState([]);
     const [associatedProperties, setAssociatedProperties] = useState([])
@@ -42,19 +42,19 @@ const PropertiesProvider = ({ children }) => {
     }
 
     // ********** Obtener Historial **********
-    const fetchHistorial = async () => {
-        api.get(URL + HISTORIAL)
+    const fetchRecords = async () => {
+        api.get(URL + RECORDS)
             .then((res) => {
                 if (!res.error) {
                     setError(null);
-                    if (res.historial) {
-                        setHistorial(res.historial)
+                    if (res.records) {
+                        setRecordsDb(res.records)
                     } else {
                         setError(true);
                         setMsgError("Error, no hay conexión con el servidor!!!");
                     }
                 } else {
-                    setHistorial(null);
+                    setRecordsDb(null);
                 }
                 setLoading(false);
             });
@@ -63,7 +63,7 @@ const PropertiesProvider = ({ children }) => {
     useEffect(() => {
         setLoading(true);
         fetchProperties();
-        fetchHistorial();
+        fetchRecords();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -130,7 +130,7 @@ const PropertiesProvider = ({ children }) => {
     const data = {
         propertiesDb, setPropertiesDb,
         propertyToEdit, setPropertyToEdit,
-        historial, setHistorial,
+        recordsDb, setRecordsDb,
         searchProperties, setSearchProperties,
         foundProperties, setFoundProperties,
         associatedProperties, setAssociatedProperties,

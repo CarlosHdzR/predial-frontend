@@ -14,7 +14,7 @@ export const config = {
     },
     PROPERTIES_API: {
         LIST_PROPERTIES: "properties/list",
-        HISTORIAL: "properties/historial",
+        RECORDS: "properties/records",
         CREATE: "properties/create",
         EDIT: "properties/edit/",
         DELETE: "properties/delete/",

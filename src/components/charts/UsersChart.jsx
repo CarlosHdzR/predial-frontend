@@ -2,6 +2,7 @@ import {
     Chart as ChartJS, CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { usePropertiesContext } from "../../context/PropertiesContext";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Title, Tooltip, Legend);
 
@@ -21,20 +22,25 @@ const options = {
 };
 
 function UsersChart({ loader, usersDb }) {
+    const { recordsDb } = usePropertiesContext();
     const usersInt = usersDb.filter((user) => user.role === 1 || user.role === 2)
     const labels = usersInt.map((user) => {
         return user.name
     })
 
     const scores1 = usersInt.map((user) => {
-        return user.created_properties
+        let created_properties = recordsDb.filter((record) => record.author_id === user._id && record.action === "creó");
+        return created_properties.length;
     });
 
     const scores2 = usersInt.map((user) => {
-        return user.edited_properties
+        let edited_properties = recordsDb.filter((record) => record.author_id === user._id && record.action === "editó");
+        return edited_properties.length;
     });
+    
     const scores3 = usersInt.map((user) => {
-        return user.deleted_properties
+        let deleted_properties = recordsDb.filter((record) => record.author_id === user._id && record.action === "eliminó");
+        return deleted_properties.length;
     });
 
     const data = {

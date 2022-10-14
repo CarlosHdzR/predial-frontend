@@ -7,11 +7,11 @@ import { useAuthContext } from '../context/AuthContext';
 function Dashboard() {
     const { usersDb, loading } = useUsersContext();
     const { payload } = useAuthContext();
-    const { propertiesDb, historial } = usePropertiesContext();
+    const { propertiesDb, recordsDb } = usePropertiesContext();
 
     const countUsers = (role) => usersDb?.filter((e) => (e.role === role)).length;
     const countProperties = propertiesDb?.length;
-    const activity = historial?.filter((e) => e.author !== "Administrador" && e);
+    const records = recordsDb?.filter((e) => e.author !== "Administrador" && e);
     const sliceAt = payload?.role === 1 ? -12 : -5;
 
     const loader = loading && <Loader />;
@@ -56,9 +56,9 @@ function Dashboard() {
                 <div className="card">
                     <div className="activity card-body">
                         <h5 className="card-title">Actividad Reciente</h5>
-                        {historial.length > 0 ?
-                            activity.slice(sliceAt).reverse().map((item) => (
-                                <RecentActivity key={item._id} item={item} />
+                        {records.length > 0 ?
+                            records.slice(sliceAt).reverse().map((record) => (
+                                <RecentActivity key={record._id} record={record} />
                             ))
                             :
                             <h2 className="text-center m-5 pt-5 pb-5">

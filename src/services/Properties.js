@@ -2,18 +2,13 @@ import { http } from '../helpers/http';
 import { useNavigate } from 'react-router-dom';
 import { toastLoading, toastUpdate, swalConfirm } from '../tools';
 import { config } from '../config';
-import { useUsersContext } from '../context/UsersContext';
 import { usePropertiesContext } from '../context/PropertiesContext';
 
 const { URL } = config;
 const { CREATE, EDIT, DELETE } = config.PROPERTIES_API;
 
 const Properties = () => {
-    const {
-        propertiesDb, setPropertiesDb,
-        historial, setHistorial,
-    } = usePropertiesContext();
-    const { usersDb, setUsersDb } = useUsersContext();
+    const { propertiesDb, setPropertiesDb, recordsDb, setRecordsDb } = usePropertiesContext();
     let api = http();
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
@@ -38,9 +33,7 @@ const Properties = () => {
             if (res.property) {
                 setPropertiesDb([...propertiesDb, res.property])
                 toastUpdate(loading, { msg: res.msg, type: "success" })
-                let newData = usersDb.map((e) => (e._id === res.user._id ? res.user : e))
-                setUsersDb(newData)
-                setHistorial([...historial, res.historial])
+                setRecordsDb([...recordsDb, res.record])
             } else {
                 toastUpdate(loading, { msg: res.msg, type: "error" })
             }
@@ -69,8 +62,7 @@ const Properties = () => {
         } else {
             if (res.status === "ok") {
                 setPropertiesDb(res.properties);
-                setUsersDb(res.users);
-                setHistorial([...historial, res.historial])
+                setRecordsDb([...recordsDb, res.record])
                 toastUpdate(loading, { msg: res.msg, type: "success" })
                 navigate("/admin/manage-properties", { replace: true })
             } else {
@@ -103,8 +95,7 @@ const Properties = () => {
                     } else {
                         if (res.status === "ok") {
                             setPropertiesDb(propertiesDb.filter((e) => e._id !== property_id))
-                            setUsersDb(usersDb.map((e) => (e._id === res.user._id ? res.user : e)))
-                            setHistorial([...historial, res.historial])
+                            setRecordsDb([...recordsDb, res.record])
                             toastUpdate(loading, { msg: res.msg, type: "success" })
                         } else {
                             toastUpdate(loading, { msg: res.msg, type: "error" })
