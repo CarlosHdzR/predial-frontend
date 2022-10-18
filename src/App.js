@@ -23,29 +23,42 @@ function App() {
           setHideMenu={setHideMenu}
         />
         <Sidebar />
-        <Container>
-          <Routes>
-            {systemOutRoutes.map((item, index) => (
-              <Route
-                key={index}
-                exact path={item.path}
-                element={!auth ? item.element : <Navigate to={path} />} />
-            ))}
-            {adminRoutes.map((item, index) => (
-              <Route
-                key={index}
-                path={item.path}
-                element={auth && (role === 1 || role === 2) ? item.element : <Navigate to="/login" />} />
-            ))}
-            {userExtRoutes.map((item, index) => (
-              <Route
-                key={index}
-                path={item.path}
-                element={auth && role === 3 ? item.element : <Navigate to="/login" />} />
-            ))}
-            <Route path="*" element={<Error404 />} />
-          </Routes>
-        </Container>
+        <Routes>
+          {systemOutRoutes.map((item, index) => (
+            <Route
+              key={index}
+              exact path={item.path}
+              element={!auth
+                ?
+                <Container>{item.element}</Container>
+                :
+                <Navigate to={path} />}
+            />
+          ))}
+          {adminRoutes.map((item, index) => (
+            <Route
+              key={index}
+              path={item.path}
+              element={auth && (role === 1 || role === 2)
+                ?
+                <Container title={item.title} subtitle={item.subtitle}>{item.element}</Container>
+                :
+                <Navigate to="/login" />}
+            />
+          ))}
+          {userExtRoutes.map((item, index) => (
+            <Route
+              key={index}
+              path={item.path}
+              element={auth && role === 3
+                ?
+                <Container title={item.title}>{item.element}</Container>
+                :
+                <Navigate to="/login" />}
+            />
+          ))}
+          <Route path="*" element={<Error404 />} />
+        </Routes>
         <Footer />
       </main>
       <BackToTop />

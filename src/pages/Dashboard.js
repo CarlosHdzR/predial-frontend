@@ -3,6 +3,7 @@ import { UsersChart, PropertiesChart } from '../components/charts';
 import { useUsersContext } from '../context/UsersContext';
 import { usePropertiesContext } from '../context/PropertiesContext';
 import { useAuthContext } from '../context/AuthContext';
+import { useHandleError } from '../hooks';
 
 function Dashboard() {
     const { usersDb, loading } = useUsersContext();
@@ -17,7 +18,7 @@ function Dashboard() {
     const loader = loading && <Loader />;
 
     return (
-        <>
+        <div className="row">
             <div className="dashboard col-lg-12">
                 <div className="row">
                     {payload.role === 1 &&
@@ -68,7 +69,7 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 };
 

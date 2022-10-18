@@ -7,38 +7,50 @@ import UserProfile from "../pages/UserProfile";
 export const adminRoutes = [
     {
         path: "/admin/dashboard",
-        element: <Dashboard />
+        element: <Dashboard />,
+        title: "Dashboard"
     },
     {
         path: "/admin/profile/:id_number",
-        element: <MyProfile />
+        element: <MyProfile />,
+        title: "Mi Perfil"
     },
     {
         path: "/admin/create-user",
-        element: <CreateUser />
+        element: <CreateUser />,
+        title: "Crear Usuario"
     },
     {
         path: "/admin/manage-users",
-        element: <ManageUsers />
+        element: <ManageUsers />,
+        title: "Gestionar Usuarios"
     },
     {
         path: "/admin/manage-users/edit/:id_number",
-        element: <EditUser />
+        element: <EditUser />,
+        title: "Editar Usuario",
+        subtitle: "Gestionar Usuarios"
     },
     {
         path: "/admin/manage-users/profile/:id_number",
-        element: <UserProfile />
+        element: <UserProfile />,
+        title: "Perfil de Usuario",
+        subtitle: "Gestionar Usuarios"
     },
     {
         path: "/admin/create-property",
-        element: <CreateProperty />
+        element: <CreateProperty />,
+        title: "Crear Predio"
     },
     {
         path: "/admin/manage-properties",
-        element: <ManageProperties />
+        element: <ManageProperties />,
+        title: "Gestionar Predios"
     },
     {
         path: "/admin/manage-properties/edit/:code",
-        element: <EditProperty />
+        element: <EditProperty />,
+        title: "Editar Predio",
+        subtitle: "Gestionar Predios"
     }
 ]

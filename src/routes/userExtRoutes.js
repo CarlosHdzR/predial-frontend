@@ -7,14 +7,17 @@ export const userExtRoutes = [
     },
     {
         path: "/user-ext/profile/:id_number",
-        element: <MyProfile />
+        element: <MyProfile />,
+        title: "Mi Perfil"
     },
     {
         path: "/user-ext/associate-properties",
-        element: <AssociateProperties />
+        element: <AssociateProperties />,
+        title: "Asociar Predios"
     },
     {
         path: "/user-ext/my-properties",
-        element: <MyProperties />
+        element: <MyProperties />,
+        title: "Mis Predios"
     }
 ]
