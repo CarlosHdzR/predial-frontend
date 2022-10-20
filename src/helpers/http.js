@@ -18,13 +18,19 @@ export const http = () => {
             .then((res) =>
                 res.ok
                     ? res.json()
-                    : Promise.reject({
-                        err: true,
+                    : {
+                        error: true,
                         status: res.status || "00",
                         statusText: res.statusText || "Ocurrió un error!!!",
-                    })
+                        msg: `${res.status} - ${res.statusText}`
+                    }
             )
-            .catch((err) => err);
+            .catch((error) => (
+                {
+                    error: true,
+                    msg: `Server error - ${error.message} - Try it later!`
+                }
+            ));
     };
 
     const get = (url, options = {}) => customFetch(url, options);

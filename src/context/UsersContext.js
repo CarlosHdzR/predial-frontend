@@ -10,40 +10,34 @@ const { LIST_USERS } = config.USERS_API;
 const UsersProvider = ({ children }) => {
     const [usersDb, setUsersDb] = useState([]);
     const [userToEdit, setUserToEdit] = useState(null);
-    const [error, setError] = useState(null);
-    const [msgError, setMsgError] = useState(null);
+    const [usersError, setUsersError] = useState(null);
+    const [usersErrorMsg, setUsersErrorMsg] = useState(null);
     const [loading, setLoading] = useState(false);
-    const api = http();
 
     // ********** Obtener Usuarios **********
-    const fetchUsers = async () => {
-        setLoading(true);
-        await api.get(URL + LIST_USERS)
-            .then((res) => {
-                if (!res.error) {
-                    setError(null);
-                    if (res.users) {
-                        setUsersDb(res.users);
-                    } else {
-                        setError(true);
-                        setMsgError("Error, no hay conexión con el servidor!!!");
-                    }
-                } else {
-                    setUsersDb(null);
-                }
-                setLoading(false);
-            });
-    }
-
     useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                setLoading(true);
+                const res = await http().get(URL + LIST_USERS);
+                if (!res.error) {
+                    return setUsersDb(res.users);
+                }
+                await Promise.reject(res);
+            } catch (error) {
+                setUsersError(true);
+                setUsersErrorMsg(error.msg);
+            } finally {
+                setLoading(false);
+            }
+        }
         fetchUsers();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const data = {
         usersDb, setUsersDb,
         userToEdit, setUserToEdit,
-        error, msgError, loading
+        usersError, usersErrorMsg, loading
     }
 
     return (

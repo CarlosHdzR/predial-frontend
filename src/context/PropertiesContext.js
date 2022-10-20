@@ -16,68 +16,54 @@ const PropertiesProvider = ({ children }) => {
     const [searchProperties, setSearchProperties] = useState(null);
     const [foundProperties, setFoundProperties] = useState([]);
     const [associatedProperties, setAssociatedProperties] = useState([])
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [msgError, setMsgError] = useState(null);
-    const api = http();
+    const [loading, setLoading] = useState(false); // TODO: Fix loading
+    const [propertiesError, setPropertiesError] = useState(null);
+    const [propertiesErrorMsg, setPropertiesErrorMsg] = useState(null);
     const { payload, auth } = useAuthContext();
+    const user_id = payload?._id;
 
-    // ********** Obtener Predios **********
-    const fetchProperties = async () => {
-        await api.get(URL + LIST_PROPERTIES)
-            .then((res) => {
-                if (!res.error) {
-                    setError(null);
-                    if (res.properties) {
-                        setPropertiesDb(res.properties);
-                    } else {
-                        setError(true);
-                        setMsgError("Error, no hay conexión con el servidor!!!");
-                    }
-                } else {
-                    setPropertiesDb(null);
-                }
-                setLoading(false);
-            });
+    const handleError = (errorMsg) => {
+        setPropertiesError(true);
+        setPropertiesErrorMsg(errorMsg);
     }
 
-    // ********** Obtener Historial **********
-    const fetchRecords = async () => {
-        api.get(URL + RECORDS)
-            .then((res) => {
-                if (!res.error) {
-                    setError(null);
-                    if (res.records) {
-                        setRecordsDb(res.records)
-                    } else {
-                        setError(true);
-                        setMsgError("Error, no hay conexión con el servidor!!!");
-                    }
-                } else {
-                    setRecordsDb(null);
-                }
-                setLoading(false);
-            });
-    }
-
+    // ********** Obtener Predios e Historial **********
     useEffect(() => {
-        setLoading(true);
-        fetchProperties();
-        fetchRecords();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        const fetchPropertiesData = async () => {
+            try {
+                setLoading(true);
+                const resProperties = await http().get(URL + LIST_PROPERTIES);
+                const resRecords = await http().get(URL + RECORDS);
+                if (!resProperties.error && !resRecords.error) {
+                    setPropertiesDb(resProperties.properties);
+                    setRecordsDb(resRecords.records)
+                    return
+                }
+                let error = resProperties.error ? resProperties : resRecords;
+                await Promise.reject(error);
+            } catch (error) {
+                handleError(error.msg);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchPropertiesData();
     }, []);
 
     // ********** Buscar predios por documento del propietario **********
-    const findProperties = async () => {
-        setLoading(true);
-        const { owner_id_number } = searchProperties;
-        const res = await api.get(URL + FIND + owner_id_number);
-        if (res.status) {
-            const { foundProperties } = res;
-            setError(null);
-            if (foundProperties) {
-                setFoundProperties(foundProperties);
-            } else {
+    useEffect(() => {
+        if (searchProperties === null) return;
+        const findProperties = async () => {
+            try {
+                setLoading(true);
+                const { owner_id_number } = searchProperties;
+                const res = await http().get(URL + FIND + owner_id_number);
+                if (res.error) {
+                    await Promise.reject(res);
+                }
+                if (res.foundProperties.length > 0) {
+                    return setFoundProperties(res.foundProperties);
+                }
                 toastValidate({
                     msg: () =>
                         <div>
@@ -85,42 +71,31 @@ const PropertiesProvider = ({ children }) => {
                         </div>,
                     position: "bottom-center"
                 });
+            } catch (error) {
+                handleError(error.msg);
+            } finally {
+                setLoading(false);
             }
-        } else {
-            setError(true);
-            setMsgError("Error, no hay conexión con el servidor!!!");
         }
-        setLoading(false);
-    };
-
-    useEffect(() => {
-        if (searchProperties === null) return;
         findProperties();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchProperties]);
 
-    // ********** Listar predios asociados de un usuario **********
-    const fetchAssociatedProperties = async () => {
-        setLoading(true);
-        const user_id = payload._id;
-        const res = await api.get(URL + LIST_ASSOCIATED_PROPERTIES + user_id);
-        if (res.status) {
-            setError(null);
-            if (res.associatedProperties) {
-                setAssociatedProperties(res.associatedProperties);
-            }
-        } else {
-            setError(true);
-            setMsgError("Error, no hay conexión con el servidor!!!");
-        }
-        setLoading(false);
-    }
-
+    // ********** Obtener predios asociados de un usuario **********
     useEffect(() => {
-        if (!payload) return;
+        if (!user_id) return;
+        const fetchAssociatedProperties = async () => {
+            setLoading(true);
+            const res = await http().get(URL + LIST_ASSOCIATED_PROPERTIES + user_id);
+            if (res.status) {
+                // setError(null);
+                if (res.associatedProperties) {
+                    setAssociatedProperties(res.associatedProperties);
+                }
+            }
+            setLoading(false);
+        }
         fetchAssociatedProperties();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [foundProperties]);
+    }, [foundProperties, user_id]);
 
     // ********** Limpiar busqueda **********
     useEffect(() => {
@@ -134,9 +109,7 @@ const PropertiesProvider = ({ children }) => {
         searchProperties, setSearchProperties,
         foundProperties, setFoundProperties,
         associatedProperties, setAssociatedProperties,
-        loading, setLoading,
-        error, setError,
-        msgError, setMsgError
+        propertiesError, propertiesErrorMsg,loading
     }
 
     return (

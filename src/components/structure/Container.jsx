@@ -1,22 +1,17 @@
-import { useUsersContext } from "../../context/UsersContext";
 import { useAuthContext } from "../../context/AuthContext";
 import { Message } from "../minors";
 import { PageTitle } from "./";
-import { useLocation } from "react-router-dom";
+import { useHandleError } from "../../hooks";
 
 function Container({ title, subtitle, children }) {
-    const { error, msgError } = useUsersContext();
+    const { error, errorMsg } = useHandleError();
     const { payload, auth } = useAuthContext();
     const role = payload?.role;
-    const { pathname } = useLocation();
 
-    let errorMessage = (auth && title !== "Crear Usuario" && title !== "Crear Predio"
-        && title !== "Editar Usuario" && title !== "Editar Predio" && title !== "Asociar Predios"
-        && !pathname.includes("home") && error)
-        &&
-        <Message msg={msgError} bgColor="#dc3545" />;
-
-    const isAdminPage = auth && role !== 3;
+    const regex = /Crear|Editar|Asociar|Mis/
+    const condition = regex.test(title) || !title;
+    let errorMessage = (auth && !condition && error) && <Message msg={errorMsg} bgColor="#dc3545" />;
+    let isAdminPage = auth && role !== 3;
 
     return (
         <main id={`${isAdminPage && "main"}`} className={`${!isAdminPage && "vh-center"} min-vh-100`} >

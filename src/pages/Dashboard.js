@@ -3,7 +3,6 @@ import { UsersChart, PropertiesChart } from '../components/charts';
 import { useUsersContext } from '../context/UsersContext';
 import { usePropertiesContext } from '../context/PropertiesContext';
 import { useAuthContext } from '../context/AuthContext';
-import { useHandleError } from '../hooks';
 
 function Dashboard() {
     const { usersDb, loading } = useUsersContext();

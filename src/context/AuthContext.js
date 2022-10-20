@@ -32,14 +32,13 @@ const AuthProvider = ({ children }) => {
     const auth = (() => {
         let res = false;
         try {
-            if (payload) {
-                if (payload._id)
+            if (payload?._id) {
                     res = true;
             }
         } catch (error) {
             console.log(error)
         }
-        return res
+        return res;
     })();
 
     useEffect(() => {

@@ -8,7 +8,7 @@ function ManageProperties() {
         handleInputChange,
         pageCount,
         changePage,
-    } = useTable("property");
+    } = useTable();
 
     const firstItemShowedPerPage = pageNumber * itemsPerPage.select;
     const lastItemShowedPerPage = firstItemShowedPerPage + itemsPerPage.select;

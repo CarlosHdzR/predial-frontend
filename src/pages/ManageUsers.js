@@ -8,7 +8,7 @@ function ManageUsers() {
         handleInputChange,
         pageCount,
         changePage,
-    } = useTable("user");
+    } = useTable();
 
     const firstItemShowedPerPage = pageNumber * itemsPerPage.select;
     const lastItemShowedPerPage = firstItemShowedPerPage + itemsPerPage.select;

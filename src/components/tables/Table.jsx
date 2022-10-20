@@ -1,11 +1,10 @@
 import { TableHeaders, TableRows } from './';
 import { propertiesHeadersProps, usersHeadersProps } from './props';
 import { Loader, Tooltip } from '../minors';
-import { useUsersContext } from '../../context/UsersContext';
-import { useTable } from '../../hooks';
+import { useHandleError, useTable } from '../../hooks';
 
 function Table({ firstItemShowedPerPage, lastItemShowedPerPage }) {
-    const { loading } = useUsersContext();
+    const { loading } = useHandleError(); // TODO: Fix loading
     const { db, isUser, filterItems, setSorting } = useTable();
     const headerProps = isUser ? usersHeadersProps : propertiesHeadersProps;
     let loader = loading && <Loader />;

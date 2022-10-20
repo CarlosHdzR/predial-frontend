@@ -9,7 +9,7 @@ import { useTable } from '../../hooks';
 const TableRows = ({ data, nro_registro }) => {
     const { setUserToEdit } = useUsersContext();
     const { payload } = useAuthContext();
-    const isNotRole1 = payload?.role !== 1;
+    const isRole1 = payload?.role === 1;
     const { setPropertyToEdit } = usePropertiesContext();
     const { isUser } = useTable();
     let { _id,
@@ -41,7 +41,7 @@ const TableRows = ({ data, nro_registro }) => {
             dato: datos[2]
         },
         {
-            className: `align-middle d-none ${isNotRole1 && isUser ? "" : "d-sm-table-cell"}`,
+            className: `align-middle d-none ${!isRole1 && isUser ? "" : "d-sm-table-cell"}`,
             dato: datos[3]
         },
     ];
@@ -76,7 +76,7 @@ const TableRows = ({ data, nro_registro }) => {
             ))}
             <td className="align-middle">
                 <Tooltip id="toolTipEdit" place="top">
-                    Editar
+                    {(!isRole1 && isUser) ? "Ver" : "Editar"}
                 </Tooltip>
                 <button
                     data-tip data-for="toolTipEdit"
@@ -84,7 +84,7 @@ const TableRows = ({ data, nro_registro }) => {
                     className="m-1 my-btn-edit"
                     onClick={handleEdit}
                 >
-                    <i className={`${(isUser && isNotRole1) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
+                    <i className={`${(isUser && !isRole1) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
                 </button>
                 <Tooltip id="toolTipDelete" place="top">
                     Eliminar
@@ -92,8 +92,8 @@ const TableRows = ({ data, nro_registro }) => {
                 <button
                     data-tip data-for="toolTipDelete"
                     type="button"
-                    className={`${(isNotRole1 && isUser) ? "my-btn-disabled" : "my-btn-delete"}`}
-                    disabled={(isNotRole1 && isUser) ? true : false}
+                    className={`${(!isRole1 && isUser) ? "my-btn-disabled" : "my-btn-delete"}`}
+                    disabled={(!isRole1 && isUser) ? true : false}
                     onClick={handleDelete}
                 >
                     <i className="bi bi-trash" />
