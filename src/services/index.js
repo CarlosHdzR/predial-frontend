@@ -1,2 +1,2 @@
-export { default as UsersServices } from './Users';
+export { default as UsersServices } from './UsersServices';
 export { default as PropertiesServices } from './Properties';

@@ -12,13 +12,14 @@ const UsersProvider = ({ children }) => {
     const [userToEdit, setUserToEdit] = useState(null);
     const [usersError, setUsersError] = useState(null);
     const [usersErrorMsg, setUsersErrorMsg] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSending, setIsSending] = useState(false)
 
     // ********** Obtener Usuarios **********
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                setLoading(true);
+                setIsLoading(true);
                 const res = await http().get(URL + LIST_USERS);
                 if (!res.error) {
                     return setUsersDb(res.users);
@@ -28,7 +29,7 @@ const UsersProvider = ({ children }) => {
                 setUsersError(true);
                 setUsersErrorMsg(`${error.status ? "Users Database Error -" : ""} ${error.msg}`);
             } finally {
-                setLoading(false);
+                setIsLoading(false);
             }
         }
         fetchUsers();
@@ -37,7 +38,9 @@ const UsersProvider = ({ children }) => {
     const data = {
         usersDb, setUsersDb,
         userToEdit, setUserToEdit,
-        usersError, usersErrorMsg, loading
+        usersError, usersErrorMsg,
+        isLoading, setIsLoading,
+        isSending, setIsSending
     }
 
     return (

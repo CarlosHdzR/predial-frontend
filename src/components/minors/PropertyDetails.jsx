@@ -5,10 +5,13 @@ import { swalAlert } from '../../tools';
 import { useLocation } from 'react-router-dom';
 import Modal from './Modal';
 import { FormAgreement } from '../forms';
+import { useUsersContext } from '../../context/UsersContext';
+import ButtonSpinner from './ButtonSpinner';
 
 function PropertyDetails({ property }) {
     const { payload } = useAuthContext();
     const { associateProperty } = UsersServices();
+    const { isSending } = useUsersContext();
     const { pathname } = useLocation();
     if (!property) return null;
 
@@ -41,10 +44,10 @@ function PropertyDetails({ property }) {
                             <h3 className="text-success fw-bold mt-4">Predio asociado a tu cuenta</h3>
                             :
                             <button
-                                className="my-btn-success mt-4 mb-2"
+                                className="my-btn-success mt-4 mb-2 px-5"
                                 onClick={handleAssociate}
                             >
-                                Asociar predio
+                                Asociar predio {isSending && <ButtonSpinner />}
                             </button>
                         }
                     </div>

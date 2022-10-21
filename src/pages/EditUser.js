@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormUser } from "../components/forms";
+import { ButtonSpinner } from "../components/minors";
 import { useUsersContext } from "../context/UsersContext";
 
 function EditUser() {
-    const { userToEdit } = useUsersContext();
+    const { userToEdit, isSending } = useUsersContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,7 +22,7 @@ function EditUser() {
                     <button
                         className="my-btn-success w-100"
                         type="submit">
-                        Editar
+                        Editar {isSending && <ButtonSpinner/>}
                     </button>
                 </div>
             </FormUser>

@@ -3,6 +3,8 @@ import { UsersServices } from "../services"
 import { useParams } from "react-router-dom";
 import { useFormUser } from "../hooks";
 import { validatePassword } from "../validations";
+import { useUsersContext } from "../context/UsersContext";
+import { ButtonSpinner } from "../components/minors";
 
 export const initialForm = {
     newPassword: "",
@@ -12,6 +14,7 @@ export const initialForm = {
 function ResetPassword() {
     const { form, handleChange } = useFormUser({ initialForm });
     const { resetPassword } = UsersServices();
+    const { isSending } = useUsersContext();
     const { token } = useParams();
 
     const handleSubmit = (e) => {
@@ -69,7 +72,7 @@ function ResetPassword() {
                         ))}
                         <div className="col-7 col-sm-6 m-auto mt-2">
                             <button type="submit" className="my-btn-success w-100">
-                                Restablecer
+                                Restablecer {isSending && <ButtonSpinner />}
                             </button>
                         </div>
                     </form>

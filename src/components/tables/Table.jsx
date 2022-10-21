@@ -6,8 +6,8 @@ import { useHandleError, useTable } from '../../hooks';
 function Table({ firstItemShowedPerPage, lastItemShowedPerPage }) {
     const { db, isUser, filterItems, setSorting } = useTable();
     const headerProps = isUser ? usersHeadersProps : propertiesHeadersProps;
-    const { loading } = useHandleError();
-    let loader = loading && <Loader />;
+    const { isLoading } = useHandleError();
+    let loader = isLoading && <Loader />;
 
     return (
         <div className="dataTable-container">

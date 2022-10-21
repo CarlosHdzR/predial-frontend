@@ -2,6 +2,8 @@ import { InputPlaceholder } from '../inputs';
 import { useFormUser } from '../../hooks';
 import { config } from '../../config';
 import { useAuthContext } from '../../context/AuthContext';
+import { useUsersContext } from '../../context/UsersContext';
+import { ButtonSpinner } from '../minors';
 
 export const initialForm = {
     currentPassword: "",
@@ -12,6 +14,7 @@ export const initialForm = {
 function FormChangePassword() {
     const { loggedUser } = useAuthContext();
     const { form, handleChange, handleSubmitChangePassword } = useFormUser({ initialForm });
+    const { isSending } = useUsersContext();
     const { avatar, name, surname } = loggedUser || {};
     const { secure_url } = avatar || {};
     const { DEFAULT_AVATAR } = config.ASSETS;
@@ -68,8 +71,8 @@ function FormChangePassword() {
                         />
                     ))}
                     <div className="text-center m-auto mt-2">
-                        <button type="submit" className="my-btn-success">
-                            Cambiar Contraseña
+                        <button type="submit" className="my-btn-success px-5">
+                            Cambiar {isSending && <ButtonSpinner/>}
                         </button>
                     </div>
                 </form>

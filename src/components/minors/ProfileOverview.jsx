@@ -4,13 +4,13 @@ import { useUsersContext } from "../../context/UsersContext";
 import Loader from "./Loader";
 
 function ProfileOverview() {
-    const { loading } = useUsersContext();
+    const { isLoading } = useUsersContext();
     const { loggedUser } = useAuthContext();
     const { avatar, name, surname, id_number, email, phone, address } = loggedUser || {};
     const { secure_url } = avatar || {};
     const { DEFAULT_AVATAR } = config.ASSETS;
 
-    let loader = loading && <Loader />
+    let loader = isLoading && <Loader />
 
     const profileItems = [
         {

@@ -9,13 +9,13 @@ function Dashboard() {
     const { usersDb } = useUsersContext();
     const { payload } = useAuthContext();
     const { propertiesDb, recordsDb } = usePropertiesContext();
-    const { loading } = useHandleError();
+    const { isLoading } = useHandleError();
 
     const countUsers = (role) => usersDb?.filter((e) => (e.role === role)).length;
     const countProperties = propertiesDb?.length;
     const records = recordsDb?.filter((e) => e.author !== "Administrador" && e);
     const sliceAt = payload?.role === 1 ? -12 : -5;
-    const loader = loading && <Loader />;
+    const loader = isLoading && <Loader />;
 
     return (
         <div className="row">

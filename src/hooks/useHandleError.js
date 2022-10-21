@@ -2,12 +2,12 @@ import { usePropertiesContext } from "../context/PropertiesContext";
 import { useUsersContext } from "../context/UsersContext";
 
 export const useHandleError = () => {
-    const { usersError, usersErrorMsg, loading: loadingUsers } = useUsersContext();
+    const { usersError, usersErrorMsg, isLoading: loadingUsers } = useUsersContext();
     const { propertiesError, propertiesErrorMsg, loading: loadingProperties } = usePropertiesContext();
 
     const error = usersError || propertiesError;
     const errorMsg = usersErrorMsg || propertiesErrorMsg;
-    const loading = loadingUsers || loadingProperties;
+    const isLoading = loadingUsers || loadingProperties;
 
-    return { error, errorMsg, loading };
+    return { error, errorMsg, isLoading };
 }
