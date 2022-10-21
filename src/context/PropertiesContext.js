@@ -42,7 +42,7 @@ const PropertiesProvider = ({ children }) => {
                 let error = resProperties.error ? resProperties : resRecords;
                 await Promise.reject(error);
             } catch (error) {
-                handleError(error.msg);
+                handleError(`${error.status ? "Properties Database Error -" : ""} ${error.msg}`);
             } finally {
                 setLoading(false);
             }
@@ -109,7 +109,7 @@ const PropertiesProvider = ({ children }) => {
         searchProperties, setSearchProperties,
         foundProperties, setFoundProperties,
         associatedProperties, setAssociatedProperties,
-        propertiesError, propertiesErrorMsg,loading
+        propertiesError, propertiesErrorMsg, loading
     }
 
     return (

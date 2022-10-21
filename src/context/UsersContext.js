@@ -26,7 +26,7 @@ const UsersProvider = ({ children }) => {
                 await Promise.reject(res);
             } catch (error) {
                 setUsersError(true);
-                setUsersErrorMsg(error.msg);
+                setUsersErrorMsg(`${error.status ? "Users Database Error -" : ""} ${error.msg}`);
             } finally {
                 setLoading(false);
             }

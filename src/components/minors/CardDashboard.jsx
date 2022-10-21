@@ -31,7 +31,9 @@ function CardDashboard({ label, data, loader }) {
                             </div>
                         </div>
                         :
-                        loader
+                        <h3 className="text-center p-2">
+                            {loader}{!loader && "¡No hay información!"}
+                        </h3>
                     }
                 </div>
             </div>

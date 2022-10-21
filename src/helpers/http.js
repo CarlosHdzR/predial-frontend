@@ -22,7 +22,7 @@ export const http = () => {
                         error: true,
                         status: res.status || "00",
                         statusText: res.statusText || "Ocurrió un error!!!",
-                        msg: `${res.status} - ${res.statusText}`
+                        msg: `${res.status} ${res.statusText}`
                     }
             )
             .catch((error) => (
