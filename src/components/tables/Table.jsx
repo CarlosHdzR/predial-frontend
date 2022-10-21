@@ -4,9 +4,9 @@ import { Loader, Tooltip } from '../minors';
 import { useHandleError, useTable } from '../../hooks';
 
 function Table({ firstItemShowedPerPage, lastItemShowedPerPage }) {
-    const { loading } = useHandleError(); // TODO: Fix loading
     const { db, isUser, filterItems, setSorting } = useTable();
     const headerProps = isUser ? usersHeadersProps : propertiesHeadersProps;
+    const { loading } = useHandleError();
     let loader = loading && <Loader />;
 
     return (

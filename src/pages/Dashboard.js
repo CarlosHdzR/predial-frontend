@@ -3,17 +3,18 @@ import { UsersChart, PropertiesChart } from '../components/charts';
 import { useUsersContext } from '../context/UsersContext';
 import { usePropertiesContext } from '../context/PropertiesContext';
 import { useAuthContext } from '../context/AuthContext';
+import { useHandleError } from '../hooks';
 
 function Dashboard() {
-    const { usersDb, loading } = useUsersContext();
+    const { usersDb } = useUsersContext();
     const { payload } = useAuthContext();
     const { propertiesDb, recordsDb } = usePropertiesContext();
+    const { loading } = useHandleError();
 
     const countUsers = (role) => usersDb?.filter((e) => (e.role === role)).length;
     const countProperties = propertiesDb?.length;
     const records = recordsDb?.filter((e) => e.author !== "Administrador" && e);
     const sliceAt = payload?.role === 1 ? -12 : -5;
-
     const loader = loading && <Loader />;
 
     return (
@@ -24,15 +25,18 @@ function Dashboard() {
                         <CardDashboard
                             label="Usuarios Internos"
                             data={countUsers(2)}
+                            loader={loader}
                         />
                     }
                     <CardDashboard
                         label="Usuarios Externos"
                         data={countUsers(3)}
+                        loader={loader}
                     />
                     <CardDashboard
                         label="Predios"
                         data={countProperties}
+                        loader={loader}
                     />
                 </div>
             </div>

@@ -16,9 +16,9 @@ const PropertiesProvider = ({ children }) => {
     const [searchProperties, setSearchProperties] = useState(null);
     const [foundProperties, setFoundProperties] = useState([]);
     const [associatedProperties, setAssociatedProperties] = useState([])
-    const [loading, setLoading] = useState(false); // TODO: Fix loading
     const [propertiesError, setPropertiesError] = useState(null);
     const [propertiesErrorMsg, setPropertiesErrorMsg] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { payload, auth } = useAuthContext();
     const user_id = payload?._id;
 

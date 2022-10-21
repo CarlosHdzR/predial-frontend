@@ -2,7 +2,7 @@ import { Loader, Message, PropertyDetails } from '../components/minors';
 import { usePropertiesContext } from '../context/PropertiesContext';
 
 function MyProperties() {
-    const { associatedProperties, loading, propertiesError, propertiesErrorMsg } = usePropertiesContext();
+    const { associatedProperties, propertiesError, propertiesErrorMsg, loading } = usePropertiesContext();
 
     if (loading) return <div className="mt-5"><Loader /></div>;
     if (propertiesError) return <div className="mt-5"><Message msg={propertiesErrorMsg} bgColor="#dc3545" /></div>;
