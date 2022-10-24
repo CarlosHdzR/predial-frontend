@@ -9,7 +9,7 @@ function AssociateProperties() {
         <>
             <FormSearch />
             {isLoading && <Loader />}
-            {(foundProperties.length === 0 && propertiesError) && <Message msg={propertiesErrorMsg} bgColor="#dc3545" />}
+            {propertiesError && <Message msg={propertiesErrorMsg} bgColor="#dc3545" />}
             {foundProperties.map((property) => (
                 <PropertyDetails
                     key={property._id}

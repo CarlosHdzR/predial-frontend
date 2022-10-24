@@ -1,6 +1,7 @@
 import { http } from "../helpers/http";
 import { createContext, useContext, useState, useEffect } from "react";
 import { config } from "../config";
+import { toast } from "react-toastify";
 
 const UsersContext = createContext();
 
@@ -22,7 +23,8 @@ const UsersProvider = ({ children }) => {
                 setIsLoading(true);
                 const res = await http().get(URL + LIST_USERS);
                 if (!res.error) {
-                    return setUsersDb(res.users);
+                    const { users, msg } = res;
+                    return users ? setUsersDb(users) : toast.info(msg)
                 }
                 await Promise.reject(res);
             } catch (error) {

@@ -24,6 +24,7 @@ const options = {
 function UsersChart({ loader, usersDb }) {
     const { recordsDb } = usePropertiesContext();
     const usersInt = usersDb.filter((user) => user.role === 1 || user.role === 2)
+    
     const labels = usersInt.map((user) => {
         return user.name
     })
@@ -37,7 +38,7 @@ function UsersChart({ loader, usersDb }) {
         let edited_properties = recordsDb.filter((record) => record.author_id === user._id && record.action === "editó");
         return edited_properties.length;
     });
-    
+
     const scores3 = usersInt.map((user) => {
         let deleted_properties = recordsDb.filter((record) => record.author_id === user._id && record.action === "eliminó");
         return deleted_properties.length;
@@ -66,7 +67,8 @@ function UsersChart({ loader, usersDb }) {
 
     return (
         <div className="App">
-            {usersDb.length > 0 ?
+            {usersDb.length > 0 && recordsDb.length
+                ?
                 <Bar data={data} options={options} />
                 :
                 <h2 className="text-center m-3">{loader}{!loader && "¡No hay información!"}</h2>

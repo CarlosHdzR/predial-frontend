@@ -9,20 +9,19 @@ function MyProperties() {
 
     return (
         <>
-            {
-                associatedProperties.length > 0
-                    ?
-                    <>
-                        {associatedProperties.map((property) => (
-                            <PropertyDetails key={property._id} property={property} />
-                        ))}
-                    </>
-                    :
-                    <>
-                        <div className="card mt-4">
-                            <h1 className="text-center text-xl my-5">¡No tienes predios asociados a tu cuenta!</h1>
-                        </div>
-                    </>
+            {associatedProperties.length > 0
+                ?
+                <>
+                    {associatedProperties.map((property) => (
+                        <PropertyDetails key={property._id} property={property} />
+                    ))}
+                </>
+                :
+                <>
+                    <div className="card mt-4">
+                        <h1 className="text-center text-xl my-5">¡No tienes predios asociados a tu cuenta!</h1>
+                    </div>
+                </>
             }
         </>
     )

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { config } from "../config";
 import { http } from "../helpers/http";
 import { toastValidate } from "../tools";
@@ -28,27 +29,41 @@ const PropertiesProvider = ({ children }) => {
         setPropertiesErrorMsg(errorMsg);
     }
 
-    // ********** Obtener Predios e Historial **********
     useEffect(() => {
-        const fetchPropertiesData = async () => {
+        // ********** Obtener Predios **********
+        const fetchProperties = async () => {
             try {
                 setIsLoading(true);
-                const resProperties = await http().get(URL + LIST_PROPERTIES);
-                const resRecords = await http().get(URL + RECORDS);
-                if (!resProperties.error && !resRecords.error) {
-                    setPropertiesDb(resProperties.properties);
-                    setRecordsDb(resRecords.records)
-                    return
+                const res = await http().get(URL + LIST_PROPERTIES);
+                if (!res.error) {
+                    const { properties, msg } = res;
+                    return properties ? setPropertiesDb(properties) : toast.info(msg);
                 }
-                let error = resProperties.error ? resProperties : resRecords;
-                await Promise.reject(error);
+                await Promise.reject(res);
             } catch (error) {
                 handleError(`${error.status ? "Properties Database Error -" : ""} ${error.msg}`);
             } finally {
                 setIsLoading(false);
             }
         }
-        fetchPropertiesData();
+        // ********** Obtener Historial **********
+        const fetchRecords = async () => {
+            try {
+                setIsLoading(true);
+                const res = await http().get(URL + RECORDS);
+                if (!res.error) {
+                    const { records } = res;
+                    return records && setRecordsDb(res.records);
+                }
+                await Promise.reject(res);
+            } catch (error) {
+                handleError(`${error.status ? "Records Database Error -" : ""} ${error.msg}`);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchProperties();
+        fetchRecords();
     }, []);
 
     // ********** Buscar predios por documento del propietario **********
@@ -57,21 +72,20 @@ const PropertiesProvider = ({ children }) => {
         const findProperties = async () => {
             try {
                 setIsLoading(true);
+                setPropertiesError(null);
                 const { owner_id_number } = searchProperties;
                 const res = await http().get(URL + FIND + owner_id_number);
-                if (res.error) {
-                    await Promise.reject(res);
+                if (!res.error) {
+                    return res.foundProperties
+                        ?
+                        setFoundProperties(res.foundProperties)
+                        :
+                        toastValidate({
+                            msg: <div>{res.msg} <b><em>{owner_id_number}</em>.</b></div>,
+                            position: "bottom-center"
+                        });
                 }
-                if (res.foundProperties.length > 0) {
-                    return setFoundProperties(res.foundProperties);
-                }
-                toastValidate({
-                    msg: () =>
-                        <div>
-                            {res.msg} {res.status === "ok" && <b><em>{owner_id_number}</em>.</b>}
-                        </div>,
-                    position: "bottom-center"
-                });
+                await Promise.reject(res);
             } catch (error) {
                 handleError(error.msg);
             } finally {
@@ -85,15 +99,18 @@ const PropertiesProvider = ({ children }) => {
     useEffect(() => {
         if (!user_id) return;
         const fetchAssociatedProperties = async () => {
-            setIsLoading(true);
-            const res = await http().get(URL + LIST_ASSOCIATED_PROPERTIES + user_id);
-            if (res.status) {
-                // setError(null);
-                if (res.associatedProperties) {
-                    setAssociatedProperties(res.associatedProperties);
+            try {
+                setIsLoading(true);
+                const res = await http().get(URL + LIST_ASSOCIATED_PROPERTIES + user_id);
+                if (!res.error) {
+                    return res.associatedProperties && setAssociatedProperties(res.associatedProperties);
                 }
+                await Promise.reject(res);
+            } catch (error) {
+                handleError(error.msg)
+            } finally {
+                setIsLoading(false);
             }
-            setIsLoading(false);
         }
         fetchAssociatedProperties();
     }, [foundProperties, user_id]);
@@ -110,7 +127,7 @@ const PropertiesProvider = ({ children }) => {
         searchProperties, setSearchProperties,
         foundProperties, setFoundProperties,
         associatedProperties, setAssociatedProperties,
-        propertiesError, propertiesErrorMsg, 
+        propertiesError, propertiesErrorMsg,
         isLoading, isSending, setIsSending
     }
 

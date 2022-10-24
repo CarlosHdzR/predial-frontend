@@ -11,9 +11,9 @@ function Dashboard() {
     const { propertiesDb, recordsDb } = usePropertiesContext();
     const { isLoading } = useHandleError();
 
-    const countUsers = (role) => usersDb?.filter((e) => (e.role === role)).length;
-    const countProperties = propertiesDb?.length;
-    const records = recordsDb?.filter((e) => e.author !== "Administrador" && e);
+    const countUsers = (role) => usersDb.filter((e) => (e.role === role)).length;
+    const countProperties = propertiesDb.length;
+    const records = recordsDb.filter((e) => e.author !== "Administrador" && e);
     const sliceAt = payload?.role === 1 ? -12 : -5;
     const loader = isLoading && <Loader />;
 
@@ -60,7 +60,8 @@ function Dashboard() {
                 <div className="card">
                     <div className="activity card-body">
                         <h5 className="card-title">Actividad Reciente</h5>
-                        {records.length > 0 ?
+                        {records.length > 0
+                            ?
                             records.slice(sliceAt).reverse().map((record) => (
                                 <RecentActivity key={record._id} record={record} />
                             ))
