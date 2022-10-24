@@ -2,12 +2,10 @@ import { useState } from "react";
 import { FormUser } from "../components/forms";
 import { InputCheck } from "../components/inputs";
 import { Link } from "react-router-dom";
-import { useUsersContext } from "../context/UsersContext";
-import { ButtonSpinner } from "../components/minors";
+import { Button } from "../components/minors";
 
 function Register() {
     const [terms, setTerms] = useState(false);
-    const { isSending } = useUsersContext();
 
 
     return (
@@ -18,11 +16,7 @@ function Register() {
                     <p className="small text-center pb-2">Ingresa tu información personal para crear tu cuenta</p>
                     <FormUser terms={terms}>
                         <InputCheck setTerms={setTerms} />
-                        <div className="col-7 col-sm-5 col-md-4 col-xl-3 m-auto my-2">
-                            <button className="my-btn-success w-100" type="submit">
-                                Regístrarse {isSending && <ButtonSpinner />}
-                            </button>
-                        </div>
+                        <Button label="Registrarse" />
                         <p className="small text-center mt-2 mb-0">
                             ¿Ya tienes una cuenta? <Link to="/login" className="ms-1">Inicia sesión aquí</Link>
                         </p>

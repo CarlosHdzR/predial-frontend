@@ -494,6 +494,11 @@ input:invalid[focused="true"]~.errorMsg {
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.75);
 }
 
+.my-btn-success.submit {
+  width: 200px;
+  max-width: 90%;
+}
+
 .my-btn-success:hover {
   background-color: rgba(11, 41, 94, 0.95);
   color: #ffffff

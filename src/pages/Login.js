@@ -14,7 +14,7 @@ function Login() {
         {
             id: "idUsuario",
             type: "text",
-            className: "col-10",
+            inputClass: "col-10 my-3",
             name: "email",
             placeholder: "Usuario",
             icon: "fa-user",
@@ -22,7 +22,7 @@ function Login() {
         {
             id: "idPassword",
             type: "password",
-            className: "col-10",
+            inputClass: "col-10 my-3",
             name: "password",
             placeholder: "Contraseña",
             icon: "fa-key",
@@ -31,7 +31,7 @@ function Login() {
 
     const linkProps = [
         {
-            className: "my-2",
+            linkClass: "my-2",
             label: "¿No tienes una cuenta?",
             path: "/register",
             labelLink: "Regístrate aquí!!!"
@@ -69,7 +69,7 @@ function Login() {
                             </button>
                         </div>
                         {linkProps.map((link, index) => (
-                            <div key={index} className={`text-center m-auto ${link.className}`}>
+                            <div key={index} className={`text-center m-auto ${link.linkClass}`}>
                                 <p className="small mb-0">
                                     {link.label}
                                     <Link to={link.path} className="ms-1">

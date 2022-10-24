@@ -2,7 +2,7 @@ function InputCheck({ setTerms }) {
     const handleCheck = (e) => setTerms(e.target.checked);
     
     return (
-        <div className="form-check col-9 col-sm-10 m-auto my-3">
+        <div className="form-check col-9 col-sm-10 m-auto mt-3 mb-2">
             <input
                 className="form-check-input" name="terminos" type="checkbox"
                 id="acceptTerms" onChange={handleCheck} required

@@ -3,8 +3,7 @@ import { UsersServices } from "../services"
 import { useParams } from "react-router-dom";
 import { useFormUser } from "../hooks";
 import { validatePassword } from "../validations";
-import { useUsersContext } from "../context/UsersContext";
-import { ButtonSpinner } from "../components/minors";
+import { Button } from "../components/minors";
 
 export const initialForm = {
     newPassword: "",
@@ -14,7 +13,6 @@ export const initialForm = {
 function ResetPassword() {
     const { form, handleChange } = useFormUser({ initialForm });
     const { resetPassword } = UsersServices();
-    const { isSending } = useUsersContext();
     const { token } = useParams();
 
     const handleSubmit = (e) => {
@@ -29,7 +27,7 @@ function ResetPassword() {
             id: "IdNewPassword",
             name: "newPassword",
             type: "password",
-            className: "col-11 col-sm-8 col-md-9 col-lg-8 col-xl-7",
+            inputClass: "col-11 col-sm-8 col-md-9 col-lg-8 col-xl-7 my-3",
             icon: "fa-solid fa-key",
             errorMessage: "La contraseña debe tener una longitud mínima de 8; contener al menos 1 mayuscula, 1 minuscula, 1 número y un caracter especial!!!",
             placeholder: "Nueva contraseña",
@@ -40,7 +38,7 @@ function ResetPassword() {
             id: "IdRenewPassword",
             name: "renewPassword",
             type: "password",
-            className: "col-11 col-sm-8 col-md-9 col-lg-8 col-xl-7",
+            inputClass: "col-11 col-sm-8 col-md-9 col-lg-8 col-xl-7 my-3",
             icon: "fa-solid fa-key",
             errorMessage: "Las contraseñas no coinciden!!!",
             placeholder: "Confirmar contraseña",
@@ -70,11 +68,7 @@ function ResetPassword() {
                                 handleChange={handleChange}
                             />
                         ))}
-                        <div className="col-7 col-sm-6 m-auto mt-2">
-                            <button type="submit" className="my-btn-success w-100">
-                                Restablecer {isSending && <ButtonSpinner />}
-                            </button>
-                        </div>
+                        <Button label="Restablecer"/>
                     </form>
                 </div>
             </div>

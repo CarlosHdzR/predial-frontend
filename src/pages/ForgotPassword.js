@@ -1,8 +1,7 @@
 import { UsersServices } from '../services'
 import { toastValidate } from '../tools';
 import { useFormUser } from '../hooks';
-import { useUsersContext } from '../context/UsersContext';
-import { ButtonSpinner } from '../components/minors';
+import { Button } from '../components/minors';
 
 export const initialForm = {
     email: "",
@@ -11,7 +10,6 @@ export const initialForm = {
 function ForgotPassword() {
     const { form, handleChange } = useFormUser({ initialForm });
     const { getResetLink } = UsersServices();
-    const { isSending } = useUsersContext();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -38,18 +36,14 @@ function ForgotPassword() {
                     <form
                         className="row g-3 pt-2"
                         onSubmit={handleSubmit} noValidate>
-                        <div className="input-container col-10 m-auto my-3">
+                        <div className="input-container col-10 m-auto mt-3 mb-2">
                             <i className="fa-solid fa-at input-icon" />
                             <input
                                 className="form-control" type="email" name="email" id="yourEmail"
                                 placeholder="Correo Electrónico" onChange={handleChange} value={form.email} required
                             />
                         </div>
-                        <div className="col-7 col-sm-6 m-auto mt-2">
-                            <button className="my-btn-success w-100" type="submit">
-                                Restablecer {isSending && <ButtonSpinner />}
-                            </button>
-                        </div>
+                        <Button label="Restablecer"/>
                     </form>
                 </div>
             </div>

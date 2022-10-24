@@ -1,10 +1,10 @@
-import { ButtonSpinner, NavTabs, ProfileOverview } from '../components/minors';
+import { Button, NavTabs, ProfileOverview } from '../components/minors';
 import { FormUser, FormChangePassword } from '../components/forms';
 import { useUsersContext } from '../context/UsersContext';
 import { useAuthContext } from '../context/AuthContext';
 
 function MyProfile() {
-    const { setUserToEdit, isSending } = useUsersContext();
+    const { setUserToEdit } = useUsersContext();
     const { loggedUser } = useAuthContext();
 
     const handleEdit = () => {
@@ -23,11 +23,7 @@ function MyProfile() {
                         <div className="tab-pane" id="profile-edit">
                             <FormUser
                             >
-                                <div className="col-5 col-sm-3 m-auto mt-3">
-                                    <button className="my-btn-success w-100" type="submit">
-                                        Editar {isSending && <ButtonSpinner />}
-                                    </button>
-                                </div>
+                                <Button label="Editar"/>
                             </FormUser>
                         </div>
                         <div className="tab-pane" id="profile-change-password">

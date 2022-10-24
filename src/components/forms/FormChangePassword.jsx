@@ -2,8 +2,7 @@ import { InputPlaceholder } from '../inputs';
 import { useFormUser } from '../../hooks';
 import { config } from '../../config';
 import { useAuthContext } from '../../context/AuthContext';
-import { useUsersContext } from '../../context/UsersContext';
-import { ButtonSpinner } from '../minors';
+import { Button } from '../minors';
 
 export const initialForm = {
     currentPassword: "",
@@ -14,7 +13,6 @@ export const initialForm = {
 function FormChangePassword() {
     const { loggedUser } = useAuthContext();
     const { form, handleChange, handleSubmitChangePassword } = useFormUser({ initialForm });
-    const { isSending } = useUsersContext();
     const { avatar, name, surname } = loggedUser || {};
     const { secure_url } = avatar || {};
     const { DEFAULT_AVATAR } = config.ASSETS;
@@ -24,7 +22,7 @@ function FormChangePassword() {
             id: "IdCurrentPassword",
             name: "currentPassword",
             type: "password",
-            className: "col-10 col-sm-8 col-md-7",
+            inputClass: "col-10 col-sm-8 col-md-7 my-3",
             icon: "fa-solid fa-key",
             placeholder: "Contraseña actual",
             required: true,
@@ -33,7 +31,7 @@ function FormChangePassword() {
             id: "IdNewPassword",
             name: "newPassword",
             type: "password",
-            className: "col-10 col-sm-8 col-md-7",
+            inputClass: "col-10 col-sm-8 col-md-7 my-3",
             icon: "fa-solid fa-key",
             errorMessage: "La contraseña debe tener una longitud mínima de 8; contener al menos 1 mayuscula, 1 minuscula, 1 número y un caracter especial!!!",
             placeholder: "Nueva contraseña",
@@ -44,7 +42,7 @@ function FormChangePassword() {
             id: "IdRenewPassword",
             name: "renewPassword",
             type: "password",
-            className: "col-10 col-sm-8 col-md-7",
+            inputClass: "col-10 col-sm-8 col-md-7 mt-3 mb-2",
             icon: "fa-solid fa-key",
             errorMessage: "Las contraseñas no coinciden!!!",
             placeholder: "Confirmar contraseña",
@@ -70,11 +68,7 @@ function FormChangePassword() {
                             handleChange={handleChange}
                         />
                     ))}
-                    <div className="text-center m-auto mt-2">
-                        <button type="submit" className="my-btn-success px-5">
-                            Cambiar {isSending && <ButtonSpinner/>}
-                        </button>
-                    </div>
+                    <Button label="Cambiar"/>
                 </form>
             </div>
         </>

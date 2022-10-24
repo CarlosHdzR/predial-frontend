@@ -14,4 +14,4 @@ export { default as AutoScrollToTop } from './AutoScrollToTop';
 export { default as BackToTop } from './BackToTop';
 export { default as DropDownMenu } from './DropDownMenu';
 export { default as ToggleButton } from './ToggleButton';
-export { default as ButtonSpinner } from './ButtonSpinner';
+export { default as Button } from './Button';

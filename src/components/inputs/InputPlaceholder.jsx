@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function InputPlaceholder({ className, type, icon, errorMessage, handleChange, reset, ...inputProps }) {
+function InputPlaceholder({ inputClass, type, icon, errorMessage, handleChange, reset, ...inputProps }) {
     const [focused, setFocused] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -17,7 +17,7 @@ function InputPlaceholder({ className, type, icon, errorMessage, handleChange, r
     }, [reset])
 
     return (
-        <div className={`input-container m-auto my-3 ${className}`}>
+        <div className={`input-container m-auto ${inputClass}`}>
             <i className={`fa-solid ${icon} input-icon`} />
             <input
                 {...inputProps}
