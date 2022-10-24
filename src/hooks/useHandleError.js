@@ -3,7 +3,7 @@ import { useUsersContext } from "../context/UsersContext";
 
 export const useHandleError = () => {
     const { usersError, usersErrorMsg, isLoading: loadingUsers } = useUsersContext();
-    const { propertiesError, propertiesErrorMsg, loading: loadingProperties } = usePropertiesContext();
+    const { propertiesError, propertiesErrorMsg, isLoading: loadingProperties } = usePropertiesContext();
 
     const error = usersError || propertiesError;
     const errorMsg = usersErrorMsg || propertiesErrorMsg;

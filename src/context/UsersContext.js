@@ -39,8 +39,7 @@ const UsersProvider = ({ children }) => {
         usersDb, setUsersDb,
         userToEdit, setUserToEdit,
         usersError, usersErrorMsg,
-        isLoading, setIsLoading,
-        isSending, setIsSending
+        isLoading, isSending, setIsSending
     }
 
     return (

@@ -1,8 +1,11 @@
 import React from 'react'
+import { usePropertiesContext } from '../../context/PropertiesContext';
 import { useUsersContext } from '../../context/UsersContext';
 
 function Button({ label, onClick }) {
-    const { isSending } = useUsersContext();
+    const { isSending: isSendingUsers } = useUsersContext();
+    const { isSending: isSendingProperties } = usePropertiesContext();
+    const isSending = isSendingUsers || isSendingProperties;
 
     return (
         <div className="text-center m-auto mt-3">

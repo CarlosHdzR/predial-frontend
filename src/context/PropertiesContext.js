@@ -18,7 +18,8 @@ const PropertiesProvider = ({ children }) => {
     const [associatedProperties, setAssociatedProperties] = useState([])
     const [propertiesError, setPropertiesError] = useState(null);
     const [propertiesErrorMsg, setPropertiesErrorMsg] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSending, setIsSending] = useState(false);
     const { payload, auth } = useAuthContext();
     const user_id = payload?._id;
 
@@ -31,7 +32,7 @@ const PropertiesProvider = ({ children }) => {
     useEffect(() => {
         const fetchPropertiesData = async () => {
             try {
-                setLoading(true);
+                setIsLoading(true);
                 const resProperties = await http().get(URL + LIST_PROPERTIES);
                 const resRecords = await http().get(URL + RECORDS);
                 if (!resProperties.error && !resRecords.error) {
@@ -44,7 +45,7 @@ const PropertiesProvider = ({ children }) => {
             } catch (error) {
                 handleError(`${error.status ? "Properties Database Error -" : ""} ${error.msg}`);
             } finally {
-                setLoading(false);
+                setIsLoading(false);
             }
         }
         fetchPropertiesData();
@@ -55,7 +56,7 @@ const PropertiesProvider = ({ children }) => {
         if (searchProperties === null) return;
         const findProperties = async () => {
             try {
-                setLoading(true);
+                setIsLoading(true);
                 const { owner_id_number } = searchProperties;
                 const res = await http().get(URL + FIND + owner_id_number);
                 if (res.error) {
@@ -74,7 +75,7 @@ const PropertiesProvider = ({ children }) => {
             } catch (error) {
                 handleError(error.msg);
             } finally {
-                setLoading(false);
+                setIsLoading(false);
             }
         }
         findProperties();
@@ -84,7 +85,7 @@ const PropertiesProvider = ({ children }) => {
     useEffect(() => {
         if (!user_id) return;
         const fetchAssociatedProperties = async () => {
-            setLoading(true);
+            setIsLoading(true);
             const res = await http().get(URL + LIST_ASSOCIATED_PROPERTIES + user_id);
             if (res.status) {
                 // setError(null);
@@ -92,7 +93,7 @@ const PropertiesProvider = ({ children }) => {
                     setAssociatedProperties(res.associatedProperties);
                 }
             }
-            setLoading(false);
+            setIsLoading(false);
         }
         fetchAssociatedProperties();
     }, [foundProperties, user_id]);
@@ -109,7 +110,8 @@ const PropertiesProvider = ({ children }) => {
         searchProperties, setSearchProperties,
         foundProperties, setFoundProperties,
         associatedProperties, setAssociatedProperties,
-        propertiesError, propertiesErrorMsg, loading
+        propertiesError, propertiesErrorMsg, 
+        isLoading, isSending, setIsSending
     }
 
     return (

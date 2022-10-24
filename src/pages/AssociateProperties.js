@@ -3,12 +3,12 @@ import { PropertyDetails, Loader, Message } from '../components/minors';
 import { usePropertiesContext } from '../context/PropertiesContext';
 
 function AssociateProperties() {
-    const { foundProperties, propertiesError, propertiesErrorMsg, loading } = usePropertiesContext();
+    const { foundProperties, propertiesError, propertiesErrorMsg, isLoading } = usePropertiesContext();
 
     return (
         <>
             <FormSearch />
-            {loading && <Loader />}
+            {isLoading && <Loader />}
             {(foundProperties.length === 0 && propertiesError) && <Message msg={propertiesErrorMsg} bgColor="#dc3545" />}
             {foundProperties.map((property) => (
                 <PropertyDetails
