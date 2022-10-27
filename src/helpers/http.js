@@ -25,7 +25,7 @@ export const http = () => {
         const controller = new AbortController();
         options.signal = controller.signal;
 
-        setTimeout(() => controller.abort(), 3000);
+        setTimeout(() => controller.abort(), 5000);
 
         try {
             const res = await fetch(endpoint, options);
