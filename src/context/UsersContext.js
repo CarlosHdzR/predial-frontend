@@ -1,7 +1,7 @@
-import { http } from "../helpers/http";
 import { createContext, useContext, useState, useEffect } from "react";
 import { config } from "../config";
 import { toast } from "react-toastify";
+import { http } from "../helpers/http";
 
 const UsersContext = createContext();
 
@@ -14,24 +14,21 @@ const UsersProvider = ({ children }) => {
     const [usersError, setUsersError] = useState(null);
     const [usersErrorMsg, setUsersErrorMsg] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [isSending, setIsSending] = useState(false)
+    const [isSending, setIsSending] = useState(false);
 
     // ********** Obtener Usuarios **********
     useEffect(() => {
+        const params = {
+            endpoint: URL + LIST_USERS,
+            setIsLoading,
+            setError: setUsersError,
+            setErrorMsg: setUsersErrorMsg
+        }
         const fetchUsers = async () => {
-            try {
-                setIsLoading(true);
-                const res = await http().get(URL + LIST_USERS);
-                if (!res.error) {
-                    const { users, msg } = res;
-                    return users ? setUsersDb(users) : toast.info(msg)
-                }
-                await Promise.reject(res);
-            } catch (error) {
-                setUsersError(true);
-                setUsersErrorMsg(`${error.status ? "Users Database Error -" : ""} ${error.msg}`);
-            } finally {
-                setIsLoading(false);
+            const res = await http().get(params);
+            if (res) {
+                const { users, msg } = res;
+                users ? setUsersDb(users) : toast.info(msg)
             }
         }
         fetchUsers();

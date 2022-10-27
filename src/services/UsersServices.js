@@ -15,214 +15,134 @@ const Users = () => {
     const { usersDb, setUsersDb, setIsSending } = useUsersContext();
     const { foundProperties, setFoundProperties } = usePropertiesContext();
     const { payload, logout } = useAuthContext();
-    const token = localStorage.getItem("token");
-    let api = http();
+    let { post, put } = http();
     const navigate = useNavigate();
 
     // ********** Crear Usuario **********
     const createUser = async (formData) => {
-        try {
-            let endpoint = URL + CREATE
-            let options = {
-                body: formData,
-                headers: {
-                    "authorization": `Bearer ${token}`
-                }
-            }
-            setIsSending(true)
-            const res = await api.post(endpoint, options);
-            if (!res.error) {
-                setUsersDb([...usersDb, res.user])
-                toast.success(res.msg)
-                return;
-            }
-            await Promise.reject(res);
-        } catch (error) {
-            toast.error(error.msg);
-        } finally {
-            setIsSending(false)
+        const params = {
+            endpoint: URL + CREATE,
+            options: { body: formData },
+            setIsSending
+        }
+        const res = await post(params);
+        if (res) {
+            setUsersDb([...usersDb, res.user])
+            toast.success(res.msg)
         }
     };
 
     // Registro de usuarios externos:
     const registerUser = async (user) => {
-        try {
-            let endpoint = URL + REGISTER;
-            let options = {
-                body: JSON.stringify(user),
-                headers: { "content-type": "application/json" }
-            }
-            setIsSending(true)
-            const res = await api.post(endpoint, options);
-            if (!res.error) {
-                setUsersDb([...usersDb, res.user])
-                toast.success(res.msg)
-                setTimeout(() => {
-                    navigate("/login")
-                }, 3000);
-                return;
-            }
-            await Promise.reject(res);
-        } catch (error) {
-            toast.error(error.msg)
-        } finally {
-            setIsSending(false)
+        const params = {
+            endpoint: URL + REGISTER,
+            options: { body: user },
+            setIsSending
+        }
+        const res = await post(params);
+        if (res) {
+            setUsersDb([...usersDb, res.user])
+            toast.success(res.msg)
+            setTimeout(() => {
+                navigate("/login")
+            }, 3000);
         }
     };
 
     // ********** Editar Usuario **********
     const updateUser = async (formData, user_id) => {
-        try {
-            let endpoint = URL + EDIT + user_id
-            let options = {
-                body: formData,
-                headers: {
-                    "authorization": `Bearer ${token}`
-                }
-            }
-            setIsSending(true)
-            const res = await api.put(endpoint, options);
-            if (!res.error) {
-                setUsersDb(res.users);
-                toast.success(res.msg)
-                navigate(payload.role === 1 ? "/admin/manage-users" : "", { replace: true })
-                return;
-            }
-            await Promise.reject(res);
-        } catch (error) {
-            toast.error(error.msg);
-        } finally {
-            setIsSending(false)
+        const params = {
+            endpoint: URL + EDIT + user_id,
+            options: { body: formData },
+            setIsSending
+        }
+        const res = await put(params);
+        if (res) {
+            setUsersDb(res.users);
+            toast.success(res.msg)
+            navigate(payload.role === 1 ? "/admin/manage-users" : "", { replace: true })
         }
     };
 
     // ********** Eliminar Usuario **********
     const deleteUser = async (user) => {
-        try {
-            let id_number = user.param
-            let user_id = user._id
-            const resConfirm = await swalConfirm({
-                msg: `¿Estás seguro que quieres eliminar el usuario con número de documento <b>${id_number}</b>?`,
-                icon: 'warning'
-            })
-            if (resConfirm.isConfirmed) {
-                let endpoint = URL + DELETE + user_id;
-                let options = {
-                    headers: {
-                        "authorization": `Bearer ${token}`
-                    }
-                }
-                const res = await api.del(endpoint, options);
-                if (!res.error) {
-                    setUsersDb(usersDb.filter((e) => e._id !== user_id))
-                    toast.success(res.msg)
-                    return;
-                }
-                await Promise.reject(res)
+        let id_number = user.param
+        let user_id = user._id
+        const resConfirm = await swalConfirm({
+            msg: `¿Estás seguro que quieres eliminar el usuario con número de documento <b>${id_number}</b>?`,
+            icon: 'warning'
+        })
+        if (resConfirm.isConfirmed) {
+            const params = {
+                endpoint: URL + DELETE + user_id,
+                setIsSending
             }
-        } catch (error) {
-            toast.error(error.msg);
+            const res = await put(params);
+            if (res) {
+                setUsersDb(usersDb.filter((e) => e._id !== user_id))
+                toast.success(res.msg)
+            }
         }
     };
 
     const changePassword = async (user) => {
-        try {
-            let endpoint = URL + CHANGE_PASSWORD;
-            let options = {
-                body: JSON.stringify(user),
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${token}`
-                }
-            }
-            setIsSending(true)
-            const res = await api.post(endpoint, options);
-            if (!res.error) {
-                toast.success(res.msg)
-                setTimeout(() => {
-                    logout();
-                }, 3000);
-                return;
-            }
-            await Promise.reject(res);
-        } catch (error) {
-            toast.error(error.msg);
-        } finally {
-            setIsSending(false);
+        const user_id = payload._id;
+        const params = {
+            endpoint: URL + CHANGE_PASSWORD + user_id,
+            options: { body: user },
+            setIsSending
+        }
+        const res = await put(params);
+        if (res) {
+            toast.success(res.msg)
+            setTimeout(() => {
+                logout();
+            }, 3000);
         }
     };
 
     // Solicitar restablecimiento de contraseña:
     const getResetLink = async (user) => {
-        try {
-            let endpoint = URL + GET_RESET_LINK;
-            let options = {
-                body: JSON.stringify(user),
-                headers: { "content-type": "application/json" }
-            }
-            setIsSending(true)
-            const res = await api.post(endpoint, options);
-            if (!res.error) {
-                toast.success(res.msg)
-                return
-            }
-            await Promise.reject(res);
-        } catch (error) {
-            toast.error(error.msg);
-        } finally {
-            setIsSending(false);
+        const params = {
+            endpoint: URL + GET_RESET_LINK,
+            options: { body: user },
+            setIsSending
+        }
+        const res = await put(params);
+        if (res) {
+            toast.success(res.msg)
         }
     };
 
     // Restablecer contraseña:
     const resetPassword = async (user, token) => {
-        try {
-            user.sentToken = token;
-            let endpoint = URL + RESET_PASSWORD;
-            let options = {
-                body: JSON.stringify(user),
-                headers: { "content-type": "application/json" }
-            }
-            setIsSending(true)
-            const res = await api.post(endpoint, options);
-            console.log(res.error);
-            if (!res.error) {
-                toast.success(res.msg);
-                setTimeout(() => {
-                    navigate("/login")
-                }, 3000);
-                return;
-            }
-            await Promise.reject(res);
-        } catch (error) {
-            toast.error(error.msg);
-        } finally {
-            setIsSending(false);
+        user.sentToken = token;
+        const params = {
+            endpoint: URL + RESET_PASSWORD,
+            options: { body: user },
+            setIsSending
+        }
+        const res = await put(params);
+        if (res) {
+            toast.success(res.msg);
+            setTimeout(() => {
+                navigate("/login")
+            }, 3000);
         }
     }
 
     // ********** Asociar predios **********
     const associateProperty = async (user_id, property_id) => {
-        try {
-            let endpoint = URL + ASSOCIATE_PROPERTIES + user_id;
-            let options = {
-                body: JSON.stringify({ property_id }),
-                headers: { "content-type": "application/json" }
-            };
-            setIsSending(true)
-            const res = await api.put(endpoint, options);
-            console.log(res.error);
-            if (!res.error) {
-                const newData = foundProperties.map((property) => property._id === res.associatedProperty._id ? res.associatedProperty : property)
-                setFoundProperties(newData);
-                toast.success(res.msg)
-                return;
-            }
-            await Promise.reject(res);
-        } catch (error) {
-            toast.error(error.msg);
-        } finally {
-            setIsSending(false);
+        const params = {
+            endpoint: URL + ASSOCIATE_PROPERTIES + user_id,
+            options: { body: { property_id } },
+            setIsSending
+        }
+        const res = await put(params);
+        if (res) {
+            const newData = foundProperties.map((property) => property._id === res.associatedProperty._id ? res.associatedProperty : property)
+            setFoundProperties(newData);
+            toast.success(res.msg)
         }
     }
 

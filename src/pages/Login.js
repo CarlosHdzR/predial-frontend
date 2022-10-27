@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { InputPlaceholder } from "../components/inputs";
+import { Button } from "../components/minors";
 import { useFormUser } from "../hooks";
 
 export const initialForm = {
@@ -22,7 +23,7 @@ function Login() {
         {
             id: "idPassword",
             type: "password",
-            inputClass: "col-10 my-3",
+            inputClass: "col-10 mt-3 mb-2",
             name: "password",
             placeholder: "Contraseña",
             icon: "fa-key",
@@ -31,7 +32,7 @@ function Login() {
 
     const linkProps = [
         {
-            linkClass: "my-2",
+            linkClass: "mt-3 mb-2",
             label: "¿No tienes una cuenta?",
             path: "/register",
             labelLink: "Regístrate aquí!!!"
@@ -63,11 +64,7 @@ function Login() {
                                 {...input}
                                 handleChange={handleChange} />
                         ))}
-                        <div className="col-6 m-auto my-2">
-                            <button className="my-btn-success w-100" type="submit">
-                                Ingresar
-                            </button>
-                        </div>
+                        <Button label="Ingresar" />
                         {linkProps.map((link, index) => (
                             <div key={index} className={`text-center m-auto ${link.linkClass}`}>
                                 <p className="small mb-0">

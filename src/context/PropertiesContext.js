@@ -21,45 +21,32 @@ const PropertiesProvider = ({ children }) => {
     const [propertiesErrorMsg, setPropertiesErrorMsg] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isSending, setIsSending] = useState(false);
+
     const { payload, auth } = useAuthContext();
     const user_id = payload?._id;
 
-    const handleError = (errorMsg) => {
-        setPropertiesError(true);
-        setPropertiesErrorMsg(errorMsg);
-    }
-
     useEffect(() => {
+        const params = {
+            setIsLoading,
+            setError: setPropertiesError,
+            setErrorMsg: setPropertiesErrorMsg
+        }
         // ********** Obtener Predios **********
         const fetchProperties = async () => {
-            try {
-                setIsLoading(true);
-                const res = await http().get(URL + LIST_PROPERTIES);
-                if (!res.error) {
-                    const { properties, msg } = res;
-                    return properties ? setPropertiesDb(properties) : toast.info(msg);
-                }
-                await Promise.reject(res);
-            } catch (error) {
-                handleError(`${error.status ? "Properties Database Error -" : ""} ${error.msg}`);
-            } finally {
-                setIsLoading(false);
+            params.endpoint = URL + LIST_PROPERTIES;
+            const res = await http().get(params);
+            if (res) {
+                const { properties, msg } = res;
+                properties ? setPropertiesDb(properties) : toast.info(msg);
             }
         }
         // ********** Obtener Historial **********
         const fetchRecords = async () => {
-            try {
-                setIsLoading(true);
-                const res = await http().get(URL + RECORDS);
-                if (!res.error) {
-                    const { records } = res;
-                    return records && setRecordsDb(res.records);
-                }
-                await Promise.reject(res);
-            } catch (error) {
-                handleError(`${error.status ? "Records Database Error -" : ""} ${error.msg}`);
-            } finally {
-                setIsLoading(false);
+            params.endpoint = URL + RECORDS;
+            const res = await http().get(params);
+            if (res) {
+                const { records, msg } = res;
+                records ? setRecordsDb(records) : toast.info(msg);
             }
         }
         fetchProperties();
@@ -69,27 +56,24 @@ const PropertiesProvider = ({ children }) => {
     // ********** Buscar predios por documento del propietario **********
     useEffect(() => {
         if (searchProperties === null) return;
+        const { owner_id_number } = searchProperties;
+        const params = {
+            endpoint: URL + FIND + owner_id_number,
+            setIsLoading,
+            setError: setPropertiesError,
+            setErrorMsg: setPropertiesErrorMsg
+        }
         const findProperties = async () => {
-            try {
-                setIsLoading(true);
-                setPropertiesError(null);
-                const { owner_id_number } = searchProperties;
-                const res = await http().get(URL + FIND + owner_id_number);
-                if (!res.error) {
-                    return res.foundProperties
-                        ?
-                        setFoundProperties(res.foundProperties)
-                        :
-                        toastValidate({
-                            msg: <div>{res.msg} <b><em>{owner_id_number}</em>.</b></div>,
-                            position: "bottom-center"
-                        });
-                }
-                await Promise.reject(res);
-            } catch (error) {
-                handleError(error.msg);
-            } finally {
-                setIsLoading(false);
+            const res = await http().get(params);
+            if (res) {
+                res.foundProperties
+                    ?
+                    setFoundProperties(res.foundProperties)
+                    :
+                    toastValidate({
+                        msg: <div>{res.msg} <b><em>{owner_id_number}</em>.</b></div>,
+                        position: "bottom-center"
+                    });
             }
         }
         findProperties();
@@ -98,18 +82,16 @@ const PropertiesProvider = ({ children }) => {
     // ********** Obtener predios asociados de un usuario **********
     useEffect(() => {
         if (!user_id) return;
+        const params = {
+            endpoint: URL + LIST_ASSOCIATED_PROPERTIES + user_id,
+            setIsLoading,
+            setError: setPropertiesError,
+            setErrorMsg: setPropertiesErrorMsg
+        }
         const fetchAssociatedProperties = async () => {
-            try {
-                setIsLoading(true);
-                const res = await http().get(URL + LIST_ASSOCIATED_PROPERTIES + user_id);
-                if (!res.error) {
-                    return res.associatedProperties && setAssociatedProperties(res.associatedProperties);
-                }
-                await Promise.reject(res);
-            } catch (error) {
-                handleError(error.msg)
-            } finally {
-                setIsLoading(false);
+            const res = await http().get(params);
+            if (res?.associatedProperties) {
+                setAssociatedProperties(res.associatedProperties);
             }
         }
         fetchAssociatedProperties();

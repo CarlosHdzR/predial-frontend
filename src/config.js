@@ -7,7 +7,7 @@ export const config = {
         REGISTER: "users/register",
         EDIT: "users/edit/",
         DELETE: "users/delete/",
-        CHANGE_PASSWORD: "users/change-password",
+        CHANGE_PASSWORD: "users/change-password/",
         GET_RESET_LINK: "users/get-reset-link",
         RESET_PASSWORD: "users/reset-password",
         ASSOCIATE_PROPERTIES: "users/associate-property/"
