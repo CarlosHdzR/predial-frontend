@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { config } from "../config";
 import { http } from "../helpers/http";
-import { toastValidate } from "../tools";
 import { useAuthContext } from "./AuthContext";
 
 const PropertiesContext = createContext();
@@ -70,10 +69,10 @@ const PropertiesProvider = ({ children }) => {
                     ?
                     setFoundProperties(res.foundProperties)
                     :
-                    toastValidate({
-                        msg: <div>{res.msg} <b><em>{owner_id_number}</em>.</b></div>,
-                        position: "bottom-center"
-                    });
+                    toast.error(
+                        <div>{res.msg} <b><em>{owner_id_number}</em>.</b></div>,
+                        { position: "bottom-center", toastId: "error" }
+                    );
             }
         }
         findProperties();

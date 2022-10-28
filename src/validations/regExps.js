@@ -1,4 +1,4 @@
-export const regExp = {
+export const regExps = {
     text: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/,
     number: /^[0-9]+$/,
     email: /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/,

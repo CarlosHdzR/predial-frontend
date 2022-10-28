@@ -43,9 +43,7 @@ const Users = () => {
         if (res) {
             setUsersDb([...usersDb, res.user])
             toast.success(res.msg)
-            setTimeout(() => {
-                navigate("/login")
-            }, 3000);
+            navigate("/login")
         }
     };
 
@@ -58,7 +56,7 @@ const Users = () => {
         }
         const res = await put(params);
         if (res) {
-            setUsersDb(res.users);
+            setUsersDb(res.users)
             toast.success(res.msg)
             navigate(payload.role === 1 ? "/admin/manage-users" : "", { replace: true })
         }
@@ -95,9 +93,7 @@ const Users = () => {
         const res = await put(params);
         if (res) {
             toast.success(res.msg)
-            setTimeout(() => {
-                logout();
-            }, 3000);
+            logout();
         }
     };
 
@@ -111,6 +107,7 @@ const Users = () => {
         const res = await put(params);
         if (res) {
             toast.success(res.msg)
+            navigate("/login")
         }
     };
 
@@ -124,12 +121,10 @@ const Users = () => {
         }
         const res = await put(params);
         if (res) {
-            toast.success(res.msg);
-            setTimeout(() => {
-                navigate("/login")
-            }, 3000);
+            toast.success(res.msg)
+            navigate("/login")
         }
-    }
+    };
 
     // ********** Asociar predios **********
     const associateProperty = async (user_id, property_id) => {
@@ -144,7 +139,7 @@ const Users = () => {
             setFoundProperties(newData);
             toast.success(res.msg)
         }
-    }
+    };
 
     return {
         createUser,

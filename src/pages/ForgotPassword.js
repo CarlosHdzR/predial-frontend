@@ -2,6 +2,7 @@ import { UsersServices } from '../services'
 import { toastValidate } from '../tools';
 import { useFormUser } from '../hooks';
 import { Button } from '../components/minors';
+import { regExps } from '../validations/regExps';
 
 export const initialForm = {
     email: "",
@@ -11,10 +12,16 @@ function ForgotPassword() {
     const { form, handleChange } = useFormUser({ initialForm });
     const { getResetLink } = UsersServices();
 
+    const regexEmail = regExps.email;
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!form.email) {
             toastValidate({ msg: "Por favor, ingresa tu correo electrónico!!!" });
+            return false;
+        }
+        if (!regexEmail.test(form.email)) {
+            toastValidate({ msg: "Por favor, ingrese un correo electrónico válido!!!"});
             return false;
         }
         getResetLink(form);

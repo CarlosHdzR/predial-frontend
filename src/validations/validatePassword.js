@@ -1,7 +1,7 @@
 import { toastValidate } from "../tools";
-import { regExp } from "./regExp";
+import { regExps } from "./regExps";
 
-let regexPass = regExp.password
+let regexPass = regExps.password
 
 export const validatePassword = (form) => {
     if ((form.currentPassword !== undefined && !form.currentPassword) ||

@@ -56,7 +56,7 @@ function PropertyDetails({ property }) {
                         </div>
                         <div className="col-6 vh-center mt-4 mb-2">
                             <button
-                                className="my-btn-convenio m-auto"
+                                className="my-btn-agreement m-auto"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"
                             >

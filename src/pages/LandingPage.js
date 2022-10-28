@@ -12,7 +12,7 @@ function LandingPage() {
 
     return (
         <>
-            <h1 className="text-center font-weight-bold mt-5">
+            <h1 className="my-title mt-5">
                 Plataforma de Gestión Catastral
             </h1>
             <img src={config.ASSETS.LOGO_ESCUDO} alt="escudo-cauca"

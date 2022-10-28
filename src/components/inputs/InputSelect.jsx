@@ -1,18 +1,10 @@
 function InputSelect({ id, label, inputClass, labelClass, handleChange, ...inputProps }) {
-    let array = []
-    switch (id) {
-        case "IdDown_payment":
-            array = ["Sí", "No"]
-            break;
-        case "IdNumber_of_payments":
-            array = [1, 2, 3, 4, 5, 6]
-            break;
-        case "IdId_type":
-            array = ["CC", "CE", "Pasaporte"]
-            break;
-        default:
-            break;
+    const SELECTS = {
+        IdDown_payment: ["Sí", "No"],
+        IdNumber_of_payments: [1, 2, 3, 4, 5, 6],
+        IdId_type: ["CC", "CE", "Pasaporte"]
     }
+    const selectValues = SELECTS[id] ?? [];
 
     return (
         <>
@@ -27,7 +19,7 @@ function InputSelect({ id, label, inputClass, labelClass, handleChange, ...input
                     onChange={handleChange}
                 >
                     <option defaultValue>Seleccionar</option>
-                    {array.map((item, index) =>
+                    {selectValues.map((item, index) =>
                         <option key={index} value={item}>{item}</option>)
                     }
                 </select>

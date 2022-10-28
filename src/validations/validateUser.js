@@ -1,12 +1,12 @@
 import { toastValidate } from "../tools";
-import { regExp } from "./regExp";
+import { regExps } from "./regExps";
 
-let regexText = regExp.text
-let regexNros = regExp.number
-let regexEmail = regExp.email
-let regexPass = regExp.password
-let regexTel = regExp.phone
-let regexDir = regExp.address
+let regexText = regExps.text
+let regexNros = regExps.number
+let regexEmail = regExps.email
+let regexPass = regExps.password
+let regexTel = regExps.phone
+let regexDir = regExps.address
 
 export const validateUser = ({ form, usersDb, userToEdit, terms }) => {
     if (!form.name || !form.surname || !form.id_type || form.id_type === "Seleccionar" ||

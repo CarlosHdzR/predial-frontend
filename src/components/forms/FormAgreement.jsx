@@ -30,13 +30,13 @@ function FormAgreement({ property }) {
     };
 
     const Msg = () => {
-        if (form.down_payment === "1") {
+        if (form.down_payment === "") {
             if (!form.down_payment || !form.down_payment_value || !form.number_of_payments || !form.payments_value) {
                 toastValidate({ msg: "Todos los campos son requeridos!!!" })
                 return false
             }
         } else {
-            if (!form.number_of_payments || !form.payments_value) {
+            if (!form.number_of_payments || !form.down_payment_value || !form.payments_value) {
                 toastValidate({ msg: "Todos los campos son requeridos!!!" })
                 return false
             }
@@ -75,7 +75,7 @@ function FormAgreement({ property }) {
     return (
         <>
             <div className="row text-center">
-                <h5 className="card-title">Solicitar Convenio de Pago</h5>
+                <h5 className="card-title p-2">Solicitar Convenio de Pago</h5>
                 {dataProperty.map((item) => (
                     <div key={item.id} className="col-6 pb-3">
                         <div className="blue-label">
@@ -106,7 +106,7 @@ function FormAgreement({ property }) {
                             handleChange={handleChange}
                         />
                 ))}
-                <div className="col-5 col-lg-4 m-auto mt-2">
+                <div className="col-5 col-lg-4 m-auto my-2">
                     <button
                         className="my-btn-success w-100"
                         type="button"

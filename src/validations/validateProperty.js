@@ -1,13 +1,13 @@
 import { toastValidate } from "../tools";
-import { regExp } from "./regExp";
+import { regExps } from "./regExps";
 
-let regexText = regExp.text
-let regexNros = regExp.number
-let regexEmail = regExp.email
-let regexDec = regExp.decimals
-let regexCod = regExp.code
-let regexCur = regExp.currency
-let regexDir = regExp.address
+let regexText = regExps.text
+let regexNros = regExps.number
+let regexEmail = regExps.email
+let regexDec = regExps.decimals
+let regexCod = regExps.code
+let regexCur = regExps.currency
+let regexDir = regExps.address
 
 export const validateProperty = ({ form, propertiesDb, propertyToEdit }) => {
     if (!form.code || !form.owner_name || !form.owner_id_number || !form.owner_email || !form.built_area ||

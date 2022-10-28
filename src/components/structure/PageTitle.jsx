@@ -10,7 +10,7 @@ function PageTitle({title, subtitle, isAdminPage}) {
 
     return (
         <div className={`${isAdminPage && "pagetitle"}`}>
-            <h1 className={`${!isAdminPage && "text-center font-weight-bold mt-5"}`}>
+            <h1 className={`${!isAdminPage && "my-title mt-5"}`}>
                 {title}
             </h1>
             {subtitle &&

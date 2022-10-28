@@ -73,7 +73,7 @@ export const http = () => {
             }
             await Promise.reject(res);
         } catch (error) {
-            toast.error(error.msg);
+            toast.error(error.msg, {toastId: "error"});
         } finally {
             setIsSending(false);
         }

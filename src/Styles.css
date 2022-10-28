@@ -52,6 +52,12 @@ h6 {
   margin-top: 2.5rem;
 }
 
+.my-title {
+  color: #012970;
+  text-align: center;
+  font-weight: bold;
+}
+
 .pagetitle {
   margin-bottom: 10px;
 }
@@ -128,20 +134,14 @@ h6 {
   padding: 1rem
 }
 
-.navbar .home-icon:hover, .btn-link:hover, a:hover {
-  color: #08366a;
-  transform: scale(1.02);
-}
-
-.navbar .active {
-  background-color: #148f39;
-  border-radius: 10px;
-}
-
 .navbar .home-icon {
   color: #08366a;
   font-size: 32px;
   cursor: pointer;
+}
+
+.navbar .home-icon:hover {
+  transform: scale(1.02);
 }
 
 .navbar .btn-link {
@@ -153,6 +153,15 @@ h6 {
   border-radius: 10px;
   padding: 12px;
   cursor: pointer;
+}
+
+.navbar .btn-link:hover {
+  zoom: 1.01
+}
+
+.navbar .active {
+  background-color: #148f39;
+  border-radius: 10px;
 }
 
 .navbar .btn-show-links {
@@ -559,7 +568,7 @@ input:invalid[focused="true"]~.errorMsg {
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27)
 }
 
-.my-btn-convenio {
+.my-btn-agreement {
   background-color: #188754;
   color: #ffffff;
   border: none;
@@ -570,12 +579,12 @@ input:invalid[focused="true"]~.errorMsg {
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.75);
 }
 
-.my-btn-convenio:hover {
+.my-btn-agreement:hover {
   background-color: rgba(24, 135, 84, 0.95);
   color: #ffffff
 }
 
-.my-btn-convenio:active {
+.my-btn-agreement:active {
   transform: translateY(3px)
 }
 
