@@ -10,7 +10,8 @@ export const config = {
         CHANGE_PASSWORD: "users/change-password/",
         GET_RESET_LINK: "users/get-reset-link",
         RESET_PASSWORD: "users/reset-password",
-        ASSOCIATE_PROPERTIES: "users/associate-property/"
+        ASSOCIATE_PROPERTIES: "users/associate-property/",
+        PAY_TAX: "users/pay-tax"
     },
     PROPERTIES_API: {
         LIST_PROPERTIES: "properties/list",

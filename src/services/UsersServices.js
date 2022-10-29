@@ -1,6 +1,6 @@
 import { http } from '../helpers/http';
 import { useNavigate } from 'react-router-dom';
-import { swalConfirm } from '../tools';
+import { swalAlert, swalConfirm } from '../tools';
 import { config } from '../config';
 import { useUsersContext } from '../context/UsersContext';
 import { useAuthContext } from '../context/AuthContext';
@@ -9,11 +9,11 @@ import { toast } from 'react-toastify';
 
 const { URL } = config;
 const { CREATE, REGISTER, EDIT, DELETE, CHANGE_PASSWORD,
-    GET_RESET_LINK, RESET_PASSWORD, ASSOCIATE_PROPERTIES } = config.USERS_API;
+    GET_RESET_LINK, RESET_PASSWORD, ASSOCIATE_PROPERTIES, PAY_TAX } = config.USERS_API;
 
 const Users = () => {
     const { usersDb, setUsersDb, setIsSending } = useUsersContext();
-    const { foundProperties, setFoundProperties } = usePropertiesContext();
+    const { foundProperties, setFoundProperties, associatedProperties, setAssociatedProperties } = usePropertiesContext();
     const { payload, logout } = useAuthContext();
     let { post, put } = http();
     const navigate = useNavigate();
@@ -137,9 +137,30 @@ const Users = () => {
         if (res) {
             const newData = foundProperties.map((property) => property._id === res.associatedProperty._id ? res.associatedProperty : property)
             setFoundProperties(newData);
-            toast.success(res.msg, {toastId: "success"})
+            toast.success(res.msg, { toastId: "success" })
         }
     };
+
+    // ********** Pagar impuesto **********
+    const payTax = async (code) => {
+        const params = {
+            endpoint: URL + PAY_TAX,
+            options: { body: { code } },
+            setIsSending
+        }
+        const res = await put(params);
+        if (res) {
+            const newData = associatedProperties.map((property) => property.code === code ? res.property : property)
+            setAssociatedProperties(newData);
+            swalAlert({
+                msg: `<b>El pago correspondiente al predio con código <br/>
+                    <span class="text-danger">${res.property.code}</span>, por un valor 
+                    de <span class="text-danger">$${res.property.tax_value}</span> 
+                    fue procesado exitosamente!!!</b>`,
+                icon: 'success'
+            });
+        }
+    }
 
     return {
         createUser,
@@ -149,7 +170,8 @@ const Users = () => {
         changePassword,
         getResetLink,
         resetPassword,
-        associateProperty
+        associateProperty,
+        payTax
     }
 }
 
