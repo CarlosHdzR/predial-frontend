@@ -89,6 +89,14 @@ h6 {
   color: #012970;
 }
 
+.outline-success {
+  color: #16973d;
+  border: solid 2px #16973d;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
 /* ****************************** Navbar ****************************** */
 .navbar {
   background-color: #16973d;

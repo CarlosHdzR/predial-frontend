@@ -1,7 +1,7 @@
 import PropertyInfo from './PropertyInfo';
 import { useAuthContext } from '../../context/AuthContext';
 import { UsersServices } from '../../services';
-import { swalAlert } from '../../tools';
+import { swalAlert, toastValidate } from '../../tools';
 import { useLocation } from 'react-router-dom';
 import Modal from './Modal';
 import { FormAgreement } from '../forms';
@@ -14,6 +14,10 @@ function PropertyDetails({ property }) {
     if (!property) return null;
 
     const handleAssociate = () => {
+        if (payload.id_number !== property.owner_id_number) {
+            toastValidate({msg: "El predio no está asociado a tu número de documento!!!"})
+            return false;
+        }
         associateProperty(payload._id, property._id)
     }
 
@@ -27,8 +31,6 @@ function PropertyDetails({ property }) {
         })
     }
 
-    let isAssociated = property?.owner === payload._id;
-
     return (
         <div className="card">
             <div className="card-body">
@@ -37,9 +39,9 @@ function PropertyDetails({ property }) {
                 {pathname.includes("associate-properties")
                     ?
                     <div className="vh-center">
-                        {isAssociated
+                        {property?.owner
                             ?
-                            <h3 className="text-success fw-bold mt-4">Predio asociado a tu cuenta</h3>
+                            <h5 className="outline-success mt-4">PREDIO ASOCIADO</h5>
                             :
                             <Button label="Asociar" onClick={handleAssociate} />
                         }

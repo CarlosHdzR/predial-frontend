@@ -106,7 +106,7 @@ const Users = () => {
         }
         const res = await put(params);
         if (res) {
-            toast.success(res.msg)
+            toast.info(res.msg)
             navigate("/login")
         }
     };
@@ -137,7 +137,7 @@ const Users = () => {
         if (res) {
             const newData = foundProperties.map((property) => property._id === res.associatedProperty._id ? res.associatedProperty : property)
             setFoundProperties(newData);
-            toast.success(res.msg)
+            toast.success(res.msg, {toastId: "success"})
         }
     };
 
