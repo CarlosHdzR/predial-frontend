@@ -17,38 +17,31 @@ const AuthProvider = ({ children }) => {
     const { LOGIN } = config.USERS_API;
     const navigate = useNavigate();
 
-    const payload = (() => {
+    const getAuth = () => {
         try {
             const token = localStorage.getItem("token");
             if (token) {
-                const tokenPayload = jwtDecode(token);
-                return tokenPayload;
+                return {
+                    payload: jwtDecode(token), auth: true
+                }
+            }
+            return {
+                payload: null, auth: false
             }
         } catch (error) {
             console.log(error);
         }
-    })();
-
-    const auth = (() => {
-        let res = false;
-        try {
-            if (payload?._id) {
-                res = true;
-            }
-        } catch (error) {
-            console.log(error)
-        }
-        return res;
-    })();
+    };
+    const { payload, auth } = getAuth();
 
     useEffect(() => {
         try {
-            if (payload._id) {
+            if (payload) {
                 const foundUser = usersDb.find((user) => user._id === payload._id);
                 setLoggedUser(foundUser);
             }
         } catch (error) {
-            setLoggedUser(null);
+            console.log(error);
         }
     }, [payload, usersDb]);
 
@@ -61,11 +54,12 @@ const AuthProvider = ({ children }) => {
         const res = await post(params);
         if (res) {
             localStorage.setItem("token", res.token);
-            let path = res.user.role === 3 ? "/user-ext/home" : "/admin/dashboard";
+            const { role, name } = res.user;
+            let path = role === 3 ? "/user-ext/home" : "/admin/dashboard";
             navigate(path);
             toast.success(
                 <div>
-                    Bienvenid@, <b>{res.user.name}</b>!!!
+                    Bienvenid@, <b>{name}</b>!!!
                 </div>,
                 { autoClose: 3000 }
             );
@@ -79,8 +73,8 @@ const AuthProvider = ({ children }) => {
     }
 
     const data = {
-        payload, auth, loggedUser,
-        login, logout, isSending
+        payload, auth, loggedUser, isSending,
+        login, logout
     };
 
     return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
