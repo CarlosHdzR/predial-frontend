@@ -77,10 +77,10 @@ const PropertiesProvider = ({ children }) => {
         }
         findProperties();
     }, [searchProperties]);
-
+    
     // ********** Obtener predios asociados de un usuario **********
     useEffect(() => {
-        if (!user_id) return;
+        if (!user_id) return setAssociatedProperties([]);
         const params = {
             endpoint: URL + LIST_ASSOCIATED_PROPERTIES + user_id,
             setIsLoading,

@@ -155,7 +155,7 @@ const Users = () => {
             swalAlert({
                 msg: `<b>El pago correspondiente al predio con código <br/>
                     <span class="text-danger">${res.property.code}</span>, por un valor 
-                    de <span class="text-danger">$${res.property.tax_value}</span> 
+                    de <span class="text-danger">${res.property.tax_value}</span> 
                     fue procesado exitosamente!!!</b>`,
                 icon: 'success'
             });
