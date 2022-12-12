@@ -51,7 +51,7 @@ function PropertyDetails({ property }) {
                             <>
                                 <Button
                                     classDiv="col-6"
-                                    label={`Pagar $${property.tax_value}`}
+                                    label={`Pagar ${property.tax_value}`}
                                     onClick={handlePayTax}
                                 />
                                 <div className="col-6 text-center m-auto mt-3">

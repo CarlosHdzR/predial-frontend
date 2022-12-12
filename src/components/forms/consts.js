@@ -9,6 +9,7 @@ const CodMask = createNumberMask({
 
 const AreaMask = createNumberMask({
     prefix: '',
+    suffix: 'm²',
     allowDecimal: true,
     requireDecimal: true
 })
@@ -237,9 +238,9 @@ export const inputPropertiesProps = [
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-building",
-        errorMessage: "Por favor, ingrese un dato válido!!! (2 cifras decimales. Ejs: 10.00, 10.50)",
-        label: "Área Construida (M²)",
-        pattern: "^[1-9]([0-9]{1,2})?(([,][0-9]{3})+)?[.][0-9]{2}$",
+        errorMessage: "Por favor, ingrese un dato válido!!! (2 cifras decimales + m². Ejs: 10.00m², 10.50m²)",
+        label: "Área Construida",
+        pattern: "^[1-9]([0-9]{1,2})?(([,][0-9]{3})+)?[.][0-9]{2}[m][²]{1}$",
         mask: AreaMask,
         required: true,
     },
@@ -249,9 +250,9 @@ export const inputPropertiesProps = [
         type: "text",
         className: "col-10 col-sm-5 m-auto my-2",
         icon: "fa-solid fa-building",
-        errorMessage: "Por favor, ingrese un dato válido!!! (2 cifras decimales. Ejs: 10.00, 10.50)",
-        label: "Área Total (M²)",
-        pattern: "^[1-9]([0-9]{1,2})?(([,][0-9]{3})+)?[.][0-9]{2}$",
+        errorMessage: "Por favor, ingrese un dato válido!!! (2 cifras decimales + m². Ejs: 10.00m², 10.50m²)",
+        label: "Área Total",
+        pattern: "^[1-9]([0-9]{1,2})?(([,][0-9]{3})+)?[.][0-9]{2}[m][²]{1}$",
         mask: AreaMask,
         required: true,
     },

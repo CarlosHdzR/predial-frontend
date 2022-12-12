@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { usePropertiesContext } from '../context/PropertiesContext';
 import { PropertiesServices } from '../services';
+import { calculateTax } from '../tools/calculateTax';
 import { validateProperty, validateOwnerIdProperty } from '../validations';
 
 export const useFormProperty = ({ initialForm, param }) => {
@@ -8,6 +9,9 @@ export const useFormProperty = ({ initialForm, param }) => {
     const [reset, setReset] = useState(false);
     const { propertiesDb, propertyToEdit, setPropertyToEdit, setSearchProperties } = usePropertiesContext();
     const { createProperty, updateProperty } = PropertiesServices();
+    form.value = form?.value?.replace(/[$]/, "");
+    form.tax_value = form.value && calculateTax(form?.value).replace(/[,]/g, '.');
+    form.tax_value = form.tax_value === "0" ? "" : form.tax_value;
 
     useEffect(() => {
         try {
@@ -20,11 +24,6 @@ export const useFormProperty = ({ initialForm, param }) => {
             setForm(initialForm);
         }
     }, [param, propertyToEdit, initialForm]);
-
-    const calculatePredial = () => {
-        const predial = Math.round((form.value.replace(/[$.]/g, '')) * 0.01) || "";
-        return predial;
-    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -68,6 +67,5 @@ export const useFormProperty = ({ initialForm, param }) => {
         handleChange,
         handleSubmit,
         handleSubmitSearch,
-        calculatePredial
     }
 }

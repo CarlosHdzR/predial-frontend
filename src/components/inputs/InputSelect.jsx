@@ -18,7 +18,7 @@ function InputSelect({ id, label, inputClass, labelClass, handleChange, ...input
                     className="form-select"
                     onChange={handleChange}
                 >
-                    <option defaultValue>Seleccionar</option>
+                    <option defaultValue value={""}>Seleccionar</option>
                     {selectValues.map((item, index) =>
                         <option key={index} value={item}>{item}</option>)
                     }

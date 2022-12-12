@@ -63,7 +63,7 @@ function FormUser({ terms, children }) {
                         <Input
                             {...input}
                             value={form[input.name]}
-                            readOnly={disableInput && true}
+                            disabled={disableInput && true}
                             handleChange={handleChange}
                             reset={reset}
                         />

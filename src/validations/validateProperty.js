@@ -4,7 +4,7 @@ import { regExps } from "./regExps";
 let regexText = regExps.text
 let regexNros = regExps.number
 let regexEmail = regExps.email
-let regexDec = regExps.decimals
+let regexDec = regExps.area
 let regexCod = regExps.code
 let regexCur = regExps.currency
 let regexDir = regExps.address

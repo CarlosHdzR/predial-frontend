@@ -31,9 +31,6 @@ const Properties = () => {
 
     // ********** Editar predio **********
     const updateProperty = async (property, property_id) => {
-        let propertyValue = property.value.replace(/[$.]/g, '')
-        let taxValue = propertyValue * 0.01
-        property.tax_value = Math.round(taxValue)
         const params = {
             endpoint: URL + EDIT + property_id,
             options: { body: property },

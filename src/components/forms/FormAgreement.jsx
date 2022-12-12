@@ -12,14 +12,23 @@ export const initialForm = {
 
 function FormAgreement({ property }) {
     const [form, setForm] = useState(initialForm);
+    let taxValue = Number((property.tax_value.replace(/[$.]/g, '')));
+    let downPaymentValue = Number(form.down_payment_value.replace(/[$.]/g, ''));
 
     if (form.down_payment === "No") {
         form.down_payment_value = "0"
     }
 
-    if (form.number_of_payments !== "Seleccionar") {
-        form.payments_value = Math.ceil((property.tax_value - form.down_payment_value.replace(/[$.]/g, '')) / form.number_of_payments)
+    if (downPaymentValue > taxValue) {
+        form.down_payment_value = property.tax_value;
     }
+
+    if (form.number_of_payments !== "Seleccionar") {
+        let paymentsValue = Math.ceil((taxValue - downPaymentValue) / form.number_of_payments);
+        paymentsValue = paymentsValue === Infinity ? 0 : paymentsValue;
+        form.payments_value = form.number_of_payments !== "" ? paymentsValue : 0;
+    }
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,7 +39,7 @@ function FormAgreement({ property }) {
     };
 
     const Msg = () => {
-        if (form.down_payment === "") {
+        if (!form.down_payment) {
             if (!form.down_payment || !form.down_payment_value || !form.number_of_payments || !form.payments_value) {
                 toastValidate({ msg: "Todos los campos son requeridos!!!" })
                 return false

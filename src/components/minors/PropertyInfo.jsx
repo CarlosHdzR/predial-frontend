@@ -19,22 +19,22 @@ function PropertyInfo({ property }) {
         {
             id: 4,
             label: "Área Construida",
-            data: property.built_area + "m"
+            data: property.built_area
         },
         {
             id: 5,
             label: "Área Total",
-            data: property.total_area + "m"
+            data: property.total_area
         },
         {
             id: 6,
             label: "Valor del Predio",
-            data: "$" + property.value
+            data: property.value
         },
         {
             id: 7,
             label: "Valor a pagar",
-            data: "$" + property.tax_value
+            data: property.tax_value
         },
         {
             id: 8,

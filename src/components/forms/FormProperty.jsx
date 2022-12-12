@@ -26,12 +26,6 @@ function FormProperty({ children }) {
     const param = code;
     const { form, reset, handleChange, handleSubmit } = useFormProperty({ initialForm, param });
 
-    try {
-        form.tax_value = Math.round((form.value.replace(/[$.]/g, '')) * 0.01) || "";
-    } catch (error) {
-        console.log(error.message);
-    }
-
     return (
         <form className="row g-3" onSubmit={handleSubmit} noValidate>
             {inputPropertiesProps.map((input) => (
