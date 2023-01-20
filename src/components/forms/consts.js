@@ -48,6 +48,7 @@ export const inputUsersProps = [
         type: "select",
         className: "col-10 col-sm-5 m-auto my-2",
         label: "Tipo de Documento",
+        errorMessage: "Por favor, ingrese un tipo de documento válido!!!",
         required: true,
     },
     {

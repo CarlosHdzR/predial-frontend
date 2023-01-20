@@ -10,29 +10,29 @@ function TableTop({ itemsPerPage, handleInputChange }) {
     let label = isUser ? "Usuario" : "Predio";
 
     return (
-        <div className="dataTable-top mb-2">
-            <div className="col-4">
-                <select name="select" ref={selectRef} className="dataTable-selector text-center" value={itemsPerPage.select} onChange={handleInputChange}>
+        <div className="d-flex justify-content-between">
+            <div className="col-4 col-sm-3 col-md-2 my-3">
+                <select name="select" ref={selectRef} className="form-select text-center" value={itemsPerPage.select} onChange={handleInputChange}>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
                     <option value={db.length}>Todos</option>
                 </select>
-                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{`${label}s`} por página</label>
+                <label className="table-labels-top">{`${label}s`} por página</label>
             </div>
-            <div className="col-7 col-md-5 col-lg-4">
+            <div className="col-7 col-md-5 col-lg-4 col-xl-3 my-3">
                 <Tooltip id="toolTipFilter" place="left">
                     Para filtrar por <em>rol</em> ingrese el valor seguido de un espacio
                 </Tooltip>
                 <input
                     data-tip
                     data-for={(payload.role === 1 && label === "Usuario") && "toolTipFilter"}
-                    className="col-12 col-sm-7 col-md-7 col-lg-8 dataTable-input"
+                    className="form-control col-12 col-sm-7 col-md-7"
                     placeholder="Filtrar..." type="text" value={filter}
                     onChange={handleFilter}
                 />
-                <label style={{ fontSize: "12px", marginLeft: "5px" }}>{range()} {range() === 1 ? label : `${label}s`}</label>
+                <label className="table-labels-top float-end">{range()} {range() === 1 ? label : `${label}s`}</label>
             </div>
         </div>
     )

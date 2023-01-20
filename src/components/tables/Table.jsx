@@ -10,7 +10,7 @@ function Table({ firstItemShowedPerPage, lastItemShowedPerPage }) {
     let loader = isLoading && <Loader />;
 
     return (
-        <div className="dataTable-container">
+        <>
             <Tooltip id="toolTipSort" place="top">
                 Ordenar <i className="bi bi-arrow-down-up" />
             </Tooltip>
@@ -19,35 +19,37 @@ function Table({ firstItemShowedPerPage, lastItemShowedPerPage }) {
                 <br />
                 Rol 3: Usuario Externo
             </Tooltip>
-            <table className="table datatable table-hover text-center">
-                <TableHeaders headerProps={headerProps} onSorting={(field, order) => setSorting({ field, order })} />
-                <tbody className="table-group-divider">
-                    {db.length > 0
-                        ?
-                        <>
-                            {filterItems.slice(firstItemShowedPerPage, lastItemShowedPerPage).map((element, index) => {
-                                return (
-                                    <TableRows
-                                        key={element._id}
-                                        nro_registro={index + 1 + firstItemShowedPerPage}
-                                        data={element}
-                                    />
-                                )
-                            })}
-                        </>
-                        : (
-                            <tr>
-                                <td colSpan={6}>
-                                    <h2 className="text-center m-5">
-                                        {loader}{!loader && "¡No hay información!"}
-                                    </h2>
-                                </td>
-                            </tr>
-                        )
-                    }
-                </tbody>
-            </table>
-        </div>
+            <div className="table-responsive-md">
+                <table className="table table-hover text-center">
+                    <TableHeaders headerProps={headerProps} onSorting={(field, order) => setSorting({ field, order })} />
+                    <tbody className="table-group-divider">
+                        {db.length > 0
+                            ?
+                            <>
+                                {filterItems.slice(firstItemShowedPerPage, lastItemShowedPerPage).map((element, index) => {
+                                    return (
+                                        <TableRows
+                                            key={element._id}
+                                            nro_registro={index + 1 + firstItemShowedPerPage}
+                                            data={element}
+                                        />
+                                    )
+                                })}
+                            </>
+                            : (
+                                <tr>
+                                    <td colSpan={6}>
+                                        <h2 className="text-center m-5">
+                                            {loader}{!loader && "¡No hay información!"}
+                                        </h2>
+                                    </td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </>
     )
 }
 

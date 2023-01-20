@@ -37,11 +37,11 @@ const TableRows = ({ data, nro_registro }) => {
             dato: datos[1]
         },
         {
-            className: "align-middle d-none d-sm-table-cell",
+            className: "align-middle",
             dato: datos[2]
         },
         {
-            className: `align-middle d-none ${!isRole1 && isUser ? "" : "d-sm-table-cell"}`,
+            className: `align-middle}`,
             dato: datos[3]
         },
     ];

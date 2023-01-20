@@ -5,9 +5,9 @@ function TableBottom({ pageNumber, firstItemShowedPerPage, lastItemShowedPerPage
     const { range } = useTable();
 
     return (
-        <div className="dataTable-bottom">
-            <div className="dataTable-info d-none d-sm-block mt-4">
-                <span style={{ fontSize: "12px" }}>Mostrando {firstItemShowedPerPage + 1} a {
+        <div className="container d-sm-flex justify-content-between">
+            <div className="d-none d-sm-block mt-4">
+                <span className="table-labels-bottom">Mostrando {firstItemShowedPerPage + 1} a {
                     pageNumber + 1 === pageCount() ?
                         range()
                         :
@@ -15,20 +15,28 @@ function TableBottom({ pageNumber, firstItemShowedPerPage, lastItemShowedPerPage
                     }
                 </span>
             </div>
-            <nav className="dataTable-pagination mt-3">
-                <ul className="dataTable-pagination-list">
-                    <ReactPaginate
-                        breakLabel="..."
-                        previousLabel={<i className="bi bi-caret-left-fill" />}
-                        nextLabel={<i className="bi bi-caret-right-fill" />}
-                        marginPagesDisplayed={0}
-                        pageRangeDisplayed={5}
-                        pageCount={pageCount()}
-                        onPageChange={changePage}
-                        activeClassName="active"
-                    />
-                </ul>
-            </nav>
+            <div className="mt-3 float-end">
+                <ReactPaginate
+                    containerClassName="pagination"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    activeClassName="active"
+                    previousClassName="page-item fw-bold"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item fw-bold"
+                    nextLinkClassName="page-link"
+                    disabledClassName="page-item disabled"
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    breakLabel="..."
+                    previousLabel="&laquo;"
+                    nextLabel="&raquo;"
+                    marginPagesDisplayed={0}
+                    pageRangeDisplayed={3}
+                    pageCount={pageCount()}
+                    onPageChange={changePage}
+                />
+            </div>
         </div>
     )
 }
