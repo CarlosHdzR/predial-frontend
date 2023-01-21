@@ -5,14 +5,16 @@ import { useAuthContext } from '../context/AuthContext';
 
 function MyProfile() {
     const { setUserToEdit } = useUsersContext();
-    const { loggedUser } = useAuthContext();
+    const { loggedUser, payload } = useAuthContext();
+    const role = payload?.role;
+    const isUserExt = role === 3; 
 
     const handleEdit = () => {
         setUserToEdit(loggedUser);
     }
 
     return (
-        <div className="card">
+        <div className="card" id={`${isUserExt ? "rounded" : ""}`}>
             <div className="card-body">
                 <div className="profile col-12">
                     <NavTabs handleEdit={handleEdit} />

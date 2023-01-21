@@ -58,6 +58,7 @@ function FormUser({ terms, children }) {
                             value={form[input.name]}
                             disabled={disableInput && true}
                             handleChange={handleChange}
+                            reset={reset}
                         />
                         :
                         <Input

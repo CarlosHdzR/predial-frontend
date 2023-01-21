@@ -18,7 +18,7 @@ function MyProperties() {
                 </>
                 :
                 <>
-                    <div className="card mt-4">
+                    <div className="card mt-4" id="rounded">
                         <h1 className="text-center text-xl my-5">¡No tienes predios asociados a tu cuenta!</h1>
                     </div>
                 </>

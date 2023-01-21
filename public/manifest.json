@@ -3,7 +3,7 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "logo-escudo-cauca.png",
+      "src": "https://res.cloudinary.com/chrod90/image/upload/v1674252045/app-predial-static/logo-escudo_daba0e.png",
       "type": "image/png",
       "sizes": "360x297"
     }

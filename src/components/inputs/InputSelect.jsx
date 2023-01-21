@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 
-function InputSelect({ id, label, inputClass, labelClass, errorMessage, handleChange, ...inputProps }) {
+function InputSelect({ id, label, inputClass, labelClass,
+    errorMessage, handleChange, reset, ...inputProps }) {
     const [focused, setFocused] = useState(false);
     const { payload, auth } = useAuthContext();
     const role = payload?.role;
@@ -18,6 +19,10 @@ function InputSelect({ id, label, inputClass, labelClass, errorMessage, handleCh
         setFocused(true);
     };
 
+    useEffect(() => {
+        setFocused(false);
+    }, [reset])
+
     return (
         <>
             <label htmlFor={id} className={`form-label blue-label ${labelClass}`}>
@@ -27,7 +32,7 @@ function InputSelect({ id, label, inputClass, labelClass, errorMessage, handleCh
                 <select
                     {...inputProps}
                     id={id}
-                    className={`form-control ${!isAdmin ? "form-transparent" : ""}`}
+                    className={`form-select ${!isAdmin ? "form-transparent" : ""}`}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     focused={focused.toString()}
