@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import MaskedInput from 'react-text-mask'
+import { useAuthContext } from "../../context/AuthContext";
 
 const Input = ({ id, type, inputClass, labelClass, icon, errorMessage,
     label, handleChange, reset, mask, ...inputProps }) => {
     const [focused, setFocused] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const { payload, auth } = useAuthContext();
+    const role = payload?.role;
+    const isAdmin = auth && role === 1;
 
     const handleBlur = () => {
         setFocused(true);
@@ -31,7 +35,7 @@ const Input = ({ id, type, inputClass, labelClass, icon, errorMessage,
                         {...inputProps}
                         id={id}
                         type={(type === "password" && showPassword) ? "text" : type}
-                        className="form-control"
+                        className={`form-control ${!isAdmin ? "form-transparent" : ""}`}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         focused={focused.toString()}
@@ -42,7 +46,7 @@ const Input = ({ id, type, inputClass, labelClass, icon, errorMessage,
                         guide={false}
                         {...inputProps}
                         id={id}
-                        className="form-control"
+                        className={`form-control ${!isAdmin ? "form-transparent" : ""}`}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         focused={focused.toString()}

@@ -46,7 +46,7 @@ function ForgotPassword() {
                         <div className="input-container col-10 m-auto mt-3 mb-2">
                             <i className="fa-solid fa-at input-icon" />
                             <input
-                                className="form-control" type="email" name="email" id="yourEmail"
+                                className="form-control form-transparent" type="email" name="email" id="yourEmail"
                                 placeholder="Correo Electrónico" onChange={handleChange} value={form.email} required
                             />
                         </div>

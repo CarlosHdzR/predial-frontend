@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useAuthContext } from "../../context/AuthContext";
 
 function InputSelect({ id, label, inputClass, labelClass, errorMessage, handleChange, ...inputProps }) {
     const [focused, setFocused] = useState(false);
+    const { payload, auth } = useAuthContext();
+    const role = payload?.role;
+    const isAdmin = auth && role === 1;
 
     const SELECTS = {
         IdDown_payment: ["Sí", "No"],
@@ -23,7 +27,7 @@ function InputSelect({ id, label, inputClass, labelClass, errorMessage, handleCh
                 <select
                     {...inputProps}
                     id={id}
-                    className="form-select"
+                    className={`form-control ${!isAdmin ? "form-transparent" : ""}`}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     focused={focused.toString()}

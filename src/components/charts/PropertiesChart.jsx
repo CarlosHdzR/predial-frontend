@@ -16,7 +16,7 @@ const options = {
 function PropertiesChart({ loader, propertiesDb }) {
     const men100 = propertiesDb.filter((property) => property.value.replace(/[$.]/g, '') < 100000000);
     const may100men200 = propertiesDb.filter((property) => property.value.replace(/[$.]/g, '') >= 100000000
-                                                    && property.value.replace(/[$.]/g, '') <= 200000000);
+        && property.value.replace(/[$.]/g, '') <= 200000000);
     const may200 = propertiesDb.filter((property) => property.value.replace(/[$.]/g, '') > 200000000);
 
     const data = {
@@ -27,15 +27,15 @@ function PropertiesChart({ loader, propertiesDb }) {
                 backgroundColor: [
                     'rgba(25, 135, 84, 0.7)',
                     'rgba(255, 194, 8, 0.7)',
-                    'rgba(219, 52, 69, 0.7)',
+                    'rgba(220, 53, 70)',
                 ],
             },
         ],
     };
 
-    const aMen100 = propertiesDb.filter((property) => property.total_area < 100)
-    const aMay100Men150 = propertiesDb.filter((property) => property.total_area >= 100 && property.total_area <= 150)
-    const may150 = propertiesDb.filter((property) => property.total_area > 150)
+    const aMen100 = propertiesDb.filter((property) => parseFloat(property.total_area) < 100);
+    const aMay100Men150 = propertiesDb.filter((property) => parseFloat(property.total_area) >= 100 && parseFloat(property.total_area) <= 150);
+    const may150 = propertiesDb.filter((property) => parseFloat(property.total_area) > 150);
 
     const data2 = {
         labels: [' Menos de 100m² ', ' Entre 100m² y 150m² ', ' Más de 150m² '],
@@ -45,7 +45,7 @@ function PropertiesChart({ loader, propertiesDb }) {
                 backgroundColor: [
                     'rgba(25, 135, 84, 0.7)',
                     'rgba(255, 194, 8, 0.7)',
-                    'rgba(219, 52, 69, 0.7)',
+                    'rgba(220, 53, 70)',
                 ],
             },
         ],
@@ -70,7 +70,7 @@ function PropertiesChart({ loader, propertiesDb }) {
                 </div>
                 :
                 <h2 className="text-center m-3">{loader}{!loader && "¡No hay información!"}</h2>
-            }  
+            }
         </div>
     );
 }

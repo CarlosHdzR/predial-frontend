@@ -46,7 +46,7 @@ function Login() {
 
     return (
         <div className="row justify-content-center">
-            <div className="card col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5 py-3" id="rounded">
+            <div className="card card-lp col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5 py-3" id="rounded">
                 <div className="card-body">
                     <div className="text-center">
                         <h5 className="card-title fs-4 pb-0">

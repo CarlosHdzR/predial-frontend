@@ -49,17 +49,17 @@ function UsersChart({ loader, usersDb }) {
             {
                 label: " Predios creados",
                 data: scores1,
-                backgroundColor: "rgba(25, 135, 84, 0.7)",
+                backgroundColor: "rgba(25, 135, 84)",
             },
             {
                 label: " Predios editados",
                 data: scores2,
-                backgroundColor: "rgba(255, 194, 8, 0.7)",
+                backgroundColor: "rgba(255, 194, 8)",
             },
             {
                 label: " Predios eliminados",
                 data: scores3,
-                backgroundColor: "rgba(219, 52, 69, 0.7)",
+                backgroundColor: "rgba(220, 53, 70)",
             },
         ],
         labels

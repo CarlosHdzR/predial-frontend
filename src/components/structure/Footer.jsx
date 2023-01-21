@@ -4,22 +4,23 @@ import { config } from "../../config";
 function Footer() {
     const { payload, auth } = useAuthContext();
     const { LOGO_ESCUDO, LOGO_GOV_FOOTER } = config.ASSETS;
+    const currentYear = new Date().getFullYear();
 
     const socialItemsProps = [
         {
-            link: "https://es-la.facebook.com/GobCauca/",
+            link: "https://www.facebook.com/GobernaciondelAtlantico",
             icon: "bi bi-facebook"
         },
         {
-            link: "https://www.instagram.com/GobCauca/",
+            link: "https://www.instagram.com/gobatlantico/",
             icon: "bi bi-instagram"
         },
         {
-            link: "https://twitter.com/GobCauca",
+            link: "https://twitter.com/gobatlantico",
             icon: "bi bi-twitter"
         },
         {
-            link: "https://www.youtube.com/channel/UCJUgHfrUdzJojR2Ktao7fHw",
+            link: "https://www.youtube.com/user/gobatl",
             icon: "bi bi-youtube"
         },
     ]
@@ -27,26 +28,27 @@ function Footer() {
     const footerColProps = [
         {
             className: "footer-col d-none d-sm-block",
-            classItem: "logo-footer",
+            label: "Gobernación del Atlántico",
             content:
-                <a href="https://www.cauca.gov.co/" target="_blank" rel="noreferrer">
-                    <img className="img-fluid zoom" src={LOGO_ESCUDO} alt="escudo-cauca" />
+                <a href="https://www.atlantico.gov.co/" target="_blank" rel="noreferrer">
+                    <img className="logo-escudo img-fluid zoom" src={LOGO_ESCUDO} alt="escudo-cauca" />
                 </a>
         },
         {
             className: "footer-col",
+            label: "Contacto",
             content:
                 <>
-                    <p href="#">Dirección:<br />Carrera 7 Calle 4 Esquina<br />Popayán - Cauca. </p>
-                    <p href="#">Código Postal - 190001</p>
-                    <p href="#">Teléfono:<br />602 8320352 - 602 8220571<br />602 8220572 - 602 8242121</p>
-                    <p href="#">contactenos@cauca.gov.co</p>
-                    <p href="#">Notificaciones judiciales:<br />notificaciones@cauca.gov.co</p>
+                    <p href="#">Dirección:<br />Calle 40 # 45 - 46<br />Barranquilla - Atlántico. </p>
+                    <p href="#">Código Postal: 080003</p>
+                    <p href="#">Teléfono:<br />+57 6053307000</p>
+                    <span>atencionalciudadano@atlantico.gov.co<br/>notificacionesjudiciales@atlantico.gov.co</span>
                 </>
         },
         {
             className: "footer-col",
             classItem: "social-links",
+            label: "Redes Sociales",
             content: socialItemsProps.map((item, index) => (
                 <a
                     key={index}
@@ -59,6 +61,7 @@ function Footer() {
         {
             className: "footer-col d-none d-sm-block",
             classItem: "logo-footer",
+            label: "Gobierno de Colombia",
             content:
                 <a href="https://www.gov.co/home/" target="_blank" rel="noreferrer" >
                     <img className="img-fluid zoom" src={LOGO_GOV_FOOTER} alt="logo-gov-co" />
@@ -75,7 +78,7 @@ function Footer() {
                         <div className="row">
                             {footerColProps.map((item, index) => (
                                 <div key={index} className={item.className}>
-                                    <h4>Gobernación del Cauca</h4>
+                                    <h4>{item.label}</h4>
                                     <div className={item.classItem}>
                                         {item.content}
                                     </div>
@@ -85,7 +88,7 @@ function Footer() {
                         <hr />
                         <div className="row">
                             <p style={{ color: '#d4d4d4' }}>
-                                &copy;{new Date().getFullYear()} <b>ChrodDev</b> | All rights reserved
+                                &copy;{currentYear} <b>CHRod</b> | All rights reserved
                             </p>
                         </div>
                     </div>
@@ -93,7 +96,7 @@ function Footer() {
                 :
                 <footer id="footer" className="footer" >
                     <div className="copyright">
-                        &copy; Copyright <b>ChrodDev</b> | All Rights Reserved
+                        &copy;{currentYear} <b>CHRod</b> | All Rights Reserved
                     </div>
                 </footer>
             }

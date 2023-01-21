@@ -26,7 +26,7 @@ function PropertyDetails({ property }) {
     }
 
     return (
-        <div className="card">
+        <div className="card" id="transparent">
             <div className="card-body">
                 <h5 className="card-title">Detalles del Predio</h5>
                 <PropertyInfo property={property} />

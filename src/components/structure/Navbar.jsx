@@ -4,11 +4,12 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { config } from '../../config';
 import { useAuthContext } from '../../context/AuthContext';
 
+const { LOGO_GOV_CO, DEFAULT_AVATAR } = config.ASSETS;
+
 function Navbar({ hideMenu, setHideMenu }) {
     const { payload, auth, loggedUser } = useAuthContext();
     const { avatar, name, id_number } = loggedUser || {};
     const { secure_url } = avatar || {};
-    const { LOGO_GOV_CO, DEFAULT_AVATAR } = config.ASSETS;
     const [hoverBtn, setHoverBtn] = useState(false); // Hover ToggleBtn
     const [showLinks, setShowLinks] = useState(false);
     const { pathname } = useLocation();

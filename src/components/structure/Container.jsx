@@ -14,7 +14,7 @@ function Container({ title, subtitle, children }) {
     let isAdminPage = auth && role !== 3;
 
     return (
-        <main id={`${isAdminPage && "main"}`} className={`${!isAdminPage && "vh-center"} min-vh-100`} >
+        <div id={`${isAdminPage ? "container-admin" : "container"}`} className={`${!isAdminPage && "vh-center"} min-vh-100`} >
             <div className={`${!isAdminPage && "container"}`}>
                 <div className={`${role === 3 && "mt-5"}`}>
                     {errorMessage}
@@ -43,7 +43,7 @@ function Container({ title, subtitle, children }) {
                     </>
                 }
             </div>
-        </main>
+        </div>
     )
 }
 

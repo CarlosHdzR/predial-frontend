@@ -11,7 +11,7 @@
 body {
   min-height: 100vh;
   font-family: "Open Sans", sans-serif;
-  background: #dbf5db;
+  background-color: #e3f2fa;
   background-size: cover;
 }
 
@@ -36,14 +36,20 @@ h6 {
   font-family: "Nunito", sans-serif;
 }
 
-#main {
+#container {
+  background-image: url("https://res.cloudinary.com/chrod90/image/upload/v1674284002/app-predial-static/bg-image_vjvlrv.jpg");
+  background-size: cover;
+}
+
+#container-admin {
   margin-top: 60px;
+  background-color: #e3f2fa;
   padding: 20px 30px;
   transition: all 0.3s;
 }
 
 @media (max-width: 1199px) {
-  #main {
+  #container-admin {
     padding: 20px;
   }
 }
@@ -56,6 +62,12 @@ h6 {
   color: #012970;
   text-align: center;
   font-weight: bold;
+}
+
+.escudo-title {
+  color: white;
+  text-shadow: 2px 0 20px black;
+  margin-top: 10px;
 }
 
 .pagetitle {
@@ -90,8 +102,8 @@ h6 {
 }
 
 .outline-success {
-  color: #16973d;
-  border: solid 2px #16973d;
+  color: #00877a;
+  border: solid 2px #00877a;
   border-radius: 5px;
   font-weight: bold;
   padding: 0.5rem;
@@ -108,9 +120,16 @@ h6 {
   color: rgba(0, 0, 0, 0.719);
 }
 
+.logo-escudo {
+  width: 100%;
+  max-width: 200px;
+  height: 100%;
+  max-height: 230px;
+}
+
 /* ****************************** Navbar ****************************** */
 .navbar {
-  background-color: #16973d;
+  background-color: #0076b4;
   display: flex;
   align-items: center;
   transition: all 0.5s;
@@ -133,11 +152,7 @@ h6 {
   display: flex;
   align-items: center;
   max-width: 180px;
-  margin-right: 1rem;
-}
-
-.navbar #admin.logo-navbar {
-  margin-right: 0.5rem;
+  margin-right: 10px;
 }
 
 .navbar .toggle-btn {
@@ -148,13 +163,13 @@ h6 {
 }
 
 .navbar .links a {
-  color: #08366a;
+  color: #ddd;
   font-weight: bold;
   padding: 1rem
 }
 
 .navbar .home-icon {
-  color: #08366a;
+  color: #012970;
   font-size: 32px;
   cursor: pointer;
 }
@@ -164,7 +179,7 @@ h6 {
 }
 
 .navbar .btn-link {
-  color: #08366a;
+  color: #ddd;
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
@@ -179,7 +194,7 @@ h6 {
 }
 
 .navbar .active {
-  background-color: #148f39;
+  background-color: #00659b;
   border-radius: 10px;
 }
 
@@ -197,11 +212,12 @@ h6 {
 }
 
 .header-nav .nav-profile {
-  color: #012970;
+  color: #ddd;
   cursor: pointer;
 }
 
 .header-nav .nav-profile img {
+  color: #ddd;
   max-height: 36px;
 }
 
@@ -238,7 +254,7 @@ h6 {
     top: 60px;
     height: 160px;
     width: 100%;
-    background-color: #16973d;
+    background-color: #0076b4;
     flex-direction: column;
     align-items: center;
     font-size: 18px;
@@ -258,7 +274,6 @@ h6 {
 
   .navbar .logo-navbar {
     max-width: 140px;
-    margin-right: 0.5rem;
   }
 
   .navbar .home-icon {
@@ -315,7 +330,7 @@ h6 {
 
 @media (min-width: 1200px) {
 
-  #main,
+  #container-admin,
   #footer {
     margin-left: 250px;
   }
@@ -329,7 +344,7 @@ h6 {
 
 @media (min-width: 1200px) {
 
-  .toggle-sidebar #main,
+  .toggle-sidebar #container-admin,
   .toggle-sidebar #footer {
     margin-left: 0;
   }
@@ -367,11 +382,12 @@ h6 {
 }
 
 .sidebar-nav .nav-link.collapsed {
-  background: #dbf5db;
+  background: #d7eefa;
 }
 
 .sidebar-nav .nav-link.collapsed.active {
-  background: #16973d;
+  color: #ddd;
+  background: #0076b4;
 }
 
 .sidebar-nav .nav-link:hover {
@@ -394,6 +410,11 @@ h6 {
 
 #rounded.card {
   border-radius: 20px;
+  background-color: rgba(250, 252, 250, 0.5);
+}
+
+#transparent.card {
+  background-color: rgba(250, 252, 250, 0.5);
 }
 
 .card-title {
@@ -455,6 +476,15 @@ h6 {
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0.4rem 2.3rem;
   outline: none;
+}
+
+.form-transparent {
+  background-color: rgba(250, 252, 250, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.form-transparent:focus {
+  background-color: rgba(250, 252, 250, 0.3);
 }
 
 .form-control:hover,
@@ -673,7 +703,7 @@ input[type="file"] {
 
 /* ****************************** Footer ****************************** */
 .footer {
-  background-color: #16973d;
+  background-color: #0076b4;
   padding: 20px 0;
   font-size: 14px;
   transition: all 0.3s;
@@ -704,7 +734,7 @@ input[type="file"] {
   position: absolute;
   left: 0;
   bottom: -10px;
-  background-color: #d2101b;
+  background-color: #ddd;
   height: 2px;
   box-sizing: border-box;
   width: 50px;
@@ -726,6 +756,12 @@ input[type="file"] {
   color: #d4d4d4;
   display: block;
   transition: all 0.3s ease;
+}
+
+.footer-col div span {
+  font-size: 11px;
+  color: #d4d4d4;
+  word-wrap: break-word;
 }
 
 .footer-col .social-links a {
@@ -764,7 +800,7 @@ input[type="file"] {
 
 .footer .copyright {
   text-align: center;
-  color: #012970;
+  color: #ddd;
 }
 
 /* ****************************** Loader ****************************** */
@@ -811,8 +847,16 @@ input[type="file"] {
 }
 
 /* ****************************** Error 404 ****************************** */
+.container-error-404{
+  position: relative;
+  top: 60px;
+  height: auto;
+  background-color: #ddd;
+}
+
 .error-404 {
   padding: 15px;
+  margin-bottom: 60px;
 }
 
 .error-404 h1 {

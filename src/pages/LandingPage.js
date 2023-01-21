@@ -16,9 +16,9 @@ function LandingPage() {
                 Plataforma de Gestión Catastral
             </h1>
             <img src={config.ASSETS.LOGO_ESCUDO} alt="escudo-cauca"
-                className="img-fluid d-block mx-auto mt-4"
+                className="logo-escudo img-fluid d-block mx-auto mt-4"
             />
-            <h3 className="text-center">Gobernación del Cauca</h3>
+            <h3 className="escudo-title text-center">Gobernación del Atlántico</h3>
             <div className="row mt-5">
                 <LinkCard
                     path={path1}

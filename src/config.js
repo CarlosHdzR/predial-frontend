@@ -23,9 +23,9 @@ export const config = {
         LIST_ASSOCIATED_PROPERTIES: "properties/list-associated-properties/"
     },
     ASSETS: {
-        LOGO_ESCUDO: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/logo-escudo_kegz1y.png",
-        LOGO_GOV_CO: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/logo-gov-co_kzngdx.png",
-        LOGO_SIDEBAR: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/logo-sidebar_m0gqs9.png",
+        LOGO_ESCUDO: "https://res.cloudinary.com/chrod90/image/upload/v1674252045/app-predial-static/logo-escudo_daba0e.png",
+        LOGO_GOV_CO: "https://res.cloudinary.com/chrod90/image/upload/v1674280277/app-predial-static/logo-gov-co_oj2pgy.png",
+        LOGO_SIDEBAR: "https://res.cloudinary.com/chrod90/image/upload/v1674252273/app-predial-static/logo-sidebar_wfcegw.png",
         LOGO_GOV_FOOTER: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/logo-govco-footer_zb2uk2.png",
         DEFAULT_AVATAR: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/default-avatar_x8vknd.png",
         IMG_LOADING: "https://res.cloudinary.com/chrod90/image/upload/v1655852581/app-predial-static/img-loading_h52s2j.gif",

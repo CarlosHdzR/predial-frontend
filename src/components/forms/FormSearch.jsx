@@ -18,7 +18,7 @@ function FormSearch() {
                         </label>
                     </div>
                     <div className="col-8 col-sm-6 m-auto">
-                        <input className="form-control" type="text" name="owner_id_number"
+                        <input className="form-control form-transparent" type="text" name="owner_id_number"
                             id="IdOwner_id_number" onChange={handleChange} value={form.owner_id_number}
                         />
                     </div>
