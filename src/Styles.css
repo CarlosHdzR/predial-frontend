@@ -804,6 +804,15 @@ input[type="file"] {
 }
 
 /* ****************************** Loader ****************************** */
+.container-loader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://res.cloudinary.com/chrod90/image/upload/v1674284002/app-predial-static/bg-image_vjvlrv.jpg");
+  background-size: cover;
+}
+
 .lds-ring {
   display: inline-block;
   position: relative;
