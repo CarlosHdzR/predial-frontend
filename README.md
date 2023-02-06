@@ -1,5 +1,5 @@
 # Cadastral Management Platform
-Platform that allows managing the cadastral collection of a city's properties.
+Platform that allows managing the cadastral collection of a city's properties.  
 The types of users that the system manages are **Administrator (role 1)**, **Internal User (role 2)** and **External User (role 3)**.
 
 The administrator has full control of the platform and therefore is able to:
