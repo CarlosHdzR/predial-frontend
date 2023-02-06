@@ -43,8 +43,8 @@ All users can edit their own profile, change their password and even upload an a
 ## Run app
 1. Clone or download the project on your computer.
 
-2. Install the necessary dependencies from the terminal, with the command **npm install** or its equivalent in **yarn**.
+2. Install the necessary dependencies from the terminal, with the command **npm install** or its **yarn** equivalent.
 
 3. Clone or download the project corresponding to the Backend to your computer from [predial-backend](https://github.com/CarlosHdzR/predial-backend) and follow the steps to run it.
 
-4. Run the **npm start** command or its equivalent in **yarn**.
+4. Run the **npm start** command or its **yarn** equivalent.
