@@ -29,6 +29,7 @@ All users can edit their own profile, change their password and even upload an a
 * Bootstrap
 * React Router
 * Context API
+* Fetch API
 * Jwt-decode
 * Bcryptjs
 * Chart.js
