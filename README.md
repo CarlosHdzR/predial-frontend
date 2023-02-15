@@ -1,34 +1,35 @@
-# Plataforma de Gestión Catastral
-Plataforma que permite gestionar el cobro catastral de los predios de una ciudad.  
-Los tipos de usuarios que maneja el sistema son **Administrador (rol 1)**, **Usuario Interno (rol 2)** y **Usuario Externo (rol 3)**.
+# Cadastral Management Platform
+Platform that allows managing the cadastral collection of a city's properties.  
+The types of users that the system manages are **Administrator (role 1)**, **Internal User (role 2)** and **External User (role 3)**.
 
-El administrador tiene control total de la plataforma y por lo tanto está en la capacidad de:
-* Autenticarse en la plataforma.
-* Crear usuarios internos.
-* Gestionar usuarios (internos y externos).
-* Crear predios.
-* Gestionar predios.
+The administrator has full control of the platform and therefore is able to:
+* Authenticate on the platform.
+* Create internal users.
+* Manage users (internal and external).
+* Create properties.
+* Manage properties.
 
-El usuario interno está en la capacidad de:
-* Autenticarse en la plataforma.
-* Crear predios.
-* Gestionar predios.
-* Ver información de los usuarios externos.
+The internal user is able to:
+* Authenticate on the platform.
+* Create properties.
+* Manage properties.
+* View information from external users.
 
-El usuario externo está en la capacidad de:
-* Registrarse en la plataforma.
-* Autenticarse en la plataforma.
-* Asociar predios a su cuenta dado el código (será posible si el predio está a nombre del usuario).
-* Realizar pago del valor predial. (Simulado)
-* Solicitar convenio de pago dado un cobro generado.
+The external user is able to:
+* Register on the platform.
+* Authenticate on the platform.
+* Associate properties to his own account given the code.
+* Make payment of property value. (Simulated)
+* Request payment agreement given a charge generated.
 
-Todos los usuarios pueden editar su propio perfil, cambiar su contraseña e incluso subir un avatar que los identifique. También pueden solicitar restablecimiento de contraseña a través de un one-time-link enviado a su correo.
+All users can edit their own profile, change their password and even upload an avatar. They can also request a password reset through a one-time-link sent to their email.
 
-## Tecnologías y librerías usadas
+## Technologies and libraries
 * React
 * Bootstrap
 * React Router
 * Context API
+* Fetch API
 * Jwt-decode
 * Bcryptjs
 * Chart.js
@@ -40,11 +41,11 @@ Todos los usuarios pueden editar su propio perfil, cambiar su contraseña e incl
 * React-time-ago
 * React-text-mask
 
-## Ejecutar app
-1. Clonar o descargar el proyecto en tu equipo.
+## Run app
+1. Clone or download the project on your computer.
 
-2. Instalar las dependencias necesarias desde la terminal, con el comando **npm install** o su equivalente en **yarn**.
+2. Install the necessary dependencies from the terminal, with the command **npm install** or its **yarn** equivalent.
 
-3. Clonar o descargar en tu equipo el proyecto correspondiente al Backend desde [predial-backend](https://github.com/CarlosHdzR/predial-backend) y seguir los pasos para su instalación y ejecución; o si lo desea, desarrollar su propio Backend.
+3. Clone or download the project corresponding to the Backend to your computer from [predial-backend](https://github.com/CarlosHdzR/predial-backend) and follow the steps to run it.
 
-4. Ejecutar el comando **npm start** o su equivalente en **yarn**.
+4. Run the **npm start** command or its **yarn** equivalent.
