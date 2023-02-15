@@ -1,23 +1,16 @@
 import { Button, NavTabs, ProfileOverview } from '../components/minors';
 import { FormUser, FormChangePassword } from '../components/forms';
-import { useUsersContext } from '../context/UsersContext';
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../context';
 
 function MyProfile() {
-    const { setUserToEdit } = useUsersContext();
     const { loggedUser, payload } = useAuthContext();
     const role = payload?.role;
-    const isUserExt = role === 3; 
-
-    const handleEdit = () => {
-        setUserToEdit(loggedUser);
-    }
 
     return (
-        <div className="card" id={`${isUserExt ? "rounded" : ""}`}>
+        <div className="card" id={`${role === 3 ? "rounded" : ""}`}>
             <div className="card-body">
                 <div className="profile col-12">
-                    <NavTabs handleEdit={handleEdit} />
+                    <NavTabs />
                     <div className="tab-content pt-3">
                         <ProfileOverview
                             loggedUser={loggedUser}

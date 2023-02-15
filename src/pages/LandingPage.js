@@ -1,6 +1,6 @@
 import { LinkCard } from "../components/minors";
 import { config } from "../config";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context";
 
 function LandingPage() {
     const { auth } = useAuthContext();

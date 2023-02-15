@@ -1,4 +1,4 @@
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context";
 import { config } from "../../config";
 
 function Footer() {
@@ -71,7 +71,7 @@ function Footer() {
 
     return (
         <>
-            {(!auth) || payload.role === 3
+            {(!auth) || payload?.role === 3
                 ?
                 <footer className="footer">
                     <div className="container">

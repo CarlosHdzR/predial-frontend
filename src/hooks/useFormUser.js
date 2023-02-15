@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { formDataCreateUser, formDataUpdateUser, toastValidate } from '../tools';
 import { validatePassword, validateUser } from '../validations';
 import { config } from '../config';
-import { useUsersContext } from '../context/UsersContext';
-import { UsersServices } from '../services';
-import { useAuthContext } from '../context/AuthContext';
+import { AuthServices, UsersServices } from '../services';
+import { useUsersContext } from '../context';
 
 const { DEFAULT_AVATAR, IMG_LOADING } = config.ASSETS
 
@@ -15,8 +14,8 @@ export const useFormUser = ({ initialForm, param, terms }) => {
     const [pathImage, setPathImage] = useState(IMG_LOADING);
     const [reset, setReset] = useState(false);
     const { usersDb, userToEdit, setUserToEdit } = useUsersContext();
-    const { createUser, registerUser, updateUser, changePassword } = UsersServices();
-    const { login } = useAuthContext();
+    const { createUser, registerUser, updateUser } = UsersServices();
+    const { login, changePassword } = AuthServices();
 
     useEffect(() => {
         try {

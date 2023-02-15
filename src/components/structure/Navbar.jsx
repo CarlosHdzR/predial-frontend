@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ToggleButton, DropDownMenu } from '../minors';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { config } from '../../config';
-import { useAuthContext } from '../../context/AuthContext';
+import { useAuthContext } from '../../context';
 
 const { LOGO_GOV_CO, DEFAULT_AVATAR } = config.ASSETS;
 

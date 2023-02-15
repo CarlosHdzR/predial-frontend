@@ -1,44 +1,50 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { config } from "../config";
+import { createContext, useContext, useState, useEffect, useReducer } from "react";
+import { config } from "../../config";
 import { toast } from "react-toastify";
-import { http } from "../helpers/http";
+import { http } from "../../helpers/http";
+import usersReducer from "./usersReducer";
 
 const UsersContext = createContext();
 
 const { URL } = config;
 const { LIST_USERS } = config.USERS_API;
 
+const initialState = {
+    usersDb: [],
+}
+
 const UsersProvider = ({ children }) => {
-    const [usersDb, setUsersDb] = useState([]);
-    const [userToEdit, setUserToEdit] = useState(null);
+    const [state, dispatch] = useReducer(usersReducer, initialState)
+    const { usersDb } = state;
+    
+    const [userToEdit, setUserToEdit] = useState(null)
     const [usersError, setUsersError] = useState(null);
-    const [usersErrorMsg, setUsersErrorMsg] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isSending, setIsSending] = useState(false);
 
-    // ********** Obtener Usuarios **********
     useEffect(() => {
         const params = {
             endpoint: URL + LIST_USERS,
             setIsLoading,
             setError: setUsersError,
-            setErrorMsg: setUsersErrorMsg
         }
         const fetchUsers = async () => {
             const res = await http().get(params);
             if (res) {
                 const { users, msg } = res;
-                users ? setUsersDb(users) : toast.info(msg)
+                users
+                    ? dispatch({ type: 'GET_ALL_USERS', payload: users })
+                    : toast.info(msg);
             }
         }
         fetchUsers();
     }, []);
 
     const data = {
-        usersDb, setUsersDb,
+        state, dispatch, usersDb,
         userToEdit, setUserToEdit,
-        usersError, usersErrorMsg,
-        isLoading, isSending, setIsSending
+        usersError, isLoading,
+        isSending, setIsSending
     }
 
     return (
@@ -48,5 +54,5 @@ const UsersProvider = ({ children }) => {
     )
 }
 
-export const useUsersContext = () => useContext(UsersContext);
-export { UsersProvider };
+const useUsersContext = () => useContext(UsersContext);
+export { UsersProvider, useUsersContext };

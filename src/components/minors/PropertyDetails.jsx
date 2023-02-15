@@ -1,15 +1,15 @@
 import PropertyInfo from './PropertyInfo';
-import { useAuthContext } from '../../context/AuthContext';
-import { UsersServices } from '../../services';
+import { PropertiesServices } from '../../services';
 import { toastValidate } from '../../tools';
 import { useLocation } from 'react-router-dom';
 import Modal from './Modal';
 import { FormAgreement } from '../forms';
 import Button from './Button';
+import { useAuthContext } from '../../context';
 
 function PropertyDetails({ property }) {
     const { payload } = useAuthContext();
-    const { associateProperty, payTax } = UsersServices();
+    const { associateProperty, payTax } = PropertiesServices();
     const { pathname } = useLocation();
     if (!property) return null;
 

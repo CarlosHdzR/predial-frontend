@@ -1,13 +1,11 @@
-import { usePropertiesContext } from "../context/PropertiesContext";
-import { useUsersContext } from "../context/UsersContext";
+import { usePropertiesContext, useUsersContext } from "../context";
 
 export const useHandleError = () => {
-    const { usersError, usersErrorMsg, isLoading: loadingUsers } = useUsersContext();
-    const { propertiesError, propertiesErrorMsg, isLoading: loadingProperties } = usePropertiesContext();
+    const { usersError, isLoading: loadingUsers } = useUsersContext();
+    const { propertiesError, isLoading: loadingProperties } = usePropertiesContext();
 
     const error = usersError || propertiesError;
-    const errorMsg = usersErrorMsg || propertiesErrorMsg;
     const isLoading = loadingUsers || loadingProperties;
 
-    return { error, errorMsg, isLoading };
+    return { error, isLoading };
 }

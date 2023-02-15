@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context";
 
 function InputSelect({ id, label, inputClass, labelClass,
     errorMessage, handleChange, reset, ...inputProps }) {

@@ -1,23 +1,29 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { toast } from "react-toastify";
-import { config } from "../config";
-import { http } from "../helpers/http";
-import { useAuthContext } from "./AuthContext";
+import { config } from "../../config";
+import { http } from "../../helpers/http";
+import { useAuthContext } from "..";
+import propertiesReducers from "./propertiesReducers";
 
 const PropertiesContext = createContext();
 
 const { URL } = config;
 const { LIST_PROPERTIES, RECORDS, FIND, LIST_ASSOCIATED_PROPERTIES } = config.PROPERTIES_API;
 
+const initialState = {
+    propertiesDb: [],
+    recordsDb: [],
+    foundProperties: [],
+    associatedProperties: [],
+}
+
 const PropertiesProvider = ({ children }) => {
-    const [propertiesDb, setPropertiesDb] = useState([]);
+    const [state, dispatch] = useReducer(propertiesReducers, initialState)
+    const { propertiesDb, recordsDb, foundProperties, associatedProperties } = state;
+    
     const [propertyToEdit, setPropertyToEdit] = useState(null);
-    const [recordsDb, setRecordsDb] = useState([]);
-    const [searchProperties, setSearchProperties] = useState(null);
-    const [foundProperties, setFoundProperties] = useState([]);
-    const [associatedProperties, setAssociatedProperties] = useState([])
+    const [propertyOwnerIdNumber, setPropertyOwnerIdNumber] = useState(null);
     const [propertiesError, setPropertiesError] = useState(null);
-    const [propertiesErrorMsg, setPropertiesErrorMsg] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isSending, setIsSending] = useState(false);
 
@@ -28,46 +34,45 @@ const PropertiesProvider = ({ children }) => {
         const params = {
             setIsLoading,
             setError: setPropertiesError,
-            setErrorMsg: setPropertiesErrorMsg
         }
-        // ********** Obtener Predios **********
         const fetchProperties = async () => {
             params.endpoint = URL + LIST_PROPERTIES;
             const res = await http().get(params);
             if (res) {
                 const { properties, msg } = res;
-                properties ? setPropertiesDb(properties) : toast.info(msg);
+                properties
+                    ? dispatch({ type: 'GET_ALL_PROPERTIES', payload: properties })
+                    : toast.info(msg);
             }
         }
-        // ********** Obtener Historial **********
         const fetchRecords = async () => {
             params.endpoint = URL + RECORDS;
             const res = await http().get(params);
             if (res) {
                 const { records, msg } = res;
-                records ? setRecordsDb(records) : toast.info(msg);
+                records
+                    ? dispatch({ type: 'GET_ALL_RECORDS', payload: records })
+                    : toast.info(msg);
             }
         }
         fetchProperties();
         fetchRecords();
     }, []);
 
-    // ********** Buscar predios por documento del propietario **********
     useEffect(() => {
-        if (searchProperties === null) return;
-        const { owner_id_number } = searchProperties;
+        if (propertyOwnerIdNumber === null) return;
+        const { owner_id_number } = propertyOwnerIdNumber;
         const params = {
             endpoint: URL + FIND + owner_id_number,
             setIsLoading,
             setError: setPropertiesError,
-            setErrorMsg: setPropertiesErrorMsg
         }
         const findProperties = async () => {
             const res = await http().get(params);
             if (res) {
                 res.foundProperties
                     ?
-                    setFoundProperties(res.foundProperties)
+                    dispatch({ type: 'FIND_PROPERTIES_BY_OWNER_ID_NUMBER', payload: res.foundProperties })
                     :
                     toast.error(
                         <div>{res.msg} <b><em>{owner_id_number}</em>.</b></div>,
@@ -76,40 +81,36 @@ const PropertiesProvider = ({ children }) => {
             }
         }
         findProperties();
-    }, [searchProperties]);
-    
-    // ********** Obtener predios asociados de un usuario **********
+    }, [propertyOwnerIdNumber]);
+
     useEffect(() => {
-        if (!user_id) return setAssociatedProperties([]);
+        if (!user_id) return;
         const params = {
             endpoint: URL + LIST_ASSOCIATED_PROPERTIES + user_id,
             setIsLoading,
             setError: setPropertiesError,
-            setErrorMsg: setPropertiesErrorMsg
         }
         const fetchAssociatedProperties = async () => {
             const res = await http().get(params);
             if (res?.associatedProperties) {
-                setAssociatedProperties(res.associatedProperties);
+                dispatch({ type: 'GET_ASSOCIATED_PROPERTIES', payload: res.associatedProperties })
             }
         }
         fetchAssociatedProperties();
     }, [foundProperties, user_id]);
 
-    // ********** Limpiar busqueda **********
     useEffect(() => {
-        setFoundProperties([]);
+        dispatch({ type: 'CLEAN_FOUND_PROPERTIES', payload: [] })
     }, [auth])
 
     const data = {
-        propertiesDb, setPropertiesDb,
+        state, dispatch,
+        propertiesDb, recordsDb,
+        foundProperties, associatedProperties,
         propertyToEdit, setPropertyToEdit,
-        recordsDb, setRecordsDb,
-        searchProperties, setSearchProperties,
-        foundProperties, setFoundProperties,
-        associatedProperties, setAssociatedProperties,
-        propertiesError, propertiesErrorMsg,
-        isLoading, isSending, setIsSending
+        setPropertyOwnerIdNumber,
+        propertiesError, isLoading,
+        isSending, setIsSending
     }
 
     return (
@@ -119,5 +120,5 @@ const PropertiesProvider = ({ children }) => {
     )
 }
 
-export const usePropertiesContext = () => useContext(PropertiesContext);
-export { PropertiesProvider };
+const usePropertiesContext = () => useContext(PropertiesContext);
+export { PropertiesProvider, usePropertiesContext };

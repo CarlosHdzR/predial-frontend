@@ -1,4 +1,4 @@
-import { UsersServices } from '../services'
+import { AuthServices } from '../services'
 import { toastValidate } from '../tools';
 import { useFormUser } from '../hooks';
 import { Button } from '../components/minors';
@@ -10,7 +10,7 @@ export const initialForm = {
 
 function ForgotPassword() {
     const { form, handleChange } = useFormUser({ initialForm });
-    const { getResetLink } = UsersServices();
+    const { getResetLink } = AuthServices();
 
     const regexEmail = regExps.email;
 

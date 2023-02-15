@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormUser } from "../components/forms";
 import { Button } from "../components/minors";
-import { useUsersContext } from "../context/UsersContext";
+import { useUsersContext } from "../context";
 
 function EditUser() {
     const { userToEdit } = useUsersContext();

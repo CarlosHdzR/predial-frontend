@@ -1,11 +1,10 @@
 import { config } from "../../config";
-import { useAuthContext } from "../../context/AuthContext";
-import { useUsersContext } from "../../context/UsersContext";
+import { useAuthContext, useUsersContext } from "../../context";
 import Loader from "./Loader";
 
 function ProfileOverview() {
-    const { isLoading } = useUsersContext();
     const { loggedUser } = useAuthContext();
+    const { isLoading } = useUsersContext();
     const { avatar, name, surname, id_number, email, phone, address } = loggedUser || {};
     const { secure_url } = avatar || {};
     const { DEFAULT_AVATAR } = config.ASSETS;

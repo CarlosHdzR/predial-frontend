@@ -71,9 +71,5 @@ export const validateOwnerIdProperty = (form) => {
         toastValidate({ msg: "Por favor, ingrese un número de documento válido!!!", position: "bottom-center" });
         return false;
     }
-    if (!form.owner_id_number) {
-        toastValidate({ msg: "Por favor, ingrese los datos solicitados!!!", position: "bottom-center" });
-        return false;
-    }
     return true;
 }

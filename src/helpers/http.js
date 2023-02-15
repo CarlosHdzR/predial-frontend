@@ -47,7 +47,7 @@ export const http = () => {
         }
     };
 
-    const get = async ({ endpoint, options = {}, setIsLoading, setError, setErrorMsg }) => {
+    const get = async ({ endpoint, options = {}, setIsLoading, setError }) => {
         try {
             setIsLoading(true);
             setError(null);
@@ -57,8 +57,9 @@ export const http = () => {
             }
             await Promise.reject(res);
         } catch (error) {
-            setError(true);
-            setErrorMsg(`${error.status ? "Error -" : ""} ${error.msg}`);
+            setError({
+                msg: `${error.status ? "Error -" : ""} ${error.msg}`
+            });
         } finally {
             setIsLoading(false);
         }
@@ -73,7 +74,7 @@ export const http = () => {
             }
             await Promise.reject(res);
         } catch (error) {
-            toast.error(error.msg, {toastId: "error"});
+            toast.error(error.msg, { toastId: "error" });
         } finally {
             setIsSending(false);
         }

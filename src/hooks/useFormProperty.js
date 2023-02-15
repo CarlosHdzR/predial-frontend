@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { usePropertiesContext } from '../context/PropertiesContext';
+import { usePropertiesContext } from '../context';
 import { PropertiesServices } from '../services';
 import { calculateTax } from '../tools/calculateTax';
 import { validateProperty, validateOwnerIdProperty } from '../validations';
@@ -7,11 +7,9 @@ import { validateProperty, validateOwnerIdProperty } from '../validations';
 export const useFormProperty = ({ initialForm, param }) => {
     const [form, setForm] = useState(initialForm);
     const [reset, setReset] = useState(false);
-    const { propertiesDb, propertyToEdit, setPropertyToEdit, setSearchProperties } = usePropertiesContext();
+    const { propertiesDb, propertyToEdit,
+        setPropertyToEdit, setPropertyOwnerIdNumber } = usePropertiesContext();
     const { createProperty, updateProperty } = PropertiesServices();
-    form.value = form?.value?.replace(/[$]/, "");
-    form.tax_value = form.value && calculateTax(form?.value).replace(/[,]/g, '.');
-    form.tax_value = form.tax_value === "0" ? "" : form.tax_value;
 
     useEffect(() => {
         try {
@@ -32,6 +30,12 @@ export const useFormProperty = ({ initialForm, param }) => {
             [name]: value
         })
     };
+
+    if (form.value) { // Calcular valor del impuesto predial
+        form.value = form?.value?.replace(/[$]/, "");
+        form.tax_value = form.value && calculateTax(form?.value).replace(/[,]/g, '.');
+        form.tax_value = form.tax_value === "0" ? "" : form.tax_value;    
+    }
 
     const handleReset = () => {
         setForm(initialForm);
@@ -56,7 +60,7 @@ export const useFormProperty = ({ initialForm, param }) => {
     const handleSubmitSearch = (e) => {
         e.preventDefault();
         if (validateOwnerIdProperty(form)) {
-            setSearchProperties(form);
+            setPropertyOwnerIdNumber(form);
             setForm({ owner_id_number: "" });
         }
     };

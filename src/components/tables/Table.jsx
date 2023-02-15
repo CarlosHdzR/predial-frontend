@@ -14,11 +14,6 @@ function Table({ firstItemShowedPerPage, lastItemShowedPerPage }) {
             <Tooltip id="toolTipSort" place="top">
                 Ordenar <i className="bi bi-arrow-down-up" />
             </Tooltip>
-            <Tooltip id="toolTipInfo" place="top">
-                Rol 2: Usuario Interno
-                <br />
-                Rol 3: Usuario Externo
-            </Tooltip>
             <div className="table-responsive-md">
                 <table className="table table-hover text-center">
                     <TableHeaders headerProps={headerProps} onSorting={(field, order) => setSorting({ field, order })} />

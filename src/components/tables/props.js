@@ -3,7 +3,7 @@ export const usersHeadersProps = [
     { name: "Nombre", field: "name", sortable: true, className: "pointer", dataFor: "toolTipSort" },
     { name: "Nro. Documento", field: "id_number", sortable: false },
     { name: "Email", field: "email", sortable: true, className: "pointer", dataFor: "toolTipSort" },
-    { name: "Rol", field: "role", sortable: false, className: "pointer", dataFor: "toolTipInfo" },
+    { name: "Rol", field: "role", sortable: false },
     { name: "" },
 ];
 

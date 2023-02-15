@@ -1,8 +1,8 @@
 import { InputPlaceholder } from '../inputs';
 import { useFormUser } from '../../hooks';
 import { config } from '../../config';
-import { useAuthContext } from '../../context/AuthContext';
 import { Button } from '../minors';
+import { useAuthContext } from '../../context';
 
 export const initialForm = {
     currentPassword: "",
@@ -14,6 +14,7 @@ function FormChangePassword() {
     const { loggedUser } = useAuthContext();
     const { form, handleChange, handleSubmitChangePassword } = useFormUser({ initialForm });
     const { avatar, name, surname } = loggedUser || {};
+    const fullName = loggedUser ? name + " " + surname : "No hay información!";
     const { secure_url } = avatar || {};
     const { DEFAULT_AVATAR } = config.ASSETS;
 
@@ -55,7 +56,7 @@ function FormChangePassword() {
         <>
             <div className="card-body profile-card">
                 <img src={secure_url || DEFAULT_AVATAR} alt="avatar" className="img-fluid rounded-circle avatar" />
-                <h2 className="text-center p-1">{name + " " + surname}</h2>
+                <h2 className="text-center p-1">{fullName}</h2>
             </div>
             <div className="col-12 col-sm-10 mx-auto">
                 <form className="row g-3" onSubmit={handleSubmitChangePassword} noValidate>

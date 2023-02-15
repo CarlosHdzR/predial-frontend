@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProperty } from "../components/forms"
 import { Button } from "../components/minors";
-import { usePropertiesContext } from "../context/PropertiesContext";
+import { usePropertiesContext } from "../context";
 
 function EditProperty() {
     const { propertyToEdit } = usePropertiesContext();

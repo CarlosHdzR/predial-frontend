@@ -1,20 +1,19 @@
 import { http } from '../helpers/http';
 import { useNavigate } from 'react-router-dom';
-import { swalConfirm } from '../tools';
+import { swalAlert, swalConfirm } from '../tools';
 import { config } from '../config';
-import { usePropertiesContext } from '../context/PropertiesContext';
 import { toast } from 'react-toastify';
+import { usePropertiesContext } from '../context';
 
 const { URL } = config;
-const { CREATE, EDIT, DELETE } = config.PROPERTIES_API;
+const { CREATE, EDIT, DELETE, ASSOCIATE_PROPERTIES, PAY_TAX } = config.PROPERTIES_API;
 
 const Properties = () => {
-    const { propertiesDb, setPropertiesDb, recordsDb,
-        setRecordsDb, setIsSending } = usePropertiesContext();
+    const { dispatch, propertiesDb, foundProperties,
+        associatedProperties, setIsSending } = usePropertiesContext();
     let { post, put } = http();
     const navigate = useNavigate();
 
-    // ********** Crear predio **********
     const createProperty = async (property) => {
         const params = {
             endpoint: URL + CREATE,
@@ -23,13 +22,12 @@ const Properties = () => {
         }
         const res = await post(params);
         if (res) {
-            setPropertiesDb([...propertiesDb, res.property])
-            setRecordsDb([...recordsDb, res.record])
+            dispatch({ type: 'CREATE_PROPERTY', payload: res.property })
+            dispatch({ type: 'CREATE_RECORD', payload: res.record })
             toast.success(res.msg)
         }
     };
 
-    // ********** Editar predio **********
     const updateProperty = async (property, property_id) => {
         const params = {
             endpoint: URL + EDIT + property_id,
@@ -38,14 +36,13 @@ const Properties = () => {
         }
         const res = await put(params);
         if (res) {
-            setPropertiesDb(res.properties);
-            setRecordsDb([...recordsDb, res.record])
+            dispatch({ type: 'UPDATE_PROPERTY', payload: res.properties })
+            dispatch({ type: 'CREATE_RECORD', payload: res.record })
             toast.success(res.msg)
             navigate("/admin/manage-properties", { replace: true })
         }
     };
 
-    // ********** Eliminar Predio **********
     const deleteProperty = async (property) => {
         let code = property.param
         let property_id = property._id
@@ -60,17 +57,54 @@ const Properties = () => {
             }
             const res = await put(params);
             if (res) {
-                setPropertiesDb(propertiesDb.filter((e) => e._id !== property_id))
-                setRecordsDb([...recordsDb, res.record])
+                const newData = propertiesDb.filter((e) => e._id !== property_id);
+                dispatch({ type: 'DELETE_PROPERTY', payload: newData })
+                dispatch({ type: 'CREATE_RECORD', payload: res.record })
                 toast.success(res.msg)
             }
         }
     };
 
+    const associateProperty = async (user_id, property_id) => {
+        const params = {
+            endpoint: URL + ASSOCIATE_PROPERTIES + user_id,
+            options: { body: { property_id } },
+            setIsSending
+        }
+        const res = await put(params);
+        if (res) {
+            const newData = foundProperties.map((property) => property._id === res.associatedProperty._id ? res.associatedProperty : property)
+            dispatch({ type: 'ASSOCIATE_PROPERTY', payload: newData })
+            toast.success(res.msg, { toastId: "success" })
+        }
+    };
+
+    const payTax = async (code) => {
+        const params = {
+            endpoint: URL + PAY_TAX,
+            options: { body: { code } },
+            setIsSending
+        }
+        const res = await put(params);
+        if (res) {
+            const newData = associatedProperties.map((property) => property.code === code ? res.property : property)
+            dispatch({ type: 'PAY_TAX', payload: newData })
+            swalAlert({
+                msg: `<b>El pago correspondiente al predio con código <br/>
+                    <span class="text-danger">${res.property.code}</span>, por un valor 
+                    de <span class="text-danger">${res.property.tax_value}</span> 
+                    fue procesado exitosamente!!!</b>`,
+                icon: 'success'
+            });
+        }
+    }
+
     return {
         createProperty,
         updateProperty,
         deleteProperty,
+        associateProperty,
+        payTax
     }
 }
 

@@ -1,7 +1,5 @@
 import React from 'react'
-import { useAuthContext } from '../../context/AuthContext';
-import { usePropertiesContext } from '../../context/PropertiesContext';
-import { useUsersContext } from '../../context/UsersContext';
+import { useAuthContext, usePropertiesContext, useUsersContext } from '../../context';
 
 function Button({ label, onClick, classDiv }) {
     const { isSending: isSendingUsers } = useUsersContext();

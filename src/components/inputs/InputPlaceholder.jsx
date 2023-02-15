@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useAuthContext } from '../../context/AuthContext';
+import { useAuthContext } from '../../context';
 
 function InputPlaceholder({ inputClass, type, icon, errorMessage, handleChange, reset, ...inputProps }) {
     const [focused, setFocused] = useState(false);

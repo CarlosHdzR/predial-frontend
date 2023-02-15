@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import { AutoScrollToTop } from './components/minors';
-import { AuthProvider } from './context/AuthContext';
-import { PropertiesProvider } from './context/PropertiesContext';
-import { UsersProvider } from './context/UsersContext';
+import { AuthProvider, PropertiesProvider, UsersProvider } from './context';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
+import { AuthServices } from "../../services";
 
 function DropDownMenu({ path }) {
-    const { logout } = useAuthContext();
+    const { logout } = AuthServices();
 
     return (
         <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow me-1 mt-1">

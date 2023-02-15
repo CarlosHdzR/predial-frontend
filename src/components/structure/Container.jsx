@@ -1,16 +1,16 @@
-import { useAuthContext } from "../../context/AuthContext";
 import { Message } from "../minors";
 import { PageTitle } from "./";
 import { useHandleError } from "../../hooks";
+import { useAuthContext } from "../../context";
 
 function Container({ title, subtitle, children }) {
-    const { error, errorMsg } = useHandleError();
+    const { error } = useHandleError();
     const { payload, auth } = useAuthContext();
     const role = payload?.role;
 
     const regex = /Crear|Editar|Asociar|Mis/
     const condition = regex.test(title) || !title;
-    let errorMessage = (auth && !condition && error) && <Message msg={errorMsg} bgColor="#dc3545" />;
+    let errorMessage = (auth && !condition && error) && <Message msg={error.msg} bgColor="#dc3545" />;
     let isAdminPage = auth && role !== 3;
 
     return (

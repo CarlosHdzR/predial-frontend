@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useTable } from "../../hooks";
 import { Tooltip } from "../minors";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context";
 
 function TableTop({ itemsPerPage, handleInputChange }) {
     const { payload } = useAuthContext();
@@ -27,7 +27,7 @@ function TableTop({ itemsPerPage, handleInputChange }) {
                 </Tooltip>
                 <input
                     data-tip
-                    data-for={(payload.role === 1 && label === "Usuario") && "toolTipFilter"}
+                    data-for={(payload?.role === 1 && label === "Usuario") && "toolTipFilter"}
                     className="form-control col-12 col-sm-7 col-md-7"
                     placeholder="Filtrar..." type="text" value={filter}
                     onChange={handleFilter}

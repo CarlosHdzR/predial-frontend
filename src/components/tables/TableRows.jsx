@@ -1,18 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { usePropertiesContext } from '../../context/PropertiesContext';
-import { useUsersContext } from '../../context/UsersContext';
 import { PropertiesServices, UsersServices } from '../../services';
 import { Tooltip } from '../minors';
-import { useAuthContext } from '../../context/AuthContext';
+import { useAuthContext, usePropertiesContext, useUsersContext } from '../../context';
 import { useTable } from '../../hooks';
 
 const TableRows = ({ data, nro_registro }) => {
     const { setUserToEdit } = useUsersContext();
-    const { payload } = useAuthContext();
-    const isRole1 = payload?.role === 1;
     const { setPropertyToEdit } = usePropertiesContext();
+    const { payload } = useAuthContext();
+    const isAdmin = payload?.role === 1;
     const { isUser } = useTable();
-    let { _id,
+    const { _id,
         name, surname, id_number, email, role, // <== Users
         code, owner_name, owner_id_number, address // <== Properties
     } = data || {};
@@ -49,7 +47,7 @@ const TableRows = ({ data, nro_registro }) => {
     const handleEdit = () => {
         if (isUser) {
             setUserToEdit(data);
-            if (payload?.role === 1) {
+            if (isAdmin) {
                 navigate(`edit/${dataToHandle.param}`);
             } else {
                 navigate(`profile/${dataToHandle.param}`);
@@ -76,7 +74,7 @@ const TableRows = ({ data, nro_registro }) => {
             ))}
             <td className="align-middle">
                 <Tooltip id="toolTipEdit" place="top">
-                    {(!isRole1 && isUser) ? "Ver" : "Editar"}
+                    {(!isAdmin && isUser) ? "Ver" : "Editar"}
                 </Tooltip>
                 <button
                     data-tip data-for="toolTipEdit"
@@ -84,7 +82,7 @@ const TableRows = ({ data, nro_registro }) => {
                     className="m-1 my-btn-edit"
                     onClick={handleEdit}
                 >
-                    <i className={`${(isUser && !isRole1) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
+                    <i className={`${(isUser && !isAdmin) ? "bi bi-eye-fill" : "bi bi-pencil-fill"}`} />
                 </button>
                 <Tooltip id="toolTipDelete" place="top">
                     Eliminar
@@ -92,8 +90,8 @@ const TableRows = ({ data, nro_registro }) => {
                 <button
                     data-tip data-for="toolTipDelete"
                     type="button"
-                    className={`${(!isRole1 && isUser) ? "my-btn-disabled" : "my-btn-delete"}`}
-                    disabled={(!isRole1 && isUser) ? true : false}
+                    className={`${(!isAdmin && isUser) ? "my-btn-disabled" : "my-btn-delete"}`}
+                    disabled={(!isAdmin && isUser) ? true : false}
                     onClick={handleDelete}
                 >
                     <i className="bi bi-trash" />

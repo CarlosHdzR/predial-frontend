@@ -1,6 +1,6 @@
 import SidebarItem from './SidebarItem';
 import { config } from '../../config';
-import { useAuthContext } from '../../context/AuthContext';
+import { useAuthContext } from '../../context';
 
 function Sidebar() {
     const { payload, auth } = useAuthContext();

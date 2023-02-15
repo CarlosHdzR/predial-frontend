@@ -1,15 +1,15 @@
 import { FormSearch } from '../components/forms';
 import { PropertyDetails, Loader, Message } from '../components/minors';
-import { usePropertiesContext } from '../context/PropertiesContext';
+import { usePropertiesContext } from '../context';
 
 function AssociateProperties() {
-    const { foundProperties, propertiesError, propertiesErrorMsg, isLoading } = usePropertiesContext();
+    const { foundProperties, propertiesError, isLoading } = usePropertiesContext();
 
     return (
         <>
             <FormSearch />
             {isLoading && <Loader />}
-            {propertiesError && <Message msg={propertiesErrorMsg} bgColor="#dc3545" />}
+            {propertiesError && <Message msg={propertiesError.msg} bgColor="#dc3545" />}
             {foundProperties.map((property) => (
                 <PropertyDetails
                     key={property._id}

@@ -1,5 +1,5 @@
 import { InputPlaceholder } from "../components/inputs";
-import { UsersServices } from "../services"
+import { AuthServices } from "../services"
 import { useParams } from "react-router-dom";
 import { useFormUser } from "../hooks";
 import { validatePassword } from "../validations";
@@ -12,7 +12,7 @@ export const initialForm = {
 
 function ResetPassword() {
     const { form, handleChange } = useFormUser({ initialForm });
-    const { resetPassword } = UsersServices();
+    const { resetPassword } = AuthServices();
     const { token } = useParams();
 
     const handleSubmit = (e) => {
@@ -68,7 +68,7 @@ function ResetPassword() {
                                 handleChange={handleChange}
                             />
                         ))}
-                        <Button label="Restablecer"/>
+                        <Button label="Restablecer" />
                     </form>
                 </div>
             </div>

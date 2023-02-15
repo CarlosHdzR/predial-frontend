@@ -10,8 +10,6 @@ export const config = {
         CHANGE_PASSWORD: "users/change-password/",
         GET_RESET_LINK: "users/get-reset-link",
         RESET_PASSWORD: "users/reset-password",
-        ASSOCIATE_PROPERTIES: "users/associate-property/",
-        PAY_TAX: "users/pay-tax"
     },
     PROPERTIES_API: {
         LIST_PROPERTIES: "properties/list",
@@ -20,7 +18,9 @@ export const config = {
         EDIT: "properties/edit/",
         DELETE: "properties/delete/",
         FIND: "properties/find/",
-        LIST_ASSOCIATED_PROPERTIES: "properties/list-associated-properties/"
+        ASSOCIATE_PROPERTIES: "properties/associate-property/",
+        LIST_ASSOCIATED_PROPERTIES: "properties/list-associated-properties/",
+        PAY_TAX: "properties/pay-tax"
     },
     ASSETS: {
         LOGO_ESCUDO: "https://res.cloudinary.com/chrod90/image/upload/v1674252045/app-predial-static/logo-escudo_daba0e.png",

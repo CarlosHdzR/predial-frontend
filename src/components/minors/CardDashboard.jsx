@@ -1,4 +1,4 @@
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context";
 
 function CardDashboard({ label, data, loader }) {
     const { payload } = useAuthContext();

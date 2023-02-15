@@ -1,12 +1,11 @@
-import { useAuthContext } from "../../context/AuthContext";
-import { useUsersContext } from "../../context/UsersContext";
+import { useAuthContext, useUsersContext } from "../../context";
 
 function NavTabs() {
     const { setUserToEdit } = useUsersContext();
     const { loggedUser } = useAuthContext();
 
     const handleEdit = () => {
-        setUserToEdit(loggedUser);
+        setUserToEdit(loggedUser)
     }
 
     return (

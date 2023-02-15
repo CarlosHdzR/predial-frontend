@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext";
-import { usePropertiesContext } from "../context/PropertiesContext";
-import { useUsersContext } from "../context/UsersContext";
+import { useAuthContext, usePropertiesContext, useUsersContext } from "../context";
 
 export const useTable = () => {
     const { usersDb } = useUsersContext();
@@ -16,7 +14,7 @@ export const useTable = () => {
 
     const { pathname } = useLocation();
     const isUser = pathname.includes("users");
-    const users = usersDb.filter((user) => payload.role === 1 ? user.role !== 1 : user.role === 3)
+    const users = usersDb.filter((user) => payload?.role === 1 ? user.role !== 1 : user.role === 3)
     let db = isUser ? users : propertiesDb;
 
     if (sorting.field) {

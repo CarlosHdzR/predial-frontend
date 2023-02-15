@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./Styles.css";
-import { useAuthContext } from "./context/AuthContext";
 import { Container, Footer, Navbar, Sidebar } from "./components/structure";
 import { systemOutRoutes, adminRoutes, userExtRoutes } from "./routes";
 import { Error404 } from "./pages";
 import { BackToTop, Loader } from "./components/minors";
 import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuthContext } from "./context";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);

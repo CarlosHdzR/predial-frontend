@@ -1,27 +1,26 @@
 import { CardDashboard, CardChart, RecentActivity, Loader } from '../components/minors';
 import { UsersChart, PropertiesChart } from '../components/charts';
-import { useUsersContext } from '../context/UsersContext';
-import { usePropertiesContext } from '../context/PropertiesContext';
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext, usePropertiesContext, useUsersContext } from '../context';
 import { useHandleError } from '../hooks';
 
 function Dashboard() {
     const { usersDb } = useUsersContext();
     const { payload } = useAuthContext();
+    const isAdmin = payload?.role === 1;
     const { propertiesDb, recordsDb } = usePropertiesContext();
     const { isLoading } = useHandleError();
 
     const countUsers = (role) => usersDb.filter((e) => (e.role === role)).length;
     const countProperties = propertiesDb.length;
     const records = recordsDb.filter((e) => e.author !== "Administrador" && e);
-    const sliceAt = payload?.role === 1 ? -12 : -5;
+    const sliceAt = isAdmin ? -12 : -5;
     const loader = isLoading && <Loader />;
 
     return (
         <div className="row">
             <div className="dashboard col-lg-12">
                 <div className="row">
-                    {payload.role === 1 &&
+                    {isAdmin &&
                         <CardDashboard
                             label="Usuarios Internos"
                             data={countUsers(2)}
@@ -42,7 +41,7 @@ function Dashboard() {
             </div>
             {/* <!-- Gráficas --> */}
             <div className="col-12 col-md-8">
-                {payload.role === 1 &&
+                {isAdmin &&
                     <CardChart label="Actividad | Usuarios Internos">
                         <UsersChart
                             loader={loader}

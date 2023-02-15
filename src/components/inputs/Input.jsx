@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MaskedInput from 'react-text-mask'
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context";
 
 const Input = ({ id, type, inputClass, labelClass, icon, errorMessage,
     label, handleChange, reset, mask, ...inputProps }) => {
