@@ -1,13 +1,11 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 import { InputPlaceholder } from "../components/inputs";
 import { Button } from "../components/minors";
 import { useFormUser } from "../hooks";
 
 export const initialForm = {
-    email: "",
-    password: "",
+    email: "admin@gmail.com",
+    password: "Admin_1234",
 }
 
 function Login() {
@@ -45,19 +43,6 @@ function Login() {
             labelLink: "Recuperala aquí!!!"
         }
     ]
-
-    useEffect(() => {
-        Swal.fire({
-            position: 'bottom-end',
-            title: '<strong style="color: #0b295e">Credenciales de Administrador</strong>',
-            html:
-                '<b>Usuario: </b><span>admin@gmail.com</span><br/>' +
-                '<b>Contraseña: </b><span>Admin_1234</span><br/>',
-            confirmButtonText:
-                '<i class="fa fa-thumbs-up"></i> OK',
-            confirmButtonColor: '#0b295e',
-        })
-    }, [])
 
     return (
         <div className="row justify-content-center">
